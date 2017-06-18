@@ -2,6 +2,7 @@ package com.app.sample.social.product_presenter;
 
 import com.app.sample.social.mode_product.product;
 import com.app.sample.social.mode_product.productDetails;
+import com.app.sample.social.mode_product.productImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ public interface ListProductIdContract {
         void hideLoading();
 
         void showAllProduct(List<productDetails> feed);
-        void showAllImageProduct(ArrayList<productDetails> feed);
+        void showAllImageProduct(ArrayList<productImage> feed);
 
 
 

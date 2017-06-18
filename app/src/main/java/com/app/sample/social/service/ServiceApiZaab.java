@@ -6,20 +6,31 @@ import com.app.sample.social.model.Feed;
 import com.app.sample.social.model.Feed2;
 import com.app.sample.social.model.FeedUser;
 import com.app.sample.social.model.Friend2;
+import com.app.sample.social.model.PostLike;
+import com.app.sample.social.model_articles.ArticlesList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ServiceApiZaab {
 
     @GET("requests_api.php?f=search_products")
     Call<product> getProduct();
 
-    @GET("requests_api.php?f=search_products&id=54")
-    Call<productDetails> getProductId();
+    @GET("requests_api.php?f=search_products")
+    Call<productDetails> getProductId(@Query("id") String id);
 
-    @GET("requests_api.php?f=search_products&id=57")
-    Call<productDetails> getProductImageId();
+    @GET("requests_api.php?f=search_products")
+    Call<productDetails> getProductImageId(@Query("id") String id);
+
+    @GET("requests_api.php?f=load-recent-blogs")
+    Call<ArticlesList> getArticles();
+
+
+    @GET("requests_api.php?s=register_like")
+    Call<PostLike> postLiked(@Query("post_id") String post_id,@Query("user_id") String user_id);
+
 
 }

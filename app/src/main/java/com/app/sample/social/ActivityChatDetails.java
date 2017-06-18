@@ -24,7 +24,6 @@ import com.app.sample.social.adapter.MessageDetailsListAdapter;
 import com.app.sample.social.data.Constant;
 import com.app.sample.social.data.Tools;
 import com.app.sample.social.model.Friend;
-import com.app.sample.social.model.Message;
 import com.app.sample.social.model.MessageDetails;
 
 import java.util.ArrayList;
@@ -57,7 +56,7 @@ public class ActivityChatDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_details);
+        setContentView(R.layout.activity_product_details);
         parent_view = findViewById(android.R.id.content);
 
         // animation transition

@@ -105,7 +105,7 @@
                 android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txt_title"
@@ -117,7 +117,7 @@
                 android:text="conten:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
                 android:text="คำอธิบาย:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txt_dec"
@@ -141,7 +141,7 @@
                 android:text="conten:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textSize="14dp" />
 
 
         </LinearLayout>
@@ -164,7 +164,7 @@
                 android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txt_price"
@@ -177,7 +177,7 @@
                 android:text="185"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textSize="14dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -199,7 +199,7 @@
                 android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txt_location"
@@ -212,7 +212,7 @@
                 android:text="บริษัท ดีพีพี อินเตอร์เทรด จำกัด"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textSize="14dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -234,7 +234,7 @@
                 android:text="ประเภท:"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txt_type"
@@ -248,7 +248,7 @@
 
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textSize="14dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -270,7 +270,7 @@
                 android:layout_gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/txt_status"
@@ -283,7 +283,7 @@
                 android:text="มีสินค้า"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="#000000"
-                android:textSize="15dp" />
+                android:textSize="14dp" />
         </LinearLayout>
     </LinearLayout>
 

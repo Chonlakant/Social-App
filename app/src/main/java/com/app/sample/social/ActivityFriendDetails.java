@@ -14,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,6 +54,7 @@ public class ActivityFriendDetails extends AppCompatActivity {
     public static Friend friend;
     String title;
     String cover;
+    String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,8 @@ public class ActivityFriendDetails extends AppCompatActivity {
 
         title = getIntent().getStringExtra("title");
         cover = getIntent().getStringExtra("cover");
+        userId = getIntent().getStringExtra("userId");
+        Log.e("userId",userId);
         // get extra object
         friend = (Friend) getIntent().getSerializableExtra(EXTRA_OBJCT);
 
@@ -95,7 +99,7 @@ public class ActivityFriendDetails extends AppCompatActivity {
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
 
         if( frag_friendAbout == null ){ frag_friendAbout = new FriendAboutFragment(); }
-        if( frag_friendActivity == null ){ frag_friendActivity = new FriendActivitiesFragment2(); }
+        if( frag_friendActivity == null ){ frag_friendActivity = FriendActivitiesFragment2.getInstance(userId); }
         if( frag_friendPhotos == null ){ frag_friendPhotos = new FriendPhotosFragment(); }
 
         adapter.addFragment(frag_friendAbout, "ABOUT");

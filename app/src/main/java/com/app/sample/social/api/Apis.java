@@ -37,17 +37,17 @@ public class Apis {
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
-                .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
-                .addInterceptor(proideOffileCacheIntercaptor)
-                .addNetworkInterceptor(new CacheInterceptor())
-                .cache(provideCache())
-                .cache(new Cache(MyApplication.getAppContext().getCacheDir(), CACHE_SIZE))
+//                .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
+//                .addInterceptor(proideOffileCacheIntercaptor)
+//                .addNetworkInterceptor(new CacheInterceptor())
+//                .cache(provideCache())
+//                .cache(new Cache(MyApplication.getAppContext().getCacheDir(), CACHE_SIZE))
                 .build();
 
 
         // Set the custom client when building adapter
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.candychat.net/")
+                .baseUrl("http://zaab-d.com/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();

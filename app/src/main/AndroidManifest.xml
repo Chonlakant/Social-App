@@ -27,6 +27,7 @@
         <activity android:name=".ActivityFriendDetails"/>
         <activity android:name=".ActivityFriendDetails2"/>
         <activity android:name=".activity_product.ActivityProductDetails"/>
+        <activity android:name=".activity_articles.ActivityArticles"/>
         <activity android:name=".ActivityChatDetails"/>
         <activity
             android:name=".ActivitySelectFriend"

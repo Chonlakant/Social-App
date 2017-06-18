@@ -1,686 +1,56 @@
 package com.app.sample.social.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class FeedUser {
 
 
-    private String status;
-    private int page;
-    private int per_page;
-    private int pages;
-    private int total;
-    private int offset;
-    private String post_type;
-    private String sort;
-    private UserBean user;
-    private CountBean count;
-    private List<PostsBean> posts;
 
-    public String getStatus() {
-        return status;
+    private String api_status;
+    private String api_version;
+    private List<FeedUser.ItemsBean> items;
+
+    public String getApi_status() {
+        return api_status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setApi_status(String api_status) {
+        this.api_status = api_status;
     }
 
-    public int getPage() {
-        return page;
+    public String getApi_version() {
+        return api_version;
     }
 
-    public void setPage(int page) {
-        this.page = page;
+    public void setApi_version(String api_version) {
+        this.api_version = api_version;
     }
 
-    public int getPer_page() {
-        return per_page;
+    public List<FeedUser.ItemsBean> getItems() {
+        return items;
     }
 
-    public void setPer_page(int per_page) {
-        this.per_page = per_page;
+    public void setItems(List<FeedUser.ItemsBean> items) {
+        this.items = items;
     }
 
-    public int getPages() {
-        return pages;
-    }
+    public static class ItemsBean {
 
-    public void setPages(int pages) {
-        this.pages = pages;
-    }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public int getOffset() {
-        return offset;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
-    }
-
-    public String getPost_type() {
-        return post_type;
-    }
-
-    public void setPost_type(String post_type) {
-        this.post_type = post_type;
-    }
-
-    public String getSort() {
-        return sort;
-    }
-
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
-
-    public UserBean getUser() {
-        return user;
-    }
-
-    public void setUser(UserBean user) {
-        this.user = user;
-    }
-
-    public CountBean getCount() {
-        return count;
-    }
-
-    public void setCount(CountBean count) {
-        this.count = count;
-    }
-
-    public List<PostsBean> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<PostsBean> posts) {
-        this.posts = posts;
-    }
-
-    public static class UserBean {
-
-        private int id;
-        private String about;
-        private int active;
-        private int avatar_id;
-        private int cover_id;
-        private int cover_position;
-        private String email;
-        private String email_verification_key;
-        private int email_verified;
-        private String language;
-        private int last_logged;
-        private String last_fb_token;
-        private String name;
-        private String password;
-        private int time;
-        private String timestamp;
-        private String timezone;
-        private String type;
-        private String username;
-        private String phone_code;
-        private String phone;
-        private int verified;
-        private String updated_at;
-        private String created_at;
-        private String avatar;
-        private String cover;
-        private String birthday;
-        private String gender;
-        private boolean online;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getAbout() {
-            return about;
-        }
-
-        public void setAbout(String about) {
-            this.about = about;
-        }
-
-        public int getActive() {
-            return active;
-        }
-
-        public void setActive(int active) {
-            this.active = active;
-        }
-
-        public int getAvatar_id() {
-            return avatar_id;
-        }
-
-        public void setAvatar_id(int avatar_id) {
-            this.avatar_id = avatar_id;
-        }
-
-        public int getCover_id() {
-            return cover_id;
-        }
-
-        public void setCover_id(int cover_id) {
-            this.cover_id = cover_id;
-        }
-
-        public int getCover_position() {
-            return cover_position;
-        }
-
-        public void setCover_position(int cover_position) {
-            this.cover_position = cover_position;
-        }
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getEmail_verification_key() {
-            return email_verification_key;
-        }
-
-        public void setEmail_verification_key(String email_verification_key) {
-            this.email_verification_key = email_verification_key;
-        }
-
-        public int getEmail_verified() {
-            return email_verified;
-        }
-
-        public void setEmail_verified(int email_verified) {
-            this.email_verified = email_verified;
-        }
-
-        public String getLanguage() {
-            return language;
-        }
-
-        public void setLanguage(String language) {
-            this.language = language;
-        }
-
-        public int getLast_logged() {
-            return last_logged;
-        }
-
-        public void setLast_logged(int last_logged) {
-            this.last_logged = last_logged;
-        }
-
-        public String getLast_fb_token() {
-            return last_fb_token;
-        }
-
-        public void setLast_fb_token(String last_fb_token) {
-            this.last_fb_token = last_fb_token;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-        public int getTime() {
-            return time;
-        }
-
-        public void setTime(int time) {
-            this.time = time;
-        }
-
-        public String getTimestamp() {
-            return timestamp;
-        }
-
-        public void setTimestamp(String timestamp) {
-            this.timestamp = timestamp;
-        }
-
-        public String getTimezone() {
-            return timezone;
-        }
-
-        public void setTimezone(String timezone) {
-            this.timezone = timezone;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getPhone_code() {
-            return phone_code;
-        }
-
-        public void setPhone_code(String phone_code) {
-            this.phone_code = phone_code;
-        }
-
-        public String getPhone() {
-            return phone;
-        }
-
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
-
-        public int getVerified() {
-            return verified;
-        }
-
-        public void setVerified(int verified) {
-            this.verified = verified;
-        }
-
-        public String getUpdated_at() {
-            return updated_at;
-        }
-
-        public void setUpdated_at(String updated_at) {
-            this.updated_at = updated_at;
-        }
-
-        public String getCreated_at() {
-            return created_at;
-        }
-
-        public void setCreated_at(String created_at) {
-            this.created_at = created_at;
-        }
-
-        public String getAvatar() {
-            return avatar;
-        }
-
-        public void setAvatar(String avatar) {
-            this.avatar = avatar;
-        }
-
-        public String getCover() {
-            return cover;
-        }
-
-        public void setCover(String cover) {
-            this.cover = cover;
-        }
-
-        public String getBirthday() {
-            return birthday;
-        }
-
-        public void setBirthday(String birthday) {
-            this.birthday = birthday;
-        }
-
-        public String getGender() {
-            return gender;
-        }
-
-        public void setGender(String gender) {
-            this.gender = gender;
-        }
-
-        public boolean isOnline() {
-            return online;
-        }
-
-        public void setOnline(boolean online) {
-            this.online = online;
-        }
-    }
-
-    public static class CountBean {
-        /**
-         * post : 10
-         * follower : 16
-         * following : 11
-         * friend : 3
-         * love : 1
-         * group : 2
-         */
-
-        private int post;
-        private int follower;
-        private int following;
-        private int friend;
-        private int love;
-        private int group;
-
-        public int getPost() {
-            return post;
-        }
-
-        public void setPost(int post) {
-            this.post = post;
-        }
-
-        public int getFollower() {
-            return follower;
-        }
-
-        public void setFollower(int follower) {
-            this.follower = follower;
-        }
-
-        public int getFollowing() {
-            return following;
-        }
-
-        public void setFollowing(int following) {
-            this.following = following;
-        }
-
-        public int getFriend() {
-            return friend;
-        }
-
-        public void setFriend(int friend) {
-            this.friend = friend;
-        }
-
-        public int getLove() {
-            return love;
-        }
-
-        public void setLove(int love) {
-            this.love = love;
-        }
-
-        public int getGroup() {
-            return group;
-        }
-
-        public void setGroup(int group) {
-            this.group = group;
-        }
-    }
-
-    public static class PostsBean {
-
-
-        private int id;
-        private int active;
-        private AuthorBean author;
-        private Object google_map_name;
-        private Object link_title;
-        private int post_id;
-        private Object recipient_id;
-        private int seen;
-        private Object text;
-        private Object emoticonized;
-        private Object emoticonized_iOS;
-        private Object tattoo_url;
-        private int time;
-        private int timeline_id;
-        private String timestamp;
-        private String type1;
-        private String type2;
-        private Object view;
-        private int follow_count;
-        private Object follow;
-        private int love_count;
-        private Object love;
-        private int comment_count;
-        private Object comment;
-        private int share_count;
-        private Object share;
+        private String post_id;
         private String post_type;
-        private MediaBean media;
-        private Object clip;
-        private Object soundcloud;
-        private Object youtube;
-        private boolean is_loved;
-        private boolean is_commented;
-        private boolean is_shared;
-        private List<?> hidden;
+        private int post_type2;
+        private Feed2.ItemsBean.PostDataBean post_data;
+        private Feed2.ItemsBean.PublisherDataBean publisher_data;
 
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public int getActive() {
-            return active;
-        }
-
-        public void setActive(int active) {
-            this.active = active;
-        }
-
-        public AuthorBean getAuthor() {
-            return author;
-        }
-
-        public void setAuthor(AuthorBean author) {
-            this.author = author;
-        }
-
-        public Object getGoogle_map_name() {
-            return google_map_name;
-        }
-
-        public void setGoogle_map_name(Object google_map_name) {
-            this.google_map_name = google_map_name;
-        }
-
-        public Object getLink_title() {
-            return link_title;
-        }
-
-        public void setLink_title(Object link_title) {
-            this.link_title = link_title;
-        }
-
-        public int getPost_id() {
+        public String getPost_id() {
             return post_id;
         }
 
-        public void setPost_id(int post_id) {
+        public void setPost_id(String post_id) {
             this.post_id = post_id;
-        }
-
-        public Object getRecipient_id() {
-            return recipient_id;
-        }
-
-        public void setRecipient_id(Object recipient_id) {
-            this.recipient_id = recipient_id;
-        }
-
-        public int getSeen() {
-            return seen;
-        }
-
-        public void setSeen(int seen) {
-            this.seen = seen;
-        }
-
-        public Object getText() {
-            return text;
-        }
-
-        public void setText(Object text) {
-            this.text = text;
-        }
-
-        public Object getEmoticonized() {
-            return emoticonized;
-        }
-
-        public void setEmoticonized(Object emoticonized) {
-            this.emoticonized = emoticonized;
-        }
-
-        public Object getEmoticonized_iOS() {
-            return emoticonized_iOS;
-        }
-
-        public void setEmoticonized_iOS(Object emoticonized_iOS) {
-            this.emoticonized_iOS = emoticonized_iOS;
-        }
-
-        public Object getTattoo_url() {
-            return tattoo_url;
-        }
-
-        public void setTattoo_url(Object tattoo_url) {
-            this.tattoo_url = tattoo_url;
-        }
-
-        public int getTime() {
-            return time;
-        }
-
-        public void setTime(int time) {
-            this.time = time;
-        }
-
-        public int getTimeline_id() {
-            return timeline_id;
-        }
-
-        public void setTimeline_id(int timeline_id) {
-            this.timeline_id = timeline_id;
-        }
-
-        public String getTimestamp() {
-            return timestamp;
-        }
-
-        public void setTimestamp(String timestamp) {
-            this.timestamp = timestamp;
-        }
-
-        public String getType1() {
-            return type1;
-        }
-
-        public void setType1(String type1) {
-            this.type1 = type1;
-        }
-
-        public String getType2() {
-            return type2;
-        }
-
-        public void setType2(String type2) {
-            this.type2 = type2;
-        }
-
-        public Object getView() {
-            return view;
-        }
-
-        public void setView(Object view) {
-            this.view = view;
-        }
-
-        public int getFollow_count() {
-            return follow_count;
-        }
-
-        public void setFollow_count(int follow_count) {
-            this.follow_count = follow_count;
-        }
-
-        public Object getFollow() {
-            return follow;
-        }
-
-        public void setFollow(Object follow) {
-            this.follow = follow;
-        }
-
-        public int getLove_count() {
-            return love_count;
-        }
-
-        public void setLove_count(int love_count) {
-            this.love_count = love_count;
-        }
-
-        public Object getLove() {
-            return love;
-        }
-
-        public void setLove(Object love) {
-            this.love = love;
-        }
-
-        public int getComment_count() {
-            return comment_count;
-        }
-
-        public void setComment_count(int comment_count) {
-            this.comment_count = comment_count;
-        }
-
-        public Object getComment() {
-            return comment;
-        }
-
-        public void setComment(Object comment) {
-            this.comment = comment;
-        }
-
-        public int getShare_count() {
-            return share_count;
-        }
-
-        public void setShare_count(int share_count) {
-            this.share_count = share_count;
-        }
-
-        public Object getShare() {
-            return share;
-        }
-
-        public void setShare(Object share) {
-            this.share = share;
         }
 
         public String getPost_type() {
@@ -691,242 +61,162 @@ public class FeedUser {
             this.post_type = post_type;
         }
 
-        public MediaBean getMedia() {
-            return media;
+        public int getPost_type2() {
+            return post_type2;
         }
 
-        public void setMedia(MediaBean media) {
-            this.media = media;
+        public void setPost_type2(int post_type2) {
+            this.post_type2 = post_type2;
         }
 
-        public Object getClip() {
-            return clip;
+        public Feed2.ItemsBean.PostDataBean getPost_data() {
+            return post_data;
         }
 
-        public void setClip(Object clip) {
-            this.clip = clip;
+        public void setPost_data(Feed2.ItemsBean.PostDataBean post_data) {
+            this.post_data = post_data;
         }
 
-        public Object getSoundcloud() {
-            return soundcloud;
+        public Feed2.ItemsBean.PublisherDataBean getPublisher_data() {
+            return publisher_data;
         }
 
-        public void setSoundcloud(Object soundcloud) {
-            this.soundcloud = soundcloud;
+        public void setPublisher_data(Feed2.ItemsBean.PublisherDataBean publisher_data) {
+            this.publisher_data = publisher_data;
         }
 
-        public Object getYoutube() {
-            return youtube;
+        public static class PostDataBean {
+            /**
+             * post_id : 1564
+             * post_text : bootstrap
+             * post_file : ttt
+             * post_soundcloud :
+             * post_youtube :
+             * post_vine :
+             * post_map :
+             * post_time : 1497592806
+             * post_likes : 0
+             * post_wonders : 0
+             */
+
+            private String post_id;
+            private String post_text;
+            private String post_file;
+            private String post_soundcloud;
+            private String post_youtube;
+            private String post_vine;
+            private String post_map;
+            private String post_time;
+            private String post_likes;
+            private String post_wonders;
+
+            public String getPost_id() {
+                return post_id;
+            }
+
+            public void setPost_id(String post_id) {
+                this.post_id = post_id;
+            }
+
+            public String getPost_text() {
+                return post_text;
+            }
+
+            public void setPost_text(String post_text) {
+                this.post_text = post_text;
+            }
+
+            public String getPost_file() {
+                return post_file;
+            }
+
+            public void setPost_file(String post_file) {
+                this.post_file = post_file;
+            }
+
+            public String getPost_soundcloud() {
+                return post_soundcloud;
+            }
+
+            public void setPost_soundcloud(String post_soundcloud) {
+                this.post_soundcloud = post_soundcloud;
+            }
+
+            public String getPost_youtube() {
+                return post_youtube;
+            }
+
+            public void setPost_youtube(String post_youtube) {
+                this.post_youtube = post_youtube;
+            }
+
+            public String getPost_vine() {
+                return post_vine;
+            }
+
+            public void setPost_vine(String post_vine) {
+                this.post_vine = post_vine;
+            }
+
+            public String getPost_map() {
+                return post_map;
+            }
+
+            public void setPost_map(String post_map) {
+                this.post_map = post_map;
+            }
+
+            public String getPost_time() {
+                return post_time;
+            }
+
+            public void setPost_time(String post_time) {
+                this.post_time = post_time;
+            }
+
+            public String getPost_likes() {
+                return post_likes;
+            }
+
+            public void setPost_likes(String post_likes) {
+                this.post_likes = post_likes;
+            }
+
+            public String getPost_wonders() {
+                return post_wonders;
+            }
+
+            public void setPost_wonders(String post_wonders) {
+                this.post_wonders = post_wonders;
+            }
         }
 
-        public void setYoutube(Object youtube) {
-            this.youtube = youtube;
-        }
+        public static class PublisherDataBean {
 
-        public boolean isIs_loved() {
-            return is_loved;
-        }
-
-        public void setIs_loved(boolean is_loved) {
-            this.is_loved = is_loved;
-        }
-
-        public boolean isIs_commented() {
-            return is_commented;
-        }
-
-        public void setIs_commented(boolean is_commented) {
-            this.is_commented = is_commented;
-        }
-
-        public boolean isIs_shared() {
-            return is_shared;
-        }
-
-        public void setIs_shared(boolean is_shared) {
-            this.is_shared = is_shared;
-        }
-
-        public List<?> getHidden() {
-            return hidden;
-        }
-
-        public void setHidden(List<?> hidden) {
-            this.hidden = hidden;
-        }
-
-        public static class AuthorBean {
-
-
-            private int id;
-            private String about;
-            private int active;
-            private int avatar_id;
-            private int cover_id;
-            private int cover_position;
-            private String email;
-            private String email_verification_key;
-            private int email_verified;
-            private String language;
-            private int last_logged;
-            private String last_fb_token;
-            private String name;
-            private String password;
-            private int time;
-            private String timestamp;
-            private String timezone;
-            private String type;
+            private String id;
             private String username;
-            private String phone_code;
-            private String phone;
-            private int verified;
-            private String updated_at;
-            private String created_at;
-            private String avatar;
-            private String cover;
+            private String first_name;
+            private String last_name;
+            private String gender;
+            private String birthday;
+            private Object about;
+            private String website;
+            private String facebook;
+            private String twitter;
+            private String vk;
+            @SerializedName("google+")
+            private String _$Google282; // FIXME check this code
+            private String profile_picture;
+            private String cover_picture;
+            private String verified;
+            private String url;
 
-            public int getId() {
+            public String getId() {
                 return id;
             }
 
-            public void setId(int id) {
+            public void setId(String id) {
                 this.id = id;
-            }
-
-            public String getAbout() {
-                return about;
-            }
-
-            public void setAbout(String about) {
-                this.about = about;
-            }
-
-            public int getActive() {
-                return active;
-            }
-
-            public void setActive(int active) {
-                this.active = active;
-            }
-
-            public int getAvatar_id() {
-                return avatar_id;
-            }
-
-            public void setAvatar_id(int avatar_id) {
-                this.avatar_id = avatar_id;
-            }
-
-            public int getCover_id() {
-                return cover_id;
-            }
-
-            public void setCover_id(int cover_id) {
-                this.cover_id = cover_id;
-            }
-
-            public int getCover_position() {
-                return cover_position;
-            }
-
-            public void setCover_position(int cover_position) {
-                this.cover_position = cover_position;
-            }
-
-            public String getEmail() {
-                return email;
-            }
-
-            public void setEmail(String email) {
-                this.email = email;
-            }
-
-            public String getEmail_verification_key() {
-                return email_verification_key;
-            }
-
-            public void setEmail_verification_key(String email_verification_key) {
-                this.email_verification_key = email_verification_key;
-            }
-
-            public int getEmail_verified() {
-                return email_verified;
-            }
-
-            public void setEmail_verified(int email_verified) {
-                this.email_verified = email_verified;
-            }
-
-            public String getLanguage() {
-                return language;
-            }
-
-            public void setLanguage(String language) {
-                this.language = language;
-            }
-
-            public int getLast_logged() {
-                return last_logged;
-            }
-
-            public void setLast_logged(int last_logged) {
-                this.last_logged = last_logged;
-            }
-
-            public String getLast_fb_token() {
-                return last_fb_token;
-            }
-
-            public void setLast_fb_token(String last_fb_token) {
-                this.last_fb_token = last_fb_token;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getPassword() {
-                return password;
-            }
-
-            public void setPassword(String password) {
-                this.password = password;
-            }
-
-            public int getTime() {
-                return time;
-            }
-
-            public void setTime(int time) {
-                this.time = time;
-            }
-
-            public String getTimestamp() {
-                return timestamp;
-            }
-
-            public void setTimestamp(String timestamp) {
-                this.timestamp = timestamp;
-            }
-
-            public String getTimezone() {
-                return timezone;
-            }
-
-            public void setTimezone(String timezone) {
-                this.timezone = timezone;
-            }
-
-            public String getType() {
-                return type;
-            }
-
-            public void setType(String type) {
-                this.type = type;
             }
 
             public String getUsername() {
@@ -937,172 +227,108 @@ public class FeedUser {
                 this.username = username;
             }
 
-            public String getPhone_code() {
-                return phone_code;
+            public String getFirst_name() {
+                return first_name;
             }
 
-            public void setPhone_code(String phone_code) {
-                this.phone_code = phone_code;
+            public void setFirst_name(String first_name) {
+                this.first_name = first_name;
             }
 
-            public String getPhone() {
-                return phone;
+            public String getLast_name() {
+                return last_name;
             }
 
-            public void setPhone(String phone) {
-                this.phone = phone;
+            public void setLast_name(String last_name) {
+                this.last_name = last_name;
             }
 
-            public int getVerified() {
+            public String getGender() {
+                return gender;
+            }
+
+            public void setGender(String gender) {
+                this.gender = gender;
+            }
+
+            public String getBirthday() {
+                return birthday;
+            }
+
+            public void setBirthday(String birthday) {
+                this.birthday = birthday;
+            }
+
+            public Object getAbout() {
+                return about;
+            }
+
+            public void setAbout(Object about) {
+                this.about = about;
+            }
+
+            public String getWebsite() {
+                return website;
+            }
+
+            public void setWebsite(String website) {
+                this.website = website;
+            }
+
+            public String getFacebook() {
+                return facebook;
+            }
+
+            public void setFacebook(String facebook) {
+                this.facebook = facebook;
+            }
+
+            public String getTwitter() {
+                return twitter;
+            }
+
+            public void setTwitter(String twitter) {
+                this.twitter = twitter;
+            }
+
+            public String getVk() {
+                return vk;
+            }
+
+            public void setVk(String vk) {
+                this.vk = vk;
+            }
+
+            public String get_$Google282() {
+                return _$Google282;
+            }
+
+            public void set_$Google282(String _$Google282) {
+                this._$Google282 = _$Google282;
+            }
+
+            public String getProfile_picture() {
+                return profile_picture;
+            }
+
+            public void setProfile_picture(String profile_picture) {
+                this.profile_picture = profile_picture;
+            }
+
+            public String getCover_picture() {
+                return cover_picture;
+            }
+
+            public void setCover_picture(String cover_picture) {
+                this.cover_picture = cover_picture;
+            }
+
+            public String getVerified() {
                 return verified;
             }
 
-            public void setVerified(int verified) {
+            public void setVerified(String verified) {
                 this.verified = verified;
-            }
-
-            public String getUpdated_at() {
-                return updated_at;
-            }
-
-            public void setUpdated_at(String updated_at) {
-                this.updated_at = updated_at;
-            }
-
-            public String getCreated_at() {
-                return created_at;
-            }
-
-            public void setCreated_at(String created_at) {
-                this.created_at = created_at;
-            }
-
-            public String getAvatar() {
-                return avatar;
-            }
-
-            public void setAvatar(String avatar) {
-                this.avatar = avatar;
-            }
-
-            public String getCover() {
-                return cover;
-            }
-
-            public void setCover(String cover) {
-                this.cover = cover;
-            }
-        }
-
-        public static class MediaBean {
-            /**
-             * id : 996
-             * active : 1
-             * album_id : 0
-             * descr :
-             * extension : none
-             * name : Money
-             * post_id : 0
-             * temp : 0
-             * timeline_id : 2
-             * type : album
-             * url : imgd.php?src=photos/2016/05/7lsVS_997_ec5aa0b7846082a2415f0902f0da88f2.jpg
-             * url_thumb : imgd.php?src=.none&width=600
-             * album_photos : [{"id":997,"album_id":996,"url":"photos/2016/05/7lsVS_997_ec5aa0b7846082a2415f0902f0da88f2.jpg","extension":"jpg","url_thumb":"imgd.php?src=photos/2016/05/7lsVS_997_ec5aa0b7846082a2415f0902f0da88f2.jpg&width=600&height=800"},{"id":998,"album_id":996,"url":"photos/2016/05/QvVnh_998_9ab0d88431732957a618d4a469a0d4c3.jpg","extension":"jpg","url_thumb":"imgd.php?src=photos/2016/05/QvVnh_998_9ab0d88431732957a618d4a469a0d4c3.jpg&width=600&height=800"},{"id":999,"album_id":996,"url":"photos/2016/05/Fsnnn_999_b706835de79a2b4e80506f582af3676a.jpg","extension":"jpg","url_thumb":"imgd.php?src=photos/2016/05/Fsnnn_999_b706835de79a2b4e80506f582af3676a.jpg&width=600&height=800"},{"id":1000,"album_id":996,"url":"photos/2016/05/GxKfH_1000_a9b7ba70783b617e9998dc4dd82eb3c5.jpg","extension":"jpg","url_thumb":"imgd.php?src=photos/2016/05/GxKfH_1000_a9b7ba70783b617e9998dc4dd82eb3c5.jpg&width=600&height=800"}]
-             */
-
-            private int id;
-            private int active;
-            private int album_id;
-            private String descr;
-            private String extension;
-            private String name;
-            private int post_id;
-            private int temp;
-            private int timeline_id;
-            private String type;
-            private String url;
-            private String url_thumb;
-            private List<AlbumPhotosBean> album_photos;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public int getActive() {
-                return active;
-            }
-
-            public void setActive(int active) {
-                this.active = active;
-            }
-
-            public int getAlbum_id() {
-                return album_id;
-            }
-
-            public void setAlbum_id(int album_id) {
-                this.album_id = album_id;
-            }
-
-            public String getDescr() {
-                return descr;
-            }
-
-            public void setDescr(String descr) {
-                this.descr = descr;
-            }
-
-            public String getExtension() {
-                return extension;
-            }
-
-            public void setExtension(String extension) {
-                this.extension = extension;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public int getPost_id() {
-                return post_id;
-            }
-
-            public void setPost_id(int post_id) {
-                this.post_id = post_id;
-            }
-
-            public int getTemp() {
-                return temp;
-            }
-
-            public void setTemp(int temp) {
-                this.temp = temp;
-            }
-
-            public int getTimeline_id() {
-                return timeline_id;
-            }
-
-            public void setTimeline_id(int timeline_id) {
-                this.timeline_id = timeline_id;
-            }
-
-            public String getType() {
-                return type;
-            }
-
-            public void setType(String type) {
-                this.type = type;
             }
 
             public String getUrl() {
@@ -1111,78 +337,6 @@ public class FeedUser {
 
             public void setUrl(String url) {
                 this.url = url;
-            }
-
-            public String getUrl_thumb() {
-                return url_thumb;
-            }
-
-            public void setUrl_thumb(String url_thumb) {
-                this.url_thumb = url_thumb;
-            }
-
-            public List<AlbumPhotosBean> getAlbum_photos() {
-                return album_photos;
-            }
-
-            public void setAlbum_photos(List<AlbumPhotosBean> album_photos) {
-                this.album_photos = album_photos;
-            }
-
-            public static class AlbumPhotosBean {
-                /**
-                 * id : 997
-                 * album_id : 996
-                 * url : photos/2016/05/7lsVS_997_ec5aa0b7846082a2415f0902f0da88f2.jpg
-                 * extension : jpg
-                 * url_thumb : imgd.php?src=photos/2016/05/7lsVS_997_ec5aa0b7846082a2415f0902f0da88f2.jpg&width=600&height=800
-                 */
-
-                private int id;
-                private int album_id;
-                private String url;
-                private String extension;
-                private String url_thumb;
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public int getAlbum_id() {
-                    return album_id;
-                }
-
-                public void setAlbum_id(int album_id) {
-                    this.album_id = album_id;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-
-                public String getExtension() {
-                    return extension;
-                }
-
-                public void setExtension(String extension) {
-                    this.extension = extension;
-                }
-
-                public String getUrl_thumb() {
-                    return url_thumb;
-                }
-
-                public void setUrl_thumb(String url_thumb) {
-                    this.url_thumb = url_thumb;
-                }
             }
         }
     }

@@ -20,16 +20,24 @@ import android.widget.Toast;
 import com.app.sample.social.R;
 import com.app.sample.social.adapter.FeedListAdapter;
 import com.app.sample.social.adapter.FeedListAdapter2;
+import com.app.sample.social.api.ApisZaab;
 import com.app.sample.social.data.Constant;
 import com.app.sample.social.model.Feed;
 import com.app.sample.social.model.Feed2;
+import com.app.sample.social.model.Header;
+import com.app.sample.social.model.PostLike;
 import com.app.sample.social.presenter.FeedContract;
 import com.app.sample.social.presenter.FeedPresenter;
+import com.app.sample.social.service.ServiceApiZaab;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PageFeedFragment extends Fragment implements FeedContract.HomeView {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class PageFeedFragment extends Fragment implements FeedContract.HomeView , FeedListAdapter2.OnCommentClick{
 
     private View view;
     private ProgressBar progressbar;
@@ -101,17 +109,27 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
 
     }
 
-    @Override
-    public void showAllFeed(List<Feed2> feed) {
-        Log.e("Check", feed.get(0).getPosts().get(0).getPost_type() + "");
+    public Header getHeader() {
+        Header header = new Header();
+        header.setHeader("I'm header");
+        return header;
+    }
 
-        mAdapter = new FeedListAdapter2(getActivity(), feed);
+    @Override
+    public void showAllFeed(final List<Feed2> feed) {
+
+
+        mAdapter = new FeedListAdapter2(getActivity(), feed, getHeader());
         recyclerView.setAdapter(mAdapter);
 
         mAdapter.SetOnItemClickLike(new FeedListAdapter2.OnItemClickLike() {
             @Override
             public void onItemClickLike(View view, int position) {
                 Snackbar.make(view, "Like Clicked", Snackbar.LENGTH_SHORT).show();
+
+                String postId = "1556";
+                String userId = "12";
+                loginByServerAtr(postId, userId);
             }
         });
 
@@ -147,6 +165,11 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
     @Override
     public void onClick(Feed2 feed) {
 
+    }
+
+    @Override
+    public void onCommentClick(View view, int position) {
+        Snackbar.make(view, "Comment Clicked", Snackbar.LENGTH_SHORT).show();
     }
 
 
@@ -188,6 +211,25 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
             taskRunning = false;
             super.onProgressUpdate(values);
         }
+    }
+
+    public void loginByServerAtr(String postId, String userId) {
+
+        ServiceApiZaab service = ApisZaab.getApis();
+
+        Call<PostLike> userCall = service.postLiked(postId, userId);
+
+        userCall.enqueue(new Callback<PostLike>() {
+            @Override
+            public void onResponse(Call<PostLike> call, Response<PostLike> response) {
+                Log.e("likes ", response.body().getLikes());
+            }
+
+            @Override
+            public void onFailure(Call<PostLike> call, Throwable t) {
+
+            }
+        });
     }
 
 

@@ -63,7 +63,7 @@ public class PageFriendFragment extends Fragment implements ListFriendsUserContr
 //        });
 
         presenter = new FriendsListUserPresenter(this);
-        presenter.getAllFriendsUser("2");
+        presenter.getAllFriendsUser("1");
         return view;
     }
 
@@ -120,11 +120,13 @@ public class PageFriendFragment extends Fragment implements ListFriendsUserContr
             @Override
             public void onItemClick(View view, Friend2 obj, int position) {
               // ActivityFriendDetails.navigate((ActivityMain) getActivity(), view, obj);
-                String title = feed.get(position).getFriends().get(position).getName();
-                String cover = "http://candychat.net/"+feed.get(position).getFriends().get(position).getCover();
+                String title = feed.get(position).getUsers().get(position).getName();
+                String cover = feed.get(position).getUsers().get(position).getCover_picture();
+                String userId = feed.get(position).getUsers().get(position).getUser_id();
                 Intent i = new Intent(getActivity(),ActivityFriendDetails.class);
                 i.putExtra("title",title);
                 i.putExtra("cover",cover);
+                i.putExtra("userId",userId);
                 startActivity(i);
             }
         });

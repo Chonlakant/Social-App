@@ -35,7 +35,7 @@ public class FriendsListUserPresenter implements ListFriendsUserContract.HomePre
         starWarsApi.getFriendListUser(id).enqueue(new Callback<Friend2>() {
             @Override
             public void onResponse(Call<Friend2> call, Response<Friend2> response) {
-                for (int i = 0; i < response.body().getFriends().size(); i++) {
+                for (int i = 0; i < response.body().getUsers().size(); i++) {
                     list.add(response.body());
                 }
 

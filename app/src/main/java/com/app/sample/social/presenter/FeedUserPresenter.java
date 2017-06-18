@@ -2,6 +2,7 @@ package com.app.sample.social.presenter;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import com.app.sample.social.api.Apis;
 import com.app.sample.social.model.FeedUser;
@@ -26,16 +27,20 @@ public class FeedUserPresenter implements FeedUserContract.HomePresenterUser {
 
 
     @Override
-    public void getAllFeedUser() {
+    public void getAllFeedUser(String user_id) {
         viewUser.showLoading();
 
 
-        starWarsApi.getFeedUser("2").enqueue(new Callback<FeedUser>() {
+        starWarsApi.getFeedUser(user_id).enqueue(new Callback<FeedUser>() {
             @Override
             public void onResponse(Call<FeedUser> call, Response<FeedUser> response) {
-                for(int i =0;i<response.body().getPosts().size();i++){
-                    list.add(response.body());
+                if(response.body() != null){
+                    for (int i = 0; i < response.body().getItems().size(); i++) {
+                        list.add(response.body());
+
+                    }
                 }
+
 
                 viewUser.showAllFeedUser(list);
                 viewUser.hideLoading();

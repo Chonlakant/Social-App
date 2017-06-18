@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.app.sample.social"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 7
         versionName "2.1"
@@ -33,7 +33,7 @@ android {
 /* IMPORTANT :
  * Be careful when update dependencies, different version library may caused error */
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.android.support:design:24.2.0'
@@ -47,4 +47,5 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.squareup.okhttp3:okhttp:3.1.2'
+
 }

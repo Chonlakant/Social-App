@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.app.sample.social.activity_articles.ActivityArticles;
 import com.app.sample.social.adapter.PageFragmentAdapter;
 import com.app.sample.social.data.Constant;
 import com.app.sample.social.data.Tools;
@@ -121,6 +122,11 @@ public class ActivityMain extends AppCompatActivity {
                 builder.setMessage(getString(R.string.about_text));
                 builder.setNeutralButton("OK", null);
                 builder.show();
+                return true;
+            }
+            case R.id.action_articles: {
+                Intent i = new Intent(getApplicationContext(), ActivityArticles.class);
+                startActivity(i);
                 return true;
             }
             case R.id.action_login: {

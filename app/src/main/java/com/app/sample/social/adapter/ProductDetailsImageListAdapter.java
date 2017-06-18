@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.app.sample.social.R;
 import com.app.sample.social.mode_product.product;
 import com.app.sample.social.mode_product.productDetails;
+import com.app.sample.social.mode_product.productImage;
 import com.app.sample.social.widget.CircleTransform;
 import com.squareup.picasso.Picasso;
 
@@ -24,7 +25,7 @@ import java.util.List;
 
 public class ProductDetailsImageListAdapter extends RecyclerView.Adapter<ProductDetailsImageListAdapter.ViewHolder> {
 
-    private ArrayList<productDetails> original_items = new ArrayList<>();
+    private ArrayList<productImage> original_items = new ArrayList<>();
 
 
     private Context ctx;
@@ -55,7 +56,7 @@ public class ProductDetailsImageListAdapter extends RecyclerView.Adapter<Product
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ProductDetailsImageListAdapter(Context ctx, ArrayList<productDetails> items) {
+    public ProductDetailsImageListAdapter(Context ctx, ArrayList<productImage> items) {
         this.ctx = ctx;
         original_items = items;
 
@@ -74,9 +75,9 @@ public class ProductDetailsImageListAdapter extends RecyclerView.Adapter<Product
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final productDetails c = original_items.get(position);
+        final productImage c = original_items.get(position);
 
-        Picasso.with(ctx).load(c.getHtml().get(position).getImages().get(position).getImage())
+        Picasso.with(ctx).load(c.getImageUrl())
                 .transform(new CircleTransform())
                 .into(holder.image);
 

@@ -79,8 +79,8 @@ public class FriendsListAdapter2 extends RecyclerView.Adapter<FriendsListAdapter
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final Friend2 c = filtered_items.get(position);
-        holder.name.setText(c.getFriends().get(position).getName());
-        String avatar = "http://candychat.net/" + c.getFriends().get(position).getAvatar();
+        holder.name.setText(c.getUsers().get(position).getUsername());
+        String avatar = c.getUsers().get(position).getProfile_picture();
         Picasso.with(ctx).load(avatar).resize(100, 100).transform(new CircleTransform()).into(holder.image);
         setAnimation(holder.itemView, position);
         holder.lyt_parent.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +126,7 @@ public class FriendsListAdapter2 extends RecyclerView.Adapter<FriendsListAdapter
             final List<Friend2> result_list = new ArrayList<>(list.size());
 
             for (int i = 0; i < list.size(); i++) {
-                String str_title = list.get(i).getFriends().get(i).getName();
+                String str_title = list.get(i).getUsers().get(i).getName();
                 if (str_title.toLowerCase().contains(query)) {
                     result_list.add(list.get(i));
                 }

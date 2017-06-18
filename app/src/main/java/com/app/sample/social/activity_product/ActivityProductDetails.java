@@ -1,5 +1,6 @@
 package com.app.sample.social.activity_product;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,19 +15,18 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import com.app.sample.social.R;
 import com.app.sample.social.adapter.ProductDetailsImageListAdapter;
 import com.app.sample.social.adapter.ProductDetailsListAdapter;
-import com.app.sample.social.adapter.ProductListAdapter;
 import com.app.sample.social.data.Tools;
 import com.app.sample.social.mode_product.product;
 import com.app.sample.social.mode_product.productDetails;
+import com.app.sample.social.mode_product.productImage;
 import com.app.sample.social.product_presenter.ListProductIdContract;
 import com.app.sample.social.product_presenter.ProductIdPresenter;
 
@@ -41,7 +40,7 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
 
     ListProductIdContract.HomePresenterProduct presenter;
 
-
+    public EditText edit_text_comment;
     public static ProductDetailsListAdapter adapter;
     private ProductDetailsImageListAdapter productDetailsImageListAdapter;
 
@@ -53,22 +52,24 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
     private View parent_view;
 
     String idProduct;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_details);
+        setContentView(R.layout.activity_product_details);
         parent_view = findViewById(android.R.id.content);
+        edit_text_comment = (EditText) findViewById(R.id.edit_text_comment);
 
         recyclerViewDetails = (RecyclerView) findViewById(R.id.recyclerViewDetails);
         recyclerViewDetails.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerViewDetails.setHasFixedSize(true);
 
         recyclerViewImage = (RecyclerView) findViewById(R.id.recyclerViewImage);
-        recyclerViewImage.setLayoutManager(
-                new GridLayoutManager(recyclerViewImage.getContext(), 3, GridLayoutManager.HORIZONTAL, false));
-        recyclerViewImage.setHasFixedSize(true);
 
+        mLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false
+        );
+        recyclerViewImage.setLayoutManager(mLayoutManager);
 
         // animation transition
         ViewCompat.setTransitionName(parent_view, KEY_FRIEND);
@@ -83,7 +84,7 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
 
         presenter = new ProductIdPresenter(this);
         presenter.getAllProduct(idProduct);
-        presenter.getAllImageProduct("54");
+        presenter.getAllImageProduct(idProduct);
 
 
         // for system bar in lollipop
@@ -100,12 +101,10 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
     }
 
 
-    private void hideKeyboard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     private TextWatcher contentWatcher = new TextWatcher() {
@@ -122,6 +121,8 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
         public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
         }
     };
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -166,7 +167,7 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
     }
 
     @Override
-    public void showAllImageProduct(ArrayList<productDetails> feed) {
+    public void showAllImageProduct(ArrayList<productImage> feed) {
         productDetailsImageListAdapter = new ProductDetailsImageListAdapter(this, feed);
         recyclerViewImage.setAdapter(productDetailsImageListAdapter);
     }

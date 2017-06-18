@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.app.sample.social.api.Apis;
+import com.app.sample.social.mode_product.productImage;
 import com.app.sample.social.model.Feed2;
 import com.app.sample.social.service.ServiceApi;
 
@@ -33,10 +34,9 @@ public class FeedPresenter implements FeedContract.HomePresenter {
             @Override
             public void onResponse(Call<Feed2> call, Response<Feed2> response) {
 
-                for(int i =0;i<response.body().getPosts().size();i++){
+                for(int i =0;i<response.body().getItems().size();i++){
                     list.add(response.body());
                 }
-
                 view.showAllFeed(list);
                 view.hideLoading();
             }

@@ -7,6 +7,7 @@ import android.util.Log;
 import com.app.sample.social.api.ApisZaab;
 import com.app.sample.social.mode_product.product;
 import com.app.sample.social.mode_product.productDetails;
+import com.app.sample.social.mode_product.productImage;
 import com.app.sample.social.service.ServiceApiZaab;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class ProductIdPresenter implements ListProductIdContract.HomePresenterPr
     Context context;
     ArrayList<productDetails> list = new ArrayList<>();
     ArrayList<productDetails> listImage = new ArrayList<>();
+    ArrayList<productImage> listStrImage = new ArrayList<>();
 
 
     public ProductIdPresenter(ListProductIdContract.HomeViewProduct viewUser) {
@@ -33,7 +35,7 @@ public class ProductIdPresenter implements ListProductIdContract.HomePresenterPr
         viewUser.showLoading();
 
 
-        serviceApiZaab.getProductId().enqueue(new Callback<productDetails>() {
+        serviceApiZaab.getProductId(id).enqueue(new Callback<productDetails>() {
             @Override
             public void onResponse(Call<productDetails> call, Response<productDetails> response) {
 
@@ -57,18 +59,24 @@ public class ProductIdPresenter implements ListProductIdContract.HomePresenterPr
     @Override
     public void getAllImageProduct(String id) {
 
-        serviceApiZaab.getProductImageId().enqueue(new Callback<productDetails>() {
+        serviceApiZaab.getProductImageId(id).enqueue(new Callback<productDetails>() {
             @Override
             public void onResponse(Call<productDetails> call, Response<productDetails> response) {
 
 
                 for (int i = 0; i < response.body().getHtml().size(); i++) {
                     listImage.add(response.body());
-                    Log.e("bbbb",response.body().getHtml().get(i).getImages().size()+"");
-                    Log.e("bbbb",response.body().getHtml().get(i).getImages().get(i).getImage()+"");
+                    for (int j = 0; j < response.body().getHtml().get(i).getImages().size(); j++) {
+                        String url = response.body().getHtml().get(i).getImages().get(j).getImage();
+                        productImage urlImage = new productImage();
+                        urlImage.setImageUrl(url);
+                        listStrImage.add(urlImage);
+
+                    }
+
                 }
 
-                viewUser.showAllImageProduct(listImage);
+                viewUser.showAllImageProduct(listStrImage);
                 viewUser.hideLoading();
             }
 

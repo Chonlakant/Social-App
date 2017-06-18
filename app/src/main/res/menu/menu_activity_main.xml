@@ -8,6 +8,12 @@
         android:orderInCategory="100"
         android:title="Settings"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_articles"
+        android:orderInCategory="100"
+        android:title="บทความ"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_regist"
         android:orderInCategory="100"
