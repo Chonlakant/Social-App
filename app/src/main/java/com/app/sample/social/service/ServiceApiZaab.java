@@ -33,4 +33,7 @@ public interface ServiceApiZaab {
     Call<PostLike> postLiked(@Query("post_id") String post_id,@Query("user_id") String user_id);
 
 
+    @GET("requests_api.php?f=search_products")
+    Call<productDetails> getMutipleImageId(@Query("id") String id);
+
 }

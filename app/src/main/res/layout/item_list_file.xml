@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:orientation="vertical"
@@ -120,20 +120,37 @@
                     android:visibility="visible" />
 
                 <android.support.v7.widget.CardView
-                    card_view:cardCornerRadius="7dp"
-                    card_view:cardElevation="12dp"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_margin="10dp">
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    card_view:cardCornerRadius="7dp"
+                    card_view:cardElevation="12dp">
 
-                    <TextView
-                        android:id="@+id/text_fifle"
-                        android:text="Zaab.apk"
+                    <LinearLayout
+                        android:gravity="center"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="5dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="visible" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/zip_50" />
+
+                        <TextView
+
+                            android:id="@+id/text_fifle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:text="Zaab.apk"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+
+
                 </android.support.v7.widget.CardView>
 
 

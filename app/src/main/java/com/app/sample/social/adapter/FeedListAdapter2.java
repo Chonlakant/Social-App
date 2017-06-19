@@ -1,26 +1,39 @@
 package com.app.sample.social.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.app.sample.social.R;
+import com.app.sample.social.activity_viedo_full.ActivityFullVideo;
 import com.app.sample.social.model.Feed2;
 import com.app.sample.social.model.Header;
 import com.app.sample.social.widget.CircleTransform;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int TYPE_HEADER = 0;
@@ -37,6 +50,10 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private Context ctx;
     Header header;
+
+    AudioManager audioManager;
+    Timer timer;
+    int mediaFileLengthInMilliseconds;
 
     public static OnItemClickLike mItemClickLike;
     public static OnPhotoClick mPhotoClick;
@@ -268,10 +285,32 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
             VHViedo.text_name.setText(p.getItems().get(position).getPublisher_data().getUsername());
 
             String title = p.getItems().get(position).getPost_data().getPost_text();
+            final String post_file = p.getItems().get(position).getPost_data().getPost_file();
             VHViedo.txt_title_video.setText(title);
 //            Glide.with(ctx)
 //                    .load(cover)
 //                    .into(VHPhoto.photo_content);
+
+            VHViedo.myvideoView.setVideoPath(post_file);
+
+            //play pause stop
+
+            MediaController mediaController = new MediaController(ctx);
+            mediaController.setVisibility(View.GONE);
+            mediaController.setAnchorView(VHViedo.myvideoView);
+            VHViedo.myvideoView.setMediaController(mediaController);
+
+
+            // VHViedo.myvideoView.start();
+
+            VHViedo.img_play.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i =new Intent(ctx, ActivityFullVideo.class);
+                    i.putExtra("urlvdo",post_file);
+                    ctx.startActivity(i);
+                }
+            });
 
         }
         if (holder.getItemViewType() == TYPE_FILE) {
@@ -288,12 +327,12 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
             String postFifle = p.getItems().get(position).getPost_data().getPost_file();
             String postText = p.getItems().get(position).getPost_data().getPost_text();
 
-            VHFile.text_fifle.setText(postFifle);
+            VHFile.text_fifle.setText(postText);
             VHFile.text_content_title.setText(postText);
 
         }
         if (holder.getItemViewType() == TYPE_MP3) {
-            VHMp3 VHMp3 = (VHMp3) holder;
+            final VHMp3 VHMp3 = (VHMp3) holder;
 
             String avatar = p.getItems().get(position).getPublisher_data().getProfile_picture();
             Picasso.with(ctx)
@@ -308,6 +347,166 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             VHMp3.text_mp3.setText(postText);
             VHMp3.text_fifle.setText(postFifle);
+
+
+            final MediaPlayer mediaPlayer;
+
+            final Handler handler = new Handler();
+
+
+            audioManager = (AudioManager) ctx.getSystemService(Context.AUDIO_SERVICE);
+            VHMp3.seekBarProgress.setMax(99); // It means 100% .0-99
+
+            mediaPlayer = new MediaPlayer();
+            mediaFileLengthInMilliseconds = mediaPlayer.getDuration();
+
+            VHMp3.seekBar2.setMax(audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
+            VHMp3.seekBar2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, i, 0);
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+
+
+            try {
+                mediaPlayer.setDataSource(postFifle); // setup song from http://www.hrupin.com/wp-content/uploads/mp3/testsong_20_sec.mp3 URL to mediaplayer data source
+                mediaPlayer.prepare();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            VHMp3.txt_time_full.setText(getTimeString(mediaPlayer.getDuration()));
+
+            VHMp3.ButtonTestPlay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    VHMp3.ButtonTestPlay.setVisibility(View.GONE);
+                    VHMp3.ButtonTestPause.setVisibility(View.VISIBLE);
+                    mediaPlayer.start();
+
+                    VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
+                    if (mediaPlayer.isPlaying()) {
+                        Runnable notification = new Runnable() {
+                            public void run() {
+                                VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
+                                if (mediaPlayer.isPlaying()) {
+                                    Runnable notification = new Runnable() {
+                                        public void run() {
+                                            VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
+                                        }
+                                    };
+                                    handler.postDelayed(notification, 1000);
+
+                                }
+                            }
+                        };
+                        handler.postDelayed(notification, 1000);
+
+                    }
+
+
+                    if (mediaPlayer != null) {
+                        timer = new Timer();
+
+                        TimerTask t = new TimerTask() {
+                            int sec = 0;
+                            @Override
+                            public void run() {
+
+                                if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                                    VHMp3.txt_time.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            VHMp3.txt_time.setText(getTimeString(mediaPlayer.getCurrentPosition()) + "");
+                                        }
+                                    });
+                                } else {
+                                    timer.cancel();
+                                    timer.purge();
+                                }
+                            }
+                        };
+                        timer.scheduleAtFixedRate(t,0, 1000);
+
+                    }
+
+                }
+            });
+
+
+            VHMp3.ButtonTestPause.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    VHMp3.ButtonTestPlay.setVisibility(View.VISIBLE);
+                    VHMp3.ButtonTestPause.setVisibility(View.GONE);
+                    mediaPlayer.pause();
+                    mediaFileLengthInMilliseconds = mediaPlayer.getDuration();
+
+                    VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
+                    if (mediaPlayer.isPlaying()) {
+                        Runnable notification = new Runnable() {
+                            public void run() {
+                                VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
+                                if (mediaPlayer.isPlaying()) {
+                                    Runnable notification = new Runnable() {
+                                        public void run() {
+                                            VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
+                                        }
+                                    };
+                                    handler.postDelayed(notification, 1000);
+
+                                }
+                            }
+                        };
+                        handler.postDelayed(notification, 1000);
+
+                    }
+                }
+            });
+
+            mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
+                @Override
+                public void onBufferingUpdate(MediaPlayer mp, int percent) {
+                    VHMp3.seekBarProgress.setSecondaryProgress(percent);
+                }
+            });
+
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    VHMp3.ButtonTestPlay.setImageResource(R.drawable.play_100_mp3);
+                }
+            });
+
+            VHMp3.seekBarProgress.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (v.getId() == R.id.SeekBarTestPlay) {
+                        /** Seekbar onTouch event handler. Method which seeks MediaPlayer to seekBar primary progress position*/
+                        if (mediaPlayer.isPlaying()) {
+                            SeekBar sb = (SeekBar) v;
+                            int playPositionInMillisecconds = (mediaFileLengthInMilliseconds / 100) * sb.getProgress();
+                            mediaPlayer.seekTo(playPositionInMillisecconds);
+
+                        }
+                    }
+                    return false;
+                }
+            });
+
 
         }
         if (holder.getItemViewType() == TYPE_MAPS) {
@@ -487,6 +686,8 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView txt_like;
         TextView txt_title_video;
         ImageView photo_video;
+        VideoView myvideoView;
+        ImageView img_play;
 
 
         public VHViedo(View v) {
@@ -501,8 +702,8 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
             txt_like = (TextView) v.findViewById(R.id.txt_like);
             txt_title_video = (TextView) itemView.findViewById(R.id.txt_title_video);
             photo_video = (ImageView) itemView.findViewById(R.id.photo_video);
-
-
+            myvideoView = (VideoView) itemView.findViewById(R.id.myvideoView);
+            img_play = (ImageView) itemView.findViewById(R.id.img_play);
         }
 
         @Override
@@ -557,6 +758,14 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView text_mp3;
         TextView text_fifle;
 
+        ImageButton ButtonTestPlay;
+        ImageButton ButtonTestPause;
+        SeekBar seekBarProgress;
+        SeekBar seekBar2;
+        TextView txt_time;
+        TextView txt_time_full;
+
+
         public VHMp3(View v) {
             super(v);
             photo = (ImageView) v.findViewById(R.id.photo);
@@ -569,6 +778,13 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
             txt_like = (TextView) v.findViewById(R.id.txt_like);
             text_mp3 = (TextView) itemView.findViewById(R.id.text_mp3);
             text_fifle = (TextView) itemView.findViewById(R.id.text_fifle);
+
+            ButtonTestPlay = (ImageButton) v.findViewById(R.id.ButtonTestPlay);
+            ButtonTestPause = (ImageButton) v.findViewById(R.id.ButtonTestPause);
+            seekBarProgress = (SeekBar) v.findViewById(R.id.SeekBarTestPlay);
+            txt_time_full = (TextView) v.findViewById(R.id.txt_time_full);
+            seekBar2 = (SeekBar) v.findViewById(R.id.seekBar2);
+            txt_time = (TextView) v.findViewById(R.id.txt_time);
 
         }
 
@@ -734,6 +950,21 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
         public void onClick(View view) {
 
         }
+    }
+
+    private String getTimeString(long millis) {
+        StringBuffer buf = new StringBuffer();
+
+        int hours = (int) (millis / (1000 * 60 * 60));
+        int minutes = (int) ((millis % (1000 * 60 * 60)) / (1000 * 60));
+        int seconds = (int) (((millis % (1000 * 60 * 60)) % (1000 * 60)) / 1000);
+
+        buf
+                .append(String.format("%02d", minutes))
+                .append(":")
+                .append(String.format("%02d", seconds));
+
+        return buf.toString();
     }
 
 }

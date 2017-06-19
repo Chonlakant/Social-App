@@ -39,6 +39,8 @@
         <activity
             android:name=".ActivityRegistration"
             android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".activity_mutiple_image.ActivityMutipleImage"/>
+        <activity android:name=".activity_viedo_full.ActivityFullVideo"/>
     </application>
 
 </manifest>

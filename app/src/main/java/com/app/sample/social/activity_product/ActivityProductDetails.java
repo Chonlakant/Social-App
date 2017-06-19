@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.app.sample.social.R;
+import com.app.sample.social.activity_mutiple_image.ActivityMutipleImage;
 import com.app.sample.social.adapter.ProductDetailsImageListAdapter;
 import com.app.sample.social.adapter.ProductDetailsListAdapter;
 import com.app.sample.social.data.Tools;
@@ -37,7 +38,7 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
 
     public static String KEY_FRIEND = "com.app.sample.social.FRIEND";
     public static String KEY_SNIPPET = "com.app.sample.social.SNIPPET";
-
+    //comment
     ListProductIdContract.HomePresenterProduct presenter;
 
     public EditText edit_text_comment;
@@ -170,6 +171,16 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
     public void showAllImageProduct(ArrayList<productImage> feed) {
         productDetailsImageListAdapter = new ProductDetailsImageListAdapter(this, feed);
         recyclerViewImage.setAdapter(productDetailsImageListAdapter);
+
+        productDetailsImageListAdapter.setOnItemClickListener(new ProductDetailsImageListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent i =new Intent(getApplicationContext(),ActivityMutipleImage.class);
+                i.putExtra("idProduct",idProduct);
+                startActivity(i);
+            }
+        });
+
     }
 
 }
