@@ -36,7 +36,13 @@ public class Feed2 {
     }
 
     public static class ItemsBean {
-
+        /**
+         * post_id : 1655
+         * post_type : post_youtube
+         * post_type2 : 7
+         * post_data : {"post_id":"1655","post_text":"JustinBieber - Tomorrow","post_file":"","post_thumb":"dd","post_soundcloud":"","post_youtube":"https://www.youtube.com/watch?v=LC4Ntw4bHRI","post_vine":"","post_map":"","post_time":"1497877094","post_likes":"0","post_wonders":"0"}
+         * publisher_data : {"id":"164","username":"Chonlakant","first_name":"","last_name":"","gender":"male","birthday":"0000-00-00","about":null,"website":"","facebook":"","twitter":"","vk":"","google+":"","profile_picture":"ddd","cover_picture":"https://www.zaab-d.com/upload/photos/d-cover.jpg","verified":"0","url":"https://www.zaab-d.com/post/1655_justinbieber-tomorrow.html"}
+         */
 
         private String post_id;
         private String post_type;
@@ -86,14 +92,15 @@ public class Feed2 {
 
         public static class PostDataBean {
             /**
-             * post_id : 1564
-             * post_text : bootstrap
-             * post_file : ttt
+             * post_id : 1655
+             * post_text : JustinBieber - Tomorrow
+             * post_file :
+             * post_thumb : dd
              * post_soundcloud :
-             * post_youtube :
+             * post_youtube : https://www.youtube.com/watch?v=LC4Ntw4bHRI
              * post_vine :
              * post_map :
-             * post_time : 1497592806
+             * post_time : 1497877094
              * post_likes : 0
              * post_wonders : 0
              */
@@ -101,6 +108,7 @@ public class Feed2 {
             private String post_id;
             private String post_text;
             private String post_file;
+            private String post_thumb;
             private String post_soundcloud;
             private String post_youtube;
             private String post_vine;
@@ -131,6 +139,14 @@ public class Feed2 {
 
             public void setPost_file(String post_file) {
                 this.post_file = post_file;
+            }
+
+            public String getPost_thumb() {
+                return post_thumb;
+            }
+
+            public void setPost_thumb(String post_thumb) {
+                this.post_thumb = post_thumb;
             }
 
             public String getPost_soundcloud() {
@@ -191,6 +207,24 @@ public class Feed2 {
         }
 
         public static class PublisherDataBean {
+            /**
+             * id : 164
+             * username : Chonlakant
+             * first_name :
+             * last_name :
+             * gender : male
+             * birthday : 0000-00-00
+             * about : null
+             * website :
+             * facebook :
+             * twitter :
+             * vk :
+             * google+ :
+             * profile_picture : ddd
+             * cover_picture : https://www.zaab-d.com/upload/photos/d-cover.jpg
+             * verified : 0
+             * url : https://www.zaab-d.com/post/1655_justinbieber-tomorrow.html
+             */
 
             private String id;
             private String username;
@@ -204,7 +238,7 @@ public class Feed2 {
             private String twitter;
             private String vk;
             @SerializedName("google+")
-            private String _$Google282; // FIXME check this code
+            private String _$Google79; // FIXME check this code
             private String profile_picture;
             private String cover_picture;
             private String verified;
@@ -298,12 +332,12 @@ public class Feed2 {
                 this.vk = vk;
             }
 
-            public String get_$Google282() {
-                return _$Google282;
+            public String get_$Google79() {
+                return _$Google79;
             }
 
-            public void set_$Google282(String _$Google282) {
-                this._$Google282 = _$Google282;
+            public void set_$Google79(String _$Google79) {
+                this._$Google79 = _$Google79;
             }
 
             public String getProfile_picture() {

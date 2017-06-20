@@ -23,10 +23,13 @@ import android.widget.VideoView;
 
 import com.app.sample.social.R;
 import com.app.sample.social.activity_viedo_full.ActivityFullVideo;
+import com.app.sample.social.activity_youtube.ActivityYoutube;
 import com.app.sample.social.model.Feed2;
 import com.app.sample.social.model.Header;
 import com.app.sample.social.widget.CircleTransform;
 import com.bumptech.glide.Glide;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerView;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -45,6 +48,7 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
     private static final int TYPE_MAPS = 6;
     private static final int TYPE_YOUTUBE = 7;
     private static final int TYPE_SOUNDCOULD = 8;
+    private static final int TYPE_COMMENT = 9;
 
     private List<Feed2> items = new ArrayList<>();
 
@@ -54,6 +58,9 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
     AudioManager audioManager;
     Timer timer;
     int mediaFileLengthInMilliseconds;
+    Handler handler;
+
+
 
     public static OnItemClickLike mItemClickLike;
     public static OnPhotoClick mPhotoClick;
@@ -61,6 +68,14 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static OnShareClick mShareClick;
     public static OnMoreClick mMoreClick;
 
+
+    // Provide a suitable constructor (depends on the kind of dataset)
+    public FeedListAdapter2(Context ctx, List<Feed2> items, Header header) {
+        this.ctx = ctx;
+        this.items = items;
+        this.header = header;
+
+    }
 
     public interface OnItemClickLike {
         public void onItemClickLike(View view, int position);
@@ -103,56 +118,47 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public FeedListAdapter2(Context ctx, List<Feed2> items, Header header) {
-        this.ctx = ctx;
-        this.items = items;
-        this.header = header;
-    }
+
 
     @Override
     public int getItemViewType(int position) {
 
-//        if (isPositionHeader(position))
-//            return TYPE_HEADER;
-//        if (isPositionText(position))
-//            return TYPE_TEXT;
-//        if (isPositionPhoto(position))
-//            return TYPE_PHOTO;
-//        if (isPositionFile(position))
-//            return TYPE_FILE;
 
         if (isPositionHeader(position)) {
             return TYPE_HEADER;
         }
 
-        if (items.get(position).getItems().get(position).getPost_type2() == 1) {
+       else if (items.get(position).getItems().get(position).getPost_type2() == 1) {
+
             return TYPE_TEXT;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 2) {
+
+        else if (items.get(position).getItems().get(position).getPost_type2() == 2) {
             return TYPE_PHOTO;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 3) {
+        else if (items.get(position).getItems().get(position).getPost_type2() == 3) {
             return TYPE_VDEIO;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 4) {
+        else if (items.get(position).getItems().get(position).getPost_type2() == 4) {
             return TYPE_FILE;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 5) {
+        else if (items.get(position).getItems().get(position).getPost_type2() == 5) {
             return TYPE_MP3;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 6) {
+        else  if (items.get(position).getItems().get(position).getPost_type2() == 6) {
             return TYPE_MAPS;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 7) {
+        else if (items.get(position).getItems().get(position).getPost_type2() == 7) {
             return TYPE_YOUTUBE;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 8) {
+        else  if (items.get(position).getItems().get(position).getPost_type2() == 8) {
             return TYPE_SOUNDCOULD;
         }
 
 
-        Log.e("TYPE_9", items.get(position).getItems().get(position).getPost_type2() + "");
+
+
+//        Log.e("TYPE_9", items.get(position).getItems().get(position).getPost_type2() + "");
 
         return TYPE_TEXT;
 
@@ -186,13 +192,19 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
         return position == 6;
     }
 
+    private boolean isPositionComment(int position) {
+        return position == 9;
+    }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+        Log.e("viewType",viewType+"");
+
         if (viewType == TYPE_HEADER) {
-            View vHeader = LayoutInflater.from(parent.getContext()).inflate(R.layout.header_item, parent, false);
-            return new VHHeader(vHeader);
+            View vHeader2 = LayoutInflater.from(parent.getContext()).inflate(R.layout.header_item, parent, false);
+            return new VHHeader(vHeader2);
         } else if (viewType == TYPE_TEXT) {
             View vItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_text, parent, false);
             return new VHItem(vItem);
@@ -217,6 +229,10 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else if (viewType == TYPE_SOUNDCOULD) {
             View vHSoundCloud = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_soundcloud, parent, false);
             return new VHSoundCloud(vHSoundCloud);
+        }
+        else if (viewType == TYPE_COMMENT) {
+            View vHComment = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tap_comments, parent, false);
+            return new VHComment(vHComment);
         }
 
 
@@ -306,8 +322,8 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
             VHViedo.img_play.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i =new Intent(ctx, ActivityFullVideo.class);
-                    i.putExtra("urlvdo",post_file);
+                    Intent i = new Intent(ctx, ActivityFullVideo.class);
+                    i.putExtra("urlvdo", post_file);
                     ctx.startActivity(i);
                 }
             });
@@ -351,7 +367,7 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
 
             final MediaPlayer mediaPlayer;
 
-            final Handler handler = new Handler();
+            handler = new Handler();
 
 
             audioManager = (AudioManager) ctx.getSystemService(Context.AUDIO_SERVICE);
@@ -398,24 +414,29 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
                     mediaPlayer.start();
 
                     VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
-                    if (mediaPlayer.isPlaying()) {
-                        Runnable notification = new Runnable() {
-                            public void run() {
-                                VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
-                                if (mediaPlayer.isPlaying()) {
-                                    Runnable notification = new Runnable() {
-                                        public void run() {
-                                            VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
-                                        }
-                                    };
-                                    handler.postDelayed(notification, 1000);
 
-                                }
+                    timer = new Timer();
+
+                    TimerTask tt = new TimerTask() {
+                        int sec = 0;
+
+                        @Override
+                        public void run() {
+
+                            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                                VHMp3.txt_time.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
+                                    }
+                                });
+                            } else {
+                                timer.cancel();
+                                timer.purge();
                             }
-                        };
-                        handler.postDelayed(notification, 1000);
-
-                    }
+                        }
+                    };
+                    timer.scheduleAtFixedRate(tt, 0, 1000);
 
 
                     if (mediaPlayer != null) {
@@ -423,6 +444,7 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                         TimerTask t = new TimerTask() {
                             int sec = 0;
+
                             @Override
                             public void run() {
 
@@ -439,7 +461,7 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
                                 }
                             }
                         };
-                        timer.scheduleAtFixedRate(t,0, 1000);
+                        timer.scheduleAtFixedRate(t, 0, 1000);
 
                     }
 
@@ -487,7 +509,7 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    VHMp3.ButtonTestPlay.setImageResource(R.drawable.play_100_mp3);
+                    //  VHMp3.ButtonTestPlay.setImageResource(R.drawable.play_100_mp3);
                 }
             });
 
@@ -539,8 +561,31 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
                     .into(VHYoutube.photo);
             VHYoutube.text_name.setText(p.getItems().get(position).getPublisher_data().getUsername());
 
-            String postFifle = p.getItems().get(position).getPost_data().getPost_file();
+            final String postYoutube = p.getItems().get(position).getPost_data().getPost_youtube();
             String postText = p.getItems().get(position).getPost_data().getPost_text();
+            String post_thumb = p.getItems().get(position).getPost_data().getPost_thumb();
+
+
+            String s = postYoutube;
+            String[] parts = s.split("\\="); // escape .
+            String part1 = parts[0];
+            final String part2 = parts[1];
+
+
+            VHYoutube.txt_title_youtube.setText(postText);
+
+            Glide.with(ctx)
+                    .load(post_thumb)
+                    .into(VHYoutube.photo_youtube);
+
+            VHYoutube.img_play.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(ctx, ActivityYoutube.class);
+                    i.putExtra("urlYoutube", part2);
+                    ctx.startActivity(i);
+                }
+            });
 
 
         }
@@ -722,6 +767,8 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView text_date;
         TextView txt_like;
         ImageView photo_youtube;
+        TextView txt_title_youtube;
+        ImageView img_play;
 
 
         public VHYoutube(View v) {
@@ -735,8 +782,8 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
             text_date = (TextView) v.findViewById(R.id.text_date);
             txt_like = (TextView) v.findViewById(R.id.txt_like);
             photo_youtube = (ImageView) itemView.findViewById(R.id.photo_youtube);
-
-
+            txt_title_youtube = (TextView) itemView.findViewById(R.id.txt_title_youtube);
+            img_play = (ImageView) itemView.findViewById(R.id.img_play);
         }
 
         @Override
@@ -917,6 +964,17 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
+    class VHComment extends RecyclerView.ViewHolder  {
+
+
+        public VHComment(View v) {
+            super(v);
+
+        }
+
+
+    }
+
 
     class VHFile extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView photo;
@@ -966,5 +1024,6 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         return buf.toString();
     }
+
 
 }

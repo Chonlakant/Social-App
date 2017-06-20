@@ -41,6 +41,7 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity_mutiple_image.ActivityMutipleImage"/>
         <activity android:name=".activity_viedo_full.ActivityFullVideo"/>
+        <activity android:name=".activity_youtube.ActivityYoutube"/>
     </application>
 
 </manifest>
