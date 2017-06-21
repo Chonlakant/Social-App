@@ -8,8 +8,8 @@ android {
         applicationId "com.app.sample.social"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 8
-        versionName "2.2"
+        versionCode 9
+        versionName "2.3"
     }
     buildTypes {
         release {
@@ -48,4 +48,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.squareup.okhttp3:okhttp:3.1.2'
     compile files('libs/YouTubeAndroidPlayerApi.jar')
+    compile project(':rendererrecyclerviewadapter')
 }

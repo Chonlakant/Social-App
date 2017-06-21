@@ -33,7 +33,7 @@ public class ActivityYoutube extends YouTubeBaseActivity implements YouTubePlaye
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube);
         urlYoutube = getIntent().getStringExtra("urlYoutube");
-        Log.e("urlYoutube",urlYoutube);
+//        Log.e("urlYoutube",urlYoutube);
 
         youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         youTubeView.initialize(Config.YOUTUBE_API_KEY, this);

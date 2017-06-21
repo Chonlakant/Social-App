@@ -107,6 +107,7 @@ public class Feed2 {
 
             private String post_id;
             private String post_text;
+            private String post_text2;
             private String post_file;
             private String post_thumb;
             private String post_soundcloud;
@@ -127,6 +128,14 @@ public class Feed2 {
 
             public String getPost_text() {
                 return post_text;
+            }
+
+            public String getPost_text2() {
+                return post_text2;
+            }
+
+            public void setPost_text2(String post_text2) {
+                this.post_text2 = post_text2;
             }
 
             public void setPost_text(String post_text) {

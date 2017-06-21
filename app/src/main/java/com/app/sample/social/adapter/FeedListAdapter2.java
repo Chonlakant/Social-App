@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.app.sample.social.R;
@@ -28,8 +27,6 @@ import com.app.sample.social.model.Feed2;
 import com.app.sample.social.model.Header;
 import com.app.sample.social.widget.CircleTransform;
 import com.bumptech.glide.Glide;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -414,30 +411,24 @@ public class FeedListAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHold
                     mediaPlayer.start();
 
                     VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
+                    if (mediaPlayer.isPlaying()) {
+                        Runnable notification = new Runnable() {
+                            public void run() {
+                                VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100)); // This math construction give a percentage of "was playing"/"song length"
+                                if (mediaPlayer.isPlaying()) {
+                                    Runnable notification = new Runnable() {
+                                        public void run() {
+                                            VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
+                                        }
+                                    };
+                                    handler.postDelayed(notification, 1000);
 
-                    timer = new Timer();
-
-                    TimerTask tt = new TimerTask() {
-                        int sec = 0;
-
-                        @Override
-                        public void run() {
-
-                            if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-                                VHMp3.txt_time.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        VHMp3.seekBarProgress.setProgress((int) (((float) mediaPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
-                                    }
-                                });
-                            } else {
-                                timer.cancel();
-                                timer.purge();
+                                }
                             }
-                        }
-                    };
-                    timer.scheduleAtFixedRate(tt, 0, 1000);
+                        };
+                        handler.postDelayed(notification, 1000);
 
+                    }
 
                     if (mediaPlayer != null) {
                         timer = new Timer();

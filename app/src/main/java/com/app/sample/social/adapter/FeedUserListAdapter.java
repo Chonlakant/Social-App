@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.sample.social.R;
-import com.app.sample.social.model.Feed2;
 import com.app.sample.social.model.FeedUser;
 import com.app.sample.social.model.Header;
 import com.app.sample.social.widget.CircleTransform;
