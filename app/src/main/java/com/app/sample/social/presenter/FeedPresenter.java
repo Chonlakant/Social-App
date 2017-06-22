@@ -43,16 +43,12 @@ public class FeedPresenter implements FeedContract.HomePresenter {
 
             @Override
             public void onFailure(Call<Feed2> call, Throwable t) {
-                view.showMessage(t.getMessage());
+
                 view.hideLoading();
             }
         });
 
     }
 
-    @Override
-    public void onFeedItemClicked(Feed2 film) {
-        view.onClick(film);
-    }
 
 }

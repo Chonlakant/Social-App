@@ -10,13 +10,17 @@ public class ProfileModel implements BaseItemModel {
     private String name;
     private String urlAvatra;
     private String time;
+    private String userId;
+    private String cover;
 
 
-    public ProfileModel(int mID, String name, String urlAvatra,String time) {
+    public ProfileModel(int mID, String name, String urlAvatra,String time,String userId,String cover) {
         this.mID = mID;
         this.name = name;
         this.urlAvatra = urlAvatra;
         this.time = time;
+        this.userId = userId;
+        this.cover = cover;
 
     }
 
@@ -70,5 +74,21 @@ public class ProfileModel implements BaseItemModel {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 }

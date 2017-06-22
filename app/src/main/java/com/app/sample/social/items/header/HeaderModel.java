@@ -13,7 +13,7 @@ public class HeaderModel implements BaseItemModel {
 
     @NonNull
     private final String mName;
-
+    String userId;
 
     public HeaderModel(final int ID, @NonNull final String name, String url,String time) {
         mID = ID;

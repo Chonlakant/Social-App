@@ -1,11 +1,17 @@
 package com.app.sample.social.fragment;
 
-import android.content.res.TypedArray;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +19,87 @@ import android.widget.Toast;
 
 import com.app.sample.social.ActivityFriendDetails;
 import com.app.sample.social.R;
-import com.app.sample.social.adapter.FeedListAdapter;
-import com.app.sample.social.model.Feed;
-import com.app.sample.social.model.Friend;
+import com.app.sample.social.activity_viedo_full.ActivityFullVideo;
+import com.app.sample.social.activity_youtube.ActivityYoutube;
+import com.app.sample.social.adapter.FeedUserListAdapter;
+import com.app.sample.social.items.BaseItemModel;
+import com.app.sample.social.items.ContentModel;
+import com.app.sample.social.items.file.fileModel;
+import com.app.sample.social.items.file.fileViewRenderer;
+import com.app.sample.social.items.footer.CommentModel;
+import com.app.sample.social.items.footer.CommentViewRenderer;
+import com.app.sample.social.items.header.HeaderModel;
+import com.app.sample.social.items.header.HeaderViewRenderer;
+import com.app.sample.social.items.images.ImagesModel;
+import com.app.sample.social.items.images.ImagesViewRenderer;
+import com.app.sample.social.items.maps.MapsModel;
+import com.app.sample.social.items.maps.MapsViewRenderer;
+import com.app.sample.social.items.mp3.Mp3Model;
+import com.app.sample.social.items.mp3.Mp3ViewRenderer;
+import com.app.sample.social.items.profile.ProfileModel;
+import com.app.sample.social.items.profile.ProfileViewRenderer;
+import com.app.sample.social.items.soundcloud.SoundCloudModel;
+import com.app.sample.social.items.soundcloud.SoundCloudViewRenderer;
+import com.app.sample.social.items.text.TextModel;
+import com.app.sample.social.items.text.TextViewRenderer;
+import com.app.sample.social.items.viedo.VideoViewRenderer;
+import com.app.sample.social.items.viedo.ViedoModel;
+import com.app.sample.social.items.youtube.YoutubeModel;
+import com.app.sample.social.items.youtube.YoutubeViewRenderer;
+import com.app.sample.social.model.FeedUser;
+import com.app.sample.social.model.Header;
+import com.app.sample.social.presenter.FeedContract;
+import com.app.sample.social.presenter.FeedPresenter;
+import com.app.sample.social.presenter.FeedUserContract;
+import com.app.sample.social.presenter.FeedUserPresenter;
+import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("ResourceType")
-public class FriendActivitiesFragment extends Fragment {
+public class FriendActivitiesFragment extends Fragment implements FeedUserContract.HomeViewUser {
 
-    private RecyclerView recyclerView;
-    private FeedListAdapter mAdapter;
-    private List<Feed> items = new ArrayList<>();
+    private View view;
+    private RendererRecyclerViewAdapter mRecyclerViewAdapter;
+    private RecyclerView mRecyclerView;
+
+    private LinearLayoutManager linearLayoutManager;
+    private SwipeRefreshLayout mSwipeToRefresh;
+
+    ArrayList<BaseItemModel> items = new ArrayList<>();
+
+    int type;
+    String name;
+    String avatar;
+    String userId;
+    String cover;
+
+
+    public static FriendActivitiesFragment getInstance(String userId) {
+        FriendActivitiesFragment mainFragment = new FriendActivitiesFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("MSG", userId);
+        mainFragment.setArguments(bundle);
+        return mainFragment;
+    }
+
+
+    FeedUserContract.HomePresenterUser presenter;
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //userId = getActivity().getIntent().getStringExtra("MSG");
+
+
+    }
 
     @Nullable
     @Override
@@ -33,23 +107,299 @@ public class FriendActivitiesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_friend_activities, null);
 
 
+        Bundle args = getArguments();
+        userId = args.getString("MSG");
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-        recyclerView.setHasFixedSize(true);
+        presenter = new FeedUserPresenter(this);
+        presenter.getAllFeedUser(userId);
 
-        TypedArray feed_photo = getResources().obtainTypedArray(R.array.feed_photos);
-        // define feed wrapper
-        Friend friend = ActivityFriendDetails.friend;
-        items.add(new Feed(0, "14:56", friend, getString(R.string.middle_lorem_ipsum)));
-        items.add(new Feed(1, "11:30", friend, feed_photo.getResourceId(0, -1)));
-        items.add(new Feed(2, "09:10", friend, getString(R.string.lorem_ipsum)));
-        items.add(new Feed(3, "Yesterday", friend, getString(R.string.short_lorem_ipsum), feed_photo.getResourceId(2, -1)));
-        items.add(new Feed(4, "05 Nov 2015", friend, getString(R.string.long_lorem_ipsum)));
+        mRecyclerViewAdapter = new RendererRecyclerViewAdapter();
+        mRecyclerViewAdapter.registerRenderer(new HeaderViewRenderer(HeaderModel.TYPE, getActivity()));
+        mRecyclerViewAdapter.registerRenderer(new ProfileViewRenderer(ProfileModel.TYPE, getActivity(), mListenerProfile));
+        mRecyclerViewAdapter.registerRenderer(new TextViewRenderer(TextModel.TYPE, getActivity(), mListenerText));
+        mRecyclerViewAdapter.registerRenderer(new ImagesViewRenderer(ImagesModel.TYPE, getActivity(), mListenerPhoto));
+        mRecyclerViewAdapter.registerRenderer(new VideoViewRenderer(ViedoModel.TYPE, getActivity(), mListenerVideo));
+        mRecyclerViewAdapter.registerRenderer(new fileViewRenderer(fileModel.TYPE, getActivity(), mListenerfile));
+        mRecyclerViewAdapter.registerRenderer(new Mp3ViewRenderer(Mp3Model.TYPE, getActivity(), mListenerMp3));
+        mRecyclerViewAdapter.registerRenderer(new MapsViewRenderer(MapsModel.TYPE, getActivity(), mListenerMaps));
+        mRecyclerViewAdapter.registerRenderer(new YoutubeViewRenderer(YoutubeModel.TYPE, getActivity(), mListenerYoutube));
+        mRecyclerViewAdapter.registerRenderer(new SoundCloudViewRenderer(SoundCloudModel.TYPE, getActivity(), mListenerSoundCloud));
+        mRecyclerViewAdapter.registerRenderer(new CommentViewRenderer(CommentModel.TYPE, getActivity(), mListenerComment));
 
-        mAdapter = new FeedListAdapter(getActivity(), items);
-        recyclerView.setAdapter(mAdapter);
+
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+
+
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mSwipeToRefresh = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         return view;
     }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showTitle(String title) {
+
+
+    }
+
+
+    @Override
+    public void showAllFeedUser(List<FeedUser> feed) {
+
+        final int headerID = 1;
+        String nameHeader = feed.get(0).getItems().get(0).getPublisher_data().getFirst_name();
+        String avatarProFile = feed.get(0).getItems().get(0).getPublisher_data().getProfile_picture();
+        String time = feed.get(0).getItems().get(0).getPost_data().getPost_time();
+        items.add(new HeaderModel(headerID, nameHeader, avatarProFile, time));
+        for (int i = 0; i < feed.size(); i++) {
+
+            type = feed.get(i).getItems().get(i).getPost_type2();
+            name = feed.get(i).getItems().get(i).getPublisher_data().getUsername();
+            avatar = feed.get(i).getItems().get(i).getPublisher_data().getProfile_picture();
+            userId = feed.get(i).getItems().get(i).getPublisher_data().getId();
+            cover = feed.get(i).getItems().get(i).getPublisher_data().getCover_picture();
+
+            if (type == 1) {
+
+                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
+                String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
+                String text2 = feed.get(i).getItems().get(i).getPost_data().getPost_text2();
+                String html = textContent;
+
+                String result = Html.fromHtml(html).toString();
+                if (result != null) {
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new TextModel(i, result, text2));
+                    items.add(new CommentModel(i, "some category #" + (i + 1)));
+                }
+            }
+            if (type == 2) {
+
+                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
+                String photoContent = feed.get(i).getItems().get(i).getPost_data().getPost_file();
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                items.add(new ImagesModel(i, photoContent));
+                items.add(new CommentModel(i, "some category #" + (i + 1)));
+            }
+            if (type == 3) {
+                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
+                String urlMp4 = feed.get(i).getItems().get(i).getPost_data().getPost_file();
+                String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                items.add(new ViedoModel(i, urlMp4, title));
+                items.add(new CommentModel(i, "some category #" + (i + 1)));
+            }
+
+            if (type == 4) {
+                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
+                String urlfile = feed.get(i).getItems().get(i).getPost_data().getPost_file();
+                String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                items.add(new fileModel(i, urlfile, title));
+                items.add(new CommentModel(i, "some category #" + (i + 1)));
+            }
+
+            if (type == 5) {
+                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
+                String urlfile = feed.get(i).getItems().get(i).getPost_data().getPost_file();
+                String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                items.add(new Mp3Model(i, urlfile, title));
+                items.add(new CommentModel(i, "some category #" + (i + 1)));
+            }
+            if (type == 6) {
+                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
+                String title = feed.get(i).getItems().get(i).getPost_data().getPost_map();
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                items.add(new MapsModel(i, title));
+                items.add(new CommentModel(i, "some category #" + (i + 1)));
+            }
+
+            if (type == 7) {
+                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
+                String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
+                String coverYoutube = feed.get(i).getItems().get(i).getPost_data().getPost_thumb();
+                String urlYoutube = feed.get(i).getItems().get(i).getPost_data().getPost_youtube();
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
+                items.add(new CommentModel(i, "some category #" + (i + 1)));
+            }
+            if (type == 8) {
+                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
+                String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                items.add(new SoundCloudModel(i, title));
+                items.add(new CommentModel(i, "some category #" + (i + 1)));
+            }
+
+        }
+
+        mRecyclerViewAdapter.setItems(items, mDiffCallback);
+        mSwipeToRefresh.setRefreshing(false);
+
+    }
+
+
+    @NonNull
+    private final CommentViewRenderer.Listener mListenerComment = new CommentViewRenderer.Listener() {
+        @Override
+        public void onCommentClicked(@NonNull CommentModel model) {
+            Toast.makeText(getActivity(), "gggg" + model.getID() + "", Toast.LENGTH_SHORT).show();
+        }
+
+    };
+
+    @NonNull
+    private final ImagesViewRenderer.Listener mListenerPhoto = new ImagesViewRenderer.Listener() {
+        @Override
+        public void onProfileClicked(@NonNull ImagesModel model) {
+            Toast.makeText(getActivity(), "gggg" + model.getID() + "", Toast.LENGTH_SHORT).show();
+        }
+
+    };
+
+    @NonNull
+    private final fileViewRenderer.Listener mListenerfile = new fileViewRenderer.Listener() {
+        @Override
+        public void onFileClicked(@NonNull fileModel model) {
+
+        }
+
+    };
+
+    @NonNull
+    private final VideoViewRenderer.Listener mListenerVideo = new VideoViewRenderer.Listener() {
+        @Override
+        public void onPlayClicked(@NonNull ViedoModel model) {
+
+            String post_file = model.getUrlViedo();
+            Intent i = new Intent(getActivity(), ActivityFullVideo.class);
+            i.putExtra("urlvdo", post_file);
+            startActivity(i);
+        }
+
+    };
+
+
+    @NonNull
+    private final TextViewRenderer.Listener mListenerText = new TextViewRenderer.Listener() {
+        @Override
+        public void onTextClicked(@NonNull TextModel model) {
+
+        }
+
+
+    };
+
+    @NonNull
+    private final MapsViewRenderer.Listener mListenerMaps = new MapsViewRenderer.Listener() {
+        @Override
+        public void onMpasClicked(@NonNull MapsModel model) {
+
+        }
+
+    };
+
+    @NonNull
+    private final Mp3ViewRenderer.Listener mListenerMp3 = new Mp3ViewRenderer.Listener() {
+        @Override
+        public void onPlayClicked(@NonNull Mp3Model model) {
+            Log.e("ffff", model.getUrlfifle());
+        }
+
+    };
+
+
+    private final ProfileViewRenderer.Listener mListenerProfile = new ProfileViewRenderer.Listener() {
+        @Override
+        public void onProfileClicked(@NonNull ProfileModel model) {
+
+            String title = model.getName();
+            String cover = model.getCover();
+            String userId = model.getUserId();
+
+            Log.e("title", title);
+            Log.e("cover", cover);
+            Log.e("userId", userId);
+
+            Intent i = new Intent(getActivity(), ActivityFriendDetails.class);
+            i.putExtra("title", title);
+            i.putExtra("cover", cover);
+            i.putExtra("userId", userId);
+            startActivity(i);
+        }
+
+
+    };
+
+    private final YoutubeViewRenderer.Listener mListenerYoutube = new YoutubeViewRenderer.Listener() {
+        @Override
+        public void onYoutubeClicked(@NonNull YoutubeModel model) {
+
+            String s = model.getUrlYoutube();
+            String[] parts = s.split("\\="); // escape .
+            String part1 = parts[0];
+            final String part2 = parts[1];
+
+
+            Intent i = new Intent(getActivity(), ActivityYoutube.class);
+            i.putExtra("urlYoutube", part2);
+            startActivity(i);
+        }
+
+    };
+
+    private final SoundCloudViewRenderer.Listener mListenerSoundCloud = new SoundCloudViewRenderer.Listener() {
+        @Override
+        public void onSoundCloudClicked(@NonNull SoundCloudModel model) {
+
+        }
+
+    };
+
+    @NonNull
+    private final RendererRecyclerViewAdapter.DiffCallback<BaseItemModel> mDiffCallback = new RendererRecyclerViewAdapter
+            .DiffCallback<BaseItemModel>() {
+        @Override
+        public boolean areItemsTheSame(final BaseItemModel oldItem, final BaseItemModel newItem) {
+            return oldItem.getID() == newItem.getID();
+        }
+
+        @Override
+        public boolean areContentsTheSame(final BaseItemModel oldItem, final BaseItemModel newItem) {
+            return oldItem.equals(newItem);
+        }
+
+        @Nullable
+        @Override
+        public Object getChangePayload(final BaseItemModel oldItem, final BaseItemModel newItem) {
+            if (oldItem.getType() != ContentModel.TYPE ||
+                    newItem.getType() != ContentModel.TYPE) {
+                return null;
+            }
+
+            final ContentModel oldContentItem = (ContentModel) oldItem;
+            final ContentModel newContentItem = (ContentModel) newItem;
+
+            final Bundle diffBundle = new Bundle();
+            if (!oldContentItem.getName().equals(newContentItem.getName())) {
+                diffBundle.putBoolean(ContentModel.KEY_NAME, true);
+            }
+
+            return diffBundle.size() == 0 ? null : diffBundle;
+        }
+    };
 }

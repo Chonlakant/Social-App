@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,6 +62,8 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
         setContentView(R.layout.activity_product_details);
         parent_view = findViewById(android.R.id.content);
         edit_text_comment = (EditText) findViewById(R.id.edit_text_comment);
+
+        hideKeyboard(edit_text_comment);
 
         recyclerViewDetails = (RecyclerView) findViewById(R.id.recyclerViewDetails);
         recyclerViewDetails.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

@@ -12,13 +12,8 @@ public interface FeedContract {
 
         void hideLoading();
 
-        void showTitle(String title);
-
-        void showMessage(String message);
 
         void showAllFeed(List<Feed2> feed);
-
-        void onClick(Feed2 feed);
 
 
     }
@@ -26,6 +21,5 @@ public interface FeedContract {
     interface HomePresenter {
         void getAllFeed();
 
-        void onFeedItemClicked(Feed2 film);
     }
 }

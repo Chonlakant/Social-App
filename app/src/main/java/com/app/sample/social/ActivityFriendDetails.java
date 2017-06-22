@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,19 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.app.sample.social.data.Constant;
-import com.app.sample.social.data.Tools;
 import com.app.sample.social.fragment.FriendAboutFragment;
 import com.app.sample.social.fragment.FriendActivitiesFragment;
-import com.app.sample.social.fragment.FriendActivitiesFragment2;
 import com.app.sample.social.fragment.FriendPhotosFragment;
 import com.app.sample.social.model.Friend;
-import com.app.sample.social.model.Friend2;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -48,7 +39,7 @@ public class ActivityFriendDetails extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private FriendAboutFragment frag_friendAbout;
-    private FriendActivitiesFragment2 frag_friendActivity;
+    private FriendActivitiesFragment frag_friendActivity;
     private FriendPhotosFragment frag_friendPhotos;
     private ActionBar actionBar;
     public static Friend friend;
@@ -99,7 +90,7 @@ public class ActivityFriendDetails extends AppCompatActivity {
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
 
         if( frag_friendAbout == null ){ frag_friendAbout = new FriendAboutFragment(); }
-        if( frag_friendActivity == null ){ frag_friendActivity = FriendActivitiesFragment2.getInstance(userId); }
+        if( frag_friendActivity == null ){ frag_friendActivity = FriendActivitiesFragment.getInstance(userId); }
         if( frag_friendPhotos == null ){ frag_friendPhotos = new FriendPhotosFragment(); }
 
         adapter.addFragment(frag_friendAbout, "ABOUT");

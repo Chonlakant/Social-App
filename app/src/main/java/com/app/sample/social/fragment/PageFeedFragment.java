@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.app.sample.social.ActivityFriendDetails;
 import com.app.sample.social.R;
 import com.app.sample.social.activity_viedo_full.ActivityFullVideo;
 import com.app.sample.social.activity_youtube.ActivityYoutube;
@@ -81,6 +82,12 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     ArrayList<BaseItemModel> items = new ArrayList<>();
 
     FeedContract.HomePresenter presenter;
+
+    int type;
+    String name;
+    String avatar;
+    String userId;
+    String cover;
 
     @Nullable
     @Override
@@ -151,17 +158,6 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     }
 
     @Override
-    public void showTitle(String title) {
-
-    }
-
-    @Override
-    public void showMessage(String message) {
-
-    }
-
-
-    @Override
     public void showAllFeed(final List<Feed2> feed) {
 
         final int headerID = 1;
@@ -171,27 +167,32 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
         items.add(new HeaderModel(headerID, nameHeader, avatarProFile, time));
         for (int i = 0; i < feed.size(); i++) {
 
-            int type = feed.get(i).getItems().get(i).getPost_type2();
-            String name = feed.get(i).getItems().get(i).getPublisher_data().getUsername();
-            String avatar = feed.get(i).getItems().get(i).getPublisher_data().getProfile_picture();
+            type = feed.get(i).getItems().get(i).getPost_type2();
+            name = feed.get(i).getItems().get(i).getPublisher_data().getUsername();
+            avatar = feed.get(i).getItems().get(i).getPublisher_data().getProfile_picture();
+            userId = feed.get(i).getItems().get(i).getPublisher_data().getId();
+            cover = feed.get(i).getItems().get(i).getPublisher_data().getCover_picture();
 
             if (type == 1) {
+
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
                 String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
                 String text2 = feed.get(i).getItems().get(i).getPost_data().getPost_text2();
                 String html = textContent;
+
                 String result = Html.fromHtml(html).toString();
                 if (result != null) {
 
-                    items.add(new ProfileModel(i, name, avatar, timePost));
-                    items.add(new TextModel(i, result,text2));
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new TextModel(i, result, text2));
                     items.add(new CommentModel(i, "some category #" + (i + 1)));
                 }
             }
             if (type == 2) {
+
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
                 String photoContent = feed.get(i).getItems().get(i).getPost_data().getPost_file();
-                items.add(new ProfileModel(i, name, avatar, timePost));
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new ImagesModel(i, photoContent));
                 items.add(new CommentModel(i, "some category #" + (i + 1)));
             }
@@ -199,7 +200,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
                 String urlMp4 = feed.get(i).getItems().get(i).getPost_data().getPost_file();
                 String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                items.add(new ProfileModel(i, name, avatar, timePost));
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new ViedoModel(i, urlMp4, title));
                 items.add(new CommentModel(i, "some category #" + (i + 1)));
             }
@@ -208,7 +209,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
                 String urlfile = feed.get(i).getItems().get(i).getPost_data().getPost_file();
                 String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                items.add(new ProfileModel(i, name, avatar, timePost));
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new fileModel(i, urlfile, title));
                 items.add(new CommentModel(i, "some category #" + (i + 1)));
             }
@@ -217,14 +218,14 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
                 String urlfile = feed.get(i).getItems().get(i).getPost_data().getPost_file();
                 String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                items.add(new ProfileModel(i, name, avatar, timePost));
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new Mp3Model(i, urlfile, title));
                 items.add(new CommentModel(i, "some category #" + (i + 1)));
             }
             if (type == 6) {
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
                 String title = feed.get(i).getItems().get(i).getPost_data().getPost_map();
-                items.add(new ProfileModel(i, name, avatar, timePost));
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new MapsModel(i, title));
                 items.add(new CommentModel(i, "some category #" + (i + 1)));
             }
@@ -232,16 +233,16 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
             if (type == 7) {
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
                 String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                String cover = feed.get(i).getItems().get(i).getPost_data().getPost_thumb();
+                String coverYoutube = feed.get(i).getItems().get(i).getPost_data().getPost_thumb();
                 String urlYoutube = feed.get(i).getItems().get(i).getPost_data().getPost_youtube();
-                items.add(new ProfileModel(i, name, avatar, timePost));
-                items.add(new YoutubeModel(i, urlYoutube, title, cover));
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
                 items.add(new CommentModel(i, "some category #" + (i + 1)));
             }
             if (type == 8) {
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
                 String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                items.add(new ProfileModel(i, name, avatar, timePost));
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new SoundCloudModel(i, title));
                 items.add(new CommentModel(i, "some category #" + (i + 1)));
             }
@@ -253,10 +254,6 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
 
     }
 
-    @Override
-    public void onClick(Feed2 feed) {
-
-    }
 
     @Override
     public void onCommentClick(View view, int position) {
@@ -328,7 +325,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     private final Mp3ViewRenderer.Listener mListenerMp3 = new Mp3ViewRenderer.Listener() {
         @Override
         public void onPlayClicked(@NonNull Mp3Model model) {
-                Log.e("ffff",model.getUrlfifle());
+            Log.e("ffff", model.getUrlfifle());
         }
 
     };
@@ -337,7 +334,20 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     private final ProfileViewRenderer.Listener mListenerProfile = new ProfileViewRenderer.Listener() {
         @Override
         public void onProfileClicked(@NonNull ProfileModel model) {
-            Toast.makeText(getActivity(), "gggg" + model.getID() + "", Toast.LENGTH_SHORT).show();
+
+            String title = model.getName();
+            String cover = model.getCover();
+            String userId = model.getUserId();
+
+            Log.e("title",title);
+            Log.e("cover",cover);
+            Log.e("userId",userId);
+
+            Intent i = new Intent(getActivity(), ActivityFriendDetails.class);
+            i.putExtra("title", title);
+            i.putExtra("cover", cover);
+            i.putExtra("userId", userId);
+            startActivity(i);
         }
 
 
