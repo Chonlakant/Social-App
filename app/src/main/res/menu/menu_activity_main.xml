@@ -30,4 +30,10 @@
         android:orderInCategory="100"
         android:title="About"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_louout"
+        android:orderInCategory="100"
+        android:title="ออกจากระบบ"
+        app:showAsAction="never" />
 </menu>

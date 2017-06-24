@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bg_form_2"/>
+        android:scaleType="center"
+        android:src="@drawable/background_1" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,170 +19,293 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/spacing_large"
-            android:background="#BFFFFFFF"
-            android:minWidth="400dp"
-            android:orientation="vertical"
-            android:padding="@dimen/spacing_xlarge">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_large"
-                android:text="Registration"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo" />
 
-                    <EditText
-                        android:id="@+id/input_name"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/spacing_xxlarge"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="@string/hint_name"
-                        android:singleLine="true" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_form_people" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/colorAccent" />
             </LinearLayout>
+
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/input_email"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/spacing_xxlarge"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="@string/hint_email"
-                        android:inputType="textEmailAddress"
-                        android:singleLine="true" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_form_mail" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/colorAccent" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/input_country"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/spacing_xxlarge"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="@string/hint_country"
-                        android:inputType="text"
-                        android:singleLine="true" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_form_country" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/colorAccent" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/input_city"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/spacing_xxlarge"
-                        android:layout_weight="1"
-                        android:background="@android:color/transparent"
-                        android:hint="@string/hint_city"
-                        android:inputType="text"
-                        android:singleLine="true" />
-
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/ic_form_city" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@color/colorAccent" />
-            </LinearLayout>
-
-            <com.balysv.materialripple.MaterialRippleLayout
-                style="@style/RippleStyleBlack"
+                android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="@dimen/spacing_large">
+                android:background="#ffffff"
+                android:minWidth="400dp"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_xlarge">
 
-                <Button
-                    android:id="@+id/btn_signup"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/selector"
-                    android:text="@string/btn_sign_up"
+                    android:layout_marginBottom="@dimen/spacing_large"
+                    android:text="ลงชื่อ"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="#444444"
                     android:textStyle="bold" />
-            </com.balysv.materialripple.MaterialRippleLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#bbbbbb" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:src="@drawable/ic_form_mail"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/input_layout_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/border_login">
+
+                        <EditText
+                            android:id="@+id/input_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dip"
+                            android:background="@null"
+                            android:hint="ชื่อผู้ใช้งาน"
+                            android:inputType="textEmailAddress"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:src="@drawable/ic_form_mail"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/border_login">
+
+                        <EditText
+                            android:id="@+id/input_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dip"
+                            android:background="@null"
+                            android:hint="ที่อยู่่ อีเมล์ หมายเลขโทรศัพท์"
+                            android:inputType="textEmailAddress"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:src="@drawable/ic_form_mail"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/border_login">
+
+                        <EditText
+                            android:id="@+id/input_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10dip"
+                            android:background="@null"
+                            android:hint="รหัสผ่าน"
+                            android:inputType="textEmailAddress"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_large"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:src="@drawable/ic_form_lock"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/border_login"
+                        android:gravity="center">
+
+
+                        <EditText
+                            android:id="@+id/input_password_con"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dip"
+                            android:background="@null"
+                            android:hint="ยืนยันรหัสผ่าน"
+                            android:inputType="textPassword"
+                            android:textSize="14dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_large"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:src="@drawable/ic_form_lock"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/border_login"
+                        android:gravity="center">
+
+
+                        <Spinner
+                            android:id="@+id/spinner_type"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:prompt="@string/spinner_title" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="การสร้างบัญชีของคุณแสดงว่าคุณยอมรับเรา"
+                        android:textColor="#000000" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ข้อกำหนดการใช้งาน"
+                        android:textColor="#444444" />
+
+
+                    <CheckBox
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="จำรหัสผ่าน ?"
+                        android:textColor="#444444"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#bbbbbb" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    style="@style/RippleStyleWhite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary">
+
+                    <Button
+                        android:id="@+id/btn_signup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#a84849"
+                        android:text="ดำเนินการต่อ"
+                        android:textColor="@android:color/white" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="false"
+                    android:visibility="gone" />
+
+
+            </LinearLayout>
 
         </LinearLayout>
+
 
     </ScrollView>
 </RelativeLayout>

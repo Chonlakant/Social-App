@@ -5,17 +5,20 @@ import android.support.annotation.NonNull;
 import com.app.sample.social.items.BaseItemModel;
 
 
-public class CommentModel
-        implements BaseItemModel {
+public class CommentModel implements BaseItemModel {
 
+    public boolean isLiked;
     public static final int TYPE = 10;
     private final int mID;
     @NonNull
-    private final String mTitle;
+    private final String countLike;
+    private String postId;
 
-    public CommentModel(final int ID, @NonNull final String title) {
+    public CommentModel(final int ID, @NonNull final String countLike,boolean isLiked,String postId) {
         mID = ID;
-        mTitle = title;
+        this.countLike = countLike;
+       this.isLiked = isLiked;
+        this.postId = postId;
     }
 
     @Override
@@ -29,32 +32,15 @@ public class CommentModel
     }
 
     @NonNull
-    public String getName() {
-        return mTitle;
+    public String getCountLike() {
+        return countLike;
     }
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        final CommentModel that = (CommentModel) o;
-
-        if (mID != that.mID) {
-            return false;
-        }
-        return mTitle.equals(that.mTitle);
-
+    public String getPostId() {
+        return postId;
     }
 
-    @Override
-    public int hashCode() {
-        int result = mID;
-        result = 31 * result + mTitle.hashCode();
-        return result;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 }

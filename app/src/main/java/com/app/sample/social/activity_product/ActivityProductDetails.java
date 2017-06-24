@@ -37,9 +37,6 @@ import java.util.List;
 
 public class ActivityProductDetails extends AppCompatActivity implements ListProductIdContract.HomeViewProduct {
 
-    public static String KEY_FRIEND = "com.app.sample.social.FRIEND";
-    public static String KEY_SNIPPET = "com.app.sample.social.SNIPPET";
-    //comment
     ListProductIdContract.HomePresenterProduct presenter;
 
     public EditText edit_text_comment;
@@ -75,13 +72,6 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
         );
         recyclerViewImage.setLayoutManager(mLayoutManager);
 
-        // animation transition
-        ViewCompat.setTransitionName(parent_view, KEY_FRIEND);
-
-        // initialize conversation data
-        Intent intent = getIntent();
-        friend = (product) intent.getExtras().getSerializable(KEY_FRIEND);
-        String snippets = intent.getStringExtra(KEY_SNIPPET);
         initToolbar();
 
         idProduct = getIntent().getStringExtra("id_product");
@@ -111,22 +101,6 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    private TextWatcher contentWatcher = new TextWatcher() {
-        @Override
-        public void afterTextChanged(Editable etd) {
-
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-        }
-    };
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,9 +109,6 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
         return true;
     }
 
-    /**
-     * Handle click on action bar
-     **/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection

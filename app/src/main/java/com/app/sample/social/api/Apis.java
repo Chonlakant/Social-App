@@ -26,6 +26,9 @@ public class Apis {
 
     private static final long CACHE_SIZE = 10 * 1024 * 1024;    // 10 MB
 
+    private static Retrofit retrofit2 = null;
+    public static String BASE_URL = "http://zaab-d.com/";
+
     public static ServiceApi getApis() {
 
         Gson gson = new GsonBuilder()
@@ -47,7 +50,7 @@ public class Apis {
 
         // Set the custom client when building adapter
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://zaab-d.com/")
+                .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(client)
                 .build();
@@ -119,5 +122,22 @@ public class Apis {
                     .build();
             return response1;
         }
+    }
+
+
+    public static Retrofit getClient() {
+        if (retrofit2 == null) {
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
+
+            retrofit2 = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+
+        }
+        return retrofit2;
     }
 }

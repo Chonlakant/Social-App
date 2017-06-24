@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.app.sample.social.R;
 import com.app.sample.social.model.Notif;
+import com.app.sample.social.model.Notifications;
 import com.app.sample.social.widget.CircleTransform;
 import com.squareup.picasso.Picasso;
 
@@ -27,8 +28,8 @@ import java.util.List;
 
 public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.ViewHolder> implements Filterable {
 
-    private List<Notif> original_items = new ArrayList<>();
-    private List<Notif> filtered_items = new ArrayList<>();
+    private List<Notifications> original_items = new ArrayList<>();
+    private List<Notifications> filtered_items = new ArrayList<>();
     private ItemFilter mFilter = new ItemFilter();
 
     private Context ctx;
@@ -39,6 +40,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
         public TextView date;
         public ImageView image;
         public LinearLayout lyt_parent;
+        public TextView txt_text;
 
         public ViewHolder(View v) {
             super(v);
@@ -46,6 +48,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
             date = (TextView) v.findViewById(R.id.date);
             image = (ImageView) v.findViewById(R.id.image);
             lyt_parent = (LinearLayout) v.findViewById(R.id.lyt_parent);
+            txt_text = (TextView) v.findViewById(R.id.txt_text);
         }
 
     }
@@ -55,7 +58,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public NotifListAdapter(Context ctx, List<Notif> items) {
+    public NotifListAdapter(Context ctx, List<Notifications> items) {
         this.ctx = ctx;
         original_items = items;
         filtered_items = items;
@@ -73,10 +76,12 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final Notif n = filtered_items.get(position);
-        holder.content.setText(Html.fromHtml(n.getContent()));
-        holder.date.setText(n.getDate());
-        Picasso.with(ctx).load(n.getFriend().getPhoto())
+        final Notifications n = filtered_items.get(position);
+        //  holder.content.setText(Html.fromHtml(n.getContent()));
+        holder.content.setText(n.getNotifications().get(position).getNotifier().getUsername());
+        holder.txt_text.setText(n.getNotifications().get(position).getType_text());
+        holder.date.setText(n.getNotifications().get(position).getTime_text_string());
+        Picasso.with(ctx).load(n.getNotifications().get(position).getNotifier().getAvatar())
                 .resize(60, 60)
                 .transform(new CircleTransform())
                 .into(holder.image);
@@ -85,13 +90,15 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
         holder.lyt_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Notif - " + n.getFriend().getName() + " clicked", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(view, "Notif - " + n.getNotifications().get(position).getNotifier().getUsername()
+                        + " clicked", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
 
     // Here is the key method to apply the animation
     private int lastPosition = -1;
+
     private void setAnimation(View viewToAnimate, int position) {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
@@ -109,7 +116,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
 
     @Override
     public long getItemId(int position) {
-        return filtered_items.get(position).getId();
+        return filtered_items.get(position).getNotifications().size();
     }
 
     private class ItemFilter extends Filter {
@@ -118,11 +125,11 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
             String query = constraint.toString().toLowerCase();
 
             FilterResults results = new FilterResults();
-            final List<Notif> list = original_items;
-            final List<Notif> result_list = new ArrayList<>(list.size());
+            final List<Notifications> list = original_items;
+            final List<Notifications> result_list = new ArrayList<>(list.size());
 
             for (int i = 0; i < list.size(); i++) {
-                String str_title = list.get(i).getFriend().getName();
+                String str_title = list.get(i).getNotifications().get(i).getNotifier().getUsername();
                 if (str_title.toLowerCase().contains(query)) {
                     result_list.add(list.get(i));
                 }
@@ -137,7 +144,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
         @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            filtered_items = (List<Notif>) results.values;
+            filtered_items = (List<Notifications>) results.values;
             notifyDataSetChanged();
         }
 

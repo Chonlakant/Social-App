@@ -12,6 +12,8 @@
         \n<a href="www.pixabay.com">www.pixabay.com</a>
     </string>
 
+    <string name="spinner_title">ชาย</string>
+
     <string name="my_name">John Miller</string>
 
     <string name="tab_feed">Feeds</string>

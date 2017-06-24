@@ -33,8 +33,8 @@ public class ActivityRegistration extends AppCompatActivity {
 
 
         inputName = (EditText) findViewById(R.id.input_name);
-        inputCountry = (EditText) findViewById(R.id.input_country);
-        inputCity = (EditText) findViewById(R.id.input_city);
+        inputCountry = (EditText) findViewById(R.id.input_address);
+        inputCity = (EditText) findViewById(R.id.input_password_con);
         inputEmail = (EditText) findViewById(R.id.input_email);
 
         btnSignUp = (Button) findViewById(R.id.btn_signup);
@@ -120,6 +120,7 @@ public class ActivityRegistration extends AppCompatActivity {
         }
         return true;
     }
+
     private static boolean isValidEmail(String email) {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }

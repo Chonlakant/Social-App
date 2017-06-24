@@ -1,50 +1,76 @@
 package com.app.sample.social;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.app.sample.social.data.Constant;
 import com.app.sample.social.data.Tools;
+import com.app.sample.social.model.Login;
+import com.app.sample.social.presenter_login.LoginUserContract;
+import com.app.sample.social.presenter_login.LoginUserPresenter;
 
-public class ActivityLogin extends AppCompatActivity {
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
+public class ActivityLogin extends AppCompatActivity implements LoginUserContract.HomeViewLoginUsers {
     private EditText inputEmail, inputPassword;
-    private TextInputLayout inputLayoutEmail, inputLayoutPassword;
     private Button btnLogin;
     private ProgressBar progressBar;
     private View parent_view;
 
+    LoginUserContract.HomePresenterLogoinUser presenter;
+
+    String strLongNumber;
+
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "login";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         parent_view = findViewById(android.R.id.content);
 
-        inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
-        inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
+        sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+
+        if (sharedpreferences.getBoolean("isLogin", false) == true) {
+            Intent i = new Intent(getApplicationContext(), ActivityMain.class);
+            startActivity(i);
+            finish();
+        } else {
+
+        }
+
+        presenter = new LoginUserPresenter(this);
+
+
+//        inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
+//        inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
         inputEmail = (EditText) findViewById(R.id.input_email);
         inputPassword = (EditText) findViewById(R.id.input_password);
         btnLogin = (Button) findViewById(R.id.btn_login);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        inputEmail.addTextChangedListener(new MyTextWatcher(inputEmail));
-        inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,55 +82,27 @@ public class ActivityLogin extends AppCompatActivity {
         Tools.systemBarLolipop(this);
     }
 
-    private void hideKeyboard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
 
-    /**
-     * Validating form
-     */
     private void submitForm() {
 
-        if (!validateEmail()) {
-            return;
-        }
+        long number = (long) Math.floor(Math.random() * 9000000000000L) + 1000000000000L;
+        strLongNumber = Long.toString(number);
 
-        if (!validatePassword()) {
-            return;
-        }
-        new AttempLoginTask().execute("");
+        presenter.loginUser(inputEmail.getText().toString(), inputPassword.getText().toString(), strLongNumber);
     }
 
-
-    private boolean validateEmail() {
-        String email = inputEmail.getText().toString().trim();
-
-        if (email.isEmpty() || !isValidEmail(email)) {
-            inputLayoutEmail.setError(getString(R.string.err_msg_email));
-            requestFocus(inputEmail);
-            return false;
-        } else {
-            inputLayoutEmail.setErrorEnabled(false);
-        }
-
-        return true;
-    }
 
     private boolean validatePassword() {
         if (inputPassword.getText().toString().trim().isEmpty()) {
-            inputLayoutPassword.setError(getString(R.string.err_msg_password));
+            //  inputLayoutPassword.setError(getString(R.string.err_msg_password));
             requestFocus(inputPassword);
             return false;
-        } else if (inputPassword.getText().length()<5){
-            inputLayoutPassword.setError(getString(R.string.inv_msg_password));
+        } else if (inputPassword.getText().length() < 5) {
+            //  inputLayoutPassword.setError(getString(R.string.inv_msg_password));
             requestFocus(inputPassword);
             return false;
-        }else {
-            inputLayoutPassword.setErrorEnabled(false);
+        } else {
+            // inputLayoutPassword.setErrorEnabled(false);
         }
 
         return true;
@@ -120,60 +118,35 @@ public class ActivityLogin extends AppCompatActivity {
         }
     }
 
-    private class MyTextWatcher implements TextWatcher {
+    @Override
+    public void loginUser(List<Login> login) {
+        Log.e("api_status", login.get(0).getApi_status() + "");
+        Log.e("api_text", login.get(0).getApi_text() + "");
+        if (login.get(0).getApi_status().equals("200")) {
 
-        private View view;
+            String userId = login.get(0).getUser_id();
+            Log.e("timeStamp2",strLongNumber);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putBoolean("isLogin", true);
+            editor.putString("userName", inputEmail.getText().toString());
+            editor.putString("timeStamp", strLongNumber);
+            editor.putString("userId", userId);
+            editor.commit();
 
-        private MyTextWatcher(View view) {
-            this.view = view;
+            Toast.makeText(getApplicationContext(), "ยินดีตอนรับ", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(getApplicationContext(), ActivityMain.class);
+            startActivity(i);
+            finish();
+
+        } else {
+            Toast.makeText(getApplicationContext(), "ล้มเหลว", Toast.LENGTH_SHORT).show();
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.clear();
+            editor.commit();
         }
 
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.input_email:
-                    validateEmail();
-                    break;
-                case R.id.input_password:
-                    validatePassword();
-                    break;
-            }
-        }
     }
 
-    private class AttempLoginTask extends AsyncTask<String, String, String>{
-        @Override
-        protected void onPreExecute() {
-            progressBar.setVisibility(View.VISIBLE);
-            btnLogin.setVisibility(View.GONE);
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            progressBar.setVisibility(View.GONE);
-            btnLogin.setVisibility(View.VISIBLE);
-            Snackbar.make(parent_view, "Login Success", Snackbar.LENGTH_SHORT).show();
-            hideKeyboard();
-            //finish();
-            super.onPostExecute(s);
-        }
-    }
 
 }
 
