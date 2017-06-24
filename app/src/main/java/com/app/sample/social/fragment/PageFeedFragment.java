@@ -196,15 +196,10 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
                 String text2 = feed.get(i).getItems().get(i).getPost_data().getPost_text2();
-                String html = textContent;
 
-                String result = Html.fromHtml(html).toString();
-                if (result != null) {
-
-                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new TextModel(i, result, text2));
-                    items.add(new CommentModel(i, countLike, false, postId));
-                }
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                items.add(new TextModel(i, textContent, text2));
+                items.add(new CommentModel(i, countLike, false, postId));
             }
             if (type == 2) {
                 String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
