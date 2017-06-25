@@ -42,7 +42,7 @@ public class ProfileViewRenderer extends ViewRenderer<ProfileModel, ProfileViewH
         holder.text_name.setText(model.getName());
 
         long t = Long.parseLong(model.getTime());
-        holder.text_date.setText(getDate(t, "d-M-yyyy hh:mm") + "");
+        holder.text_date.setText(model.getTime());
 
         Picasso.with(getContext())
                 .load(model.getUrlAvatra())

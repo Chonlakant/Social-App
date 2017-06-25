@@ -100,6 +100,8 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     String userId;
     String cover;
 
+    String postId;
+
     String userIdPreferences;
 
     @Nullable
@@ -137,12 +139,15 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
-        updateItems();
+
         return view;
     }
 
     private void updateItems() {
 
+        items.clear();
+        presenter.getAllFeed();
+        mRecyclerViewAdapter.notifyDataSetChanged();
         mSwipeToRefresh.setRefreshing(false);
     }
 
@@ -175,12 +180,13 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
 
     @Override
     public void showAllFeed(final List<Feed2> feed) {
-
+        mRecyclerViewAdapter.notifyDataSetChanged();
         final int headerID = 1;
         String nameHeader = feed.get(0).getItems().get(0).getPublisher_data().getFirst_name();
         String avatarProFile = feed.get(0).getItems().get(0).getPublisher_data().getProfile_picture();
         String time = feed.get(0).getItems().get(0).getPost_data().getPost_time();
         items.add(new HeaderModel(headerID, nameHeader, avatarProFile, time));
+
         for (int i = 0; i < feed.size(); i++) {
 
             type = feed.get(i).getItems().get(i).getPost_type2();
@@ -192,7 +198,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
             if (type == 1) {
 
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
-                String postId = feed.get(i).getItems().get(i).getPost_id();
+                postId = feed.get(i).getItems().get(i).getPost_id();
                 String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
                 String text2 = feed.get(i).getItems().get(i).getPost_data().getPost_text2();
@@ -205,14 +211,14 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
-                String postId = feed.get(i).getItems().get(i).getPost_id();
+                postId = feed.get(i).getItems().get(i).getPost_id();
                 String photoContent = feed.get(i).getItems().get(i).getPost_data().getPost_file();
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new ImagesModel(i, photoContent));
                 items.add(new CommentModel(i, countLike, false, postId));
             }
             if (type == 3) {
-                String postId = feed.get(i).getItems().get(i).getPost_id();
+                postId = feed.get(i).getItems().get(i).getPost_id();
                 String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
@@ -224,7 +230,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
             }
 
             if (type == 4) {
-                String postId = feed.get(i).getItems().get(i).getPost_id();
+                postId = feed.get(i).getItems().get(i).getPost_id();
                 String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
@@ -236,7 +242,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
             }
 
             if (type == 5) {
-                String postId = feed.get(i).getItems().get(i).getPost_id();
+                postId = feed.get(i).getItems().get(i).getPost_id();
                 String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
@@ -247,7 +253,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 items.add(new CommentModel(i, countLike, false, postId));
             }
             if (type == 6) {
-                String postId = feed.get(i).getItems().get(i).getPost_id();
+                postId = feed.get(i).getItems().get(i).getPost_id();
                 String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
@@ -258,9 +264,8 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
             }
 
             if (type == 7) {
-                String postId = feed.get(i).getItems().get(i).getPost_id();
+                postId = feed.get(i).getItems().get(i).getPost_id();
                 String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
-                String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
                 String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
                 String coverYoutube = feed.get(i).getItems().get(i).getPost_data().getPost_thumb();
@@ -270,7 +275,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 items.add(new CommentModel(i, countLike, false, postId));
             }
             if (type == 8) {
-                String postId = feed.get(i).getItems().get(i).getPost_id();
+                postId = feed.get(i).getItems().get(i).getPost_id();
                 String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
                 String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
@@ -282,8 +287,10 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
 
         }
 
+
         mRecyclerViewAdapter.setItems(items, mDiffCallback);
         mSwipeToRefresh.setRefreshing(false);
+        mRecyclerViewAdapter.notifyDataSetChanged();
 
     }
 
@@ -381,7 +388,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     private final Mp3ViewRenderer.Listener mListenerMp3 = new Mp3ViewRenderer.Listener() {
         @Override
         public void onPlayClicked(@NonNull Mp3Model model) {
-            Log.e("ffff", model.getUrlfifle());
+
         }
 
     };
@@ -469,17 +476,18 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     };
 
 
-    private void clickLike(String postId, String userId) {
+    private void clickLike(String post_Id, String userId) {
 
         ServiceApi service = Apis.getClient().create(ServiceApi.class);
 
-        Call<PostLike> userCall = service.postLiked(postId, userId);
+        Call<PostLike> userCall = service.postLiked(post_Id, userId);
 
         userCall.enqueue(new Callback<PostLike>() {
             @Override
             public void onResponse(Call<PostLike> call, Response<PostLike> response) {
-                Toast.makeText(getContext(),"Like "+response.body().getLikes(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Like " + response.body().getLikes(), Toast.LENGTH_SHORT).show();
 
+                updateItems();
 
             }
 

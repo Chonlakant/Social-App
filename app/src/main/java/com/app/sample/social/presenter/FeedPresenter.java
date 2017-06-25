@@ -33,11 +33,13 @@ public class FeedPresenter implements FeedContract.HomePresenter {
         starWarsApi.getAllFilms().enqueue(new Callback<Feed2>() {
             @Override
             public void onResponse(Call<Feed2> call, Response<Feed2> response) {
-
+                list.clear();
                 for(int i =0;i<response.body().getItems().size();i++){
+
                     list.add(response.body());
                 }
                 view.showAllFeed(list);
+
                 view.hideLoading();
             }
 
