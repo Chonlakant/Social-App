@@ -79,26 +79,27 @@ public class Mp3ViewRenderer extends ViewRenderer<Mp3Model, Mp3ViewHolder> {
         });
 
 
-        try {
-            mediaPlayer.setDataSource(model.getUrlfifle());
-            mediaPlayer.prepare();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mediaFileLengthInMilliseconds = mediaPlayer.getDuration();
-
-        holder.txt_time_full.setText(getTimeString(mediaPlayer.getDuration()));
 
         holder.ButtonTestPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                try {
+                    mediaPlayer.setDataSource(model.getUrlfifle());
+                    mediaPlayer.prepare();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                mediaFileLengthInMilliseconds = mediaPlayer.getDuration();
+
+                holder.txt_time_full.setText(getTimeString(mediaPlayer.getDuration()));
+
                 mediaFileLengthInMilliseconds = mediaPlayer.getDuration();
                 holder.ButtonTestPlay.setVisibility(View.GONE);
                 holder.ButtonTestPause.setVisibility(View.VISIBLE);
                 mediaPlayer.start();
-
-
 
 
                 primarySeekBarProgressUpdater();
@@ -141,6 +142,7 @@ public class Mp3ViewRenderer extends ViewRenderer<Mp3Model, Mp3ViewHolder> {
         holder.ButtonTestPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                mediaPlayer.reset();
                 holder.ButtonTestPlay.setVisibility(View.VISIBLE);
                 holder.ButtonTestPause.setVisibility(View.GONE);
                 mediaPlayer.pause();

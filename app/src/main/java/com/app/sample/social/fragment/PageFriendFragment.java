@@ -52,16 +52,6 @@ public class PageFriendFragment extends Fragment implements ListFriendsUserContr
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        //set data and list adapter
-//        mAdapter = new FriendsListAdapter2(getActivity(), Constant.getFriendsData(getActivity()));
-//        recyclerView.setAdapter(mAdapter);
-//        mAdapter.setOnItemClickListener(new FriendsListAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View v, Friend obj, int position) {
-//                ActivityFriendDetails.navigate((ActivityMain) getActivity(), v, obj);
-//            }
-//        });
-
         presenter = new FriendsListUserPresenter(this);
         presenter.getAllFriendsUser("1");
         return view;

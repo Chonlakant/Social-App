@@ -91,6 +91,7 @@ public class ActivityMain extends AppCompatActivity {
         Log.e("timeStamp",timeStamp);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(false);
@@ -125,11 +126,11 @@ public class ActivityMain extends AppCompatActivity {
         if (f_profile == null) {
             f_profile = new PageProfileFragment();
         }
-        adapter.addFragment(f_feed, getString(R.string.tab_feed));
-        adapter.addFragment(f_friend, getString(R.string.tab_friend));
-        adapter.addFragment(f_message, getString(R.string.tab_message));
-        adapter.addFragment(f_notif, getString(R.string.tab_notif));
-        adapter.addFragment(f_profile, getString(R.string.tab_profile));
+        adapter.addFragment(f_feed, "");
+        adapter.addFragment(f_friend, "");
+        adapter.addFragment(f_message, "");
+        adapter.addFragment(f_notif, "");
+        adapter.addFragment(f_profile,"");
         viewPager.setAdapter(adapter);
     }
 

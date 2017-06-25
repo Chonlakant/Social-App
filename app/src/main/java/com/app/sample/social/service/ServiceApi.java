@@ -41,5 +41,8 @@ public interface ServiceApi {
     @GET("requests_api.php?s=register_like")
     Call<PostLike> postLiked(@Query("post_id") String post_id, @Query("user_id") String user_id);
 
+    @GET("app_api.php?application=phone&type=get_albums")
+    Call<PostLike> getAlbums(@Query("user_id") String user_id, @Query("user_profile_id") String user_profile_id, @Query("s") String s);
+
 
 }

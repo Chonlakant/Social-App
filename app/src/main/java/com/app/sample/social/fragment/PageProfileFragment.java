@@ -16,10 +16,16 @@ import com.app.sample.social.R;
 public class PageProfileFragment extends Fragment {
     View view;
 
+    TextView txt_username;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.page_fragment_profile, container, false);
+
+        txt_username = (TextView) view.findViewById(R.id.txt_username);
+        txt_username.setText("");
+
         return view;
     }
 
