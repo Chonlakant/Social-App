@@ -1,12 +1,8 @@
 package com.app.sample.social.presenter;
 
 
-import android.content.Context;
-import android.util.Log;
-
 import com.app.sample.social.api.Apis;
-import com.app.sample.social.mode_product.productImage;
-import com.app.sample.social.model.Feed2;
+import com.app.sample.social.model.Feed;
 import com.app.sample.social.service.ServiceApi;
 
 import java.util.ArrayList;
@@ -18,8 +14,7 @@ import retrofit2.Response;
 public class FeedPresenter implements FeedContract.HomePresenter {
     private FeedContract.HomeView view;
     private ServiceApi starWarsApi;
-    Context context;
-    ArrayList<Feed2> list = new ArrayList<>();
+    ArrayList<Feed> list = new ArrayList<>();
 
     public FeedPresenter(FeedContract.HomeView view) {
         this.view = view;
@@ -27,14 +22,14 @@ public class FeedPresenter implements FeedContract.HomePresenter {
     }
 
     @Override
-    public void getAllFeed() {
+    public void getAllFeed(String userId,String user_profile_id,String s,String limit) {
         view.showLoading();
 
-        starWarsApi.getAllFilms().enqueue(new Callback<Feed2>() {
+        starWarsApi.getAllFilms(userId,user_profile_id,s,limit).enqueue(new Callback<Feed>() {
             @Override
-            public void onResponse(Call<Feed2> call, Response<Feed2> response) {
+            public void onResponse(Call<Feed> call, Response<Feed> response) {
                 list.clear();
-                for(int i =0;i<response.body().getItems().size();i++){
+                for(int i =0;i<response.body().getPosts().size();i++){
 
                     list.add(response.body());
                 }
@@ -44,7 +39,7 @@ public class FeedPresenter implements FeedContract.HomePresenter {
             }
 
             @Override
-            public void onFailure(Call<Feed2> call, Throwable t) {
+            public void onFailure(Call<Feed> call, Throwable t) {
 
                 view.hideLoading();
             }

@@ -19,7 +19,7 @@ public interface FeedUserContract {
     }
 
     interface HomePresenterUser {
-        void getAllFeedUser(String userid,String timeStamp);
+        void getAllFeedUser(String userid,String user_profile_id,String timeStamp,String limit);
 
         void onFeedItemClicked(FeedUser film);
     }

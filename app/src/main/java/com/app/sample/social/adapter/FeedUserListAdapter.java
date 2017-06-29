@@ -109,33 +109,33 @@ public class FeedUserListAdapter extends  RecyclerView.Adapter<RecyclerView.View
             return TYPE_HEADER;
         }
 
-        if (items.get(position).getItems().get(position).getPost_type2() == 1) {
+        if (items.get(position).getPosts().get(position).getPost_type2() == 1) {
             return TYPE_TEXT;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 2) {
+        if (items.get(position).getPosts().get(position).getPost_type2() == 2) {
             return TYPE_PHOTO;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 3) {
+        if (items.get(position).getPosts().get(position).getPost_type2() == 3) {
             return TYPE_VDEIO;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 4) {
+        if (items.get(position).getPosts().get(position).getPost_type2() == 4) {
             return TYPE_FILE;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 5) {
+        if (items.get(position).getPosts().get(position).getPost_type2() == 5) {
             return TYPE_MP3;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 6) {
+        if (items.get(position).getPosts().get(position).getPost_type2() == 6) {
             return TYPE_MAPS;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 7) {
+        if (items.get(position).getPosts().get(position).getPost_type2() == 7) {
             return TYPE_YOUTUBE;
         }
-        if (items.get(position).getItems().get(position).getPost_type2() == 8) {
+        if (items.get(position).getPosts().get(position).getPost_type2() == 8) {
             return TYPE_SOUNDCOULD;
         }
 
 
-        Log.e("TYPE_9", items.get(position).getItems().get(position).getPost_type2() + "");
+        Log.e("TYPE_9", items.get(position).getPosts().get(position).getPost_type2() + "");
 
         return TYPE_TEXT;
 
@@ -211,7 +211,7 @@ public class FeedUserListAdapter extends  RecyclerView.Adapter<RecyclerView.View
         final FeedUser p = items.get(position);
         if (holder.getItemViewType() == TYPE_HEADER) {
 
-            String avatar = p.getItems().get(position).getPublisher_data().getProfile_picture();
+            String avatar = p.getPosts().get(position).getPublisher_data().getProfile_picture();
             FeedUserListAdapter.VHHeader VHheader = (FeedUserListAdapter.VHHeader) holder;
             Glide.with(ctx)
                     .load(avatar)
@@ -222,34 +222,34 @@ public class FeedUserListAdapter extends  RecyclerView.Adapter<RecyclerView.View
         if (holder.getItemViewType() == TYPE_TEXT) {
 
             FeedUserListAdapter.VHItem VHitem = (FeedUserListAdapter.VHItem) holder;
-            String avatar = p.getItems().get(position).getPublisher_data().getProfile_picture();
+            String avatar = p.getPosts().get(position).getPublisher_data().getProfile_picture();
             Picasso.with(ctx)
                     .load(avatar)
                     .resize(80, 80)
                     .transform(new CircleTransform())
                     .into(VHitem.photo);
-            VHitem.text_name.setText(p.getItems().get(position).getPublisher_data().getUsername());
+            VHitem.text_name.setText(p.getPosts().get(position).getPublisher_data().getUsername());
 
 
-            String html = p.getItems().get(position).getPost_data().getPost_text();
+            String html = p.getPosts().get(position).getPost_data().getPost_text();
             String result = Html.fromHtml(html).toString();
             VHitem.text_content.setText(result);
 
-            VHitem.text_date.setText(p.getItems().get(position).getPost_data().getPost_time());
+            VHitem.text_date.setText(p.getPosts().get(position).getPost_data().getPost_time());
 
         }
         if (holder.getItemViewType() == TYPE_PHOTO) {
             FeedUserListAdapter.VHPhoto VHPhoto = (FeedUserListAdapter.VHPhoto) holder;
 
-            String avatar = p.getItems().get(position).getPublisher_data().getProfile_picture();
+            String avatar = p.getPosts().get(position).getPublisher_data().getProfile_picture();
             Picasso.with(ctx)
                     .load(avatar)
                     .resize(80, 80)
                     .transform(new CircleTransform())
                     .into(VHPhoto.photo);
-            VHPhoto.text_name.setText(p.getItems().get(position).getPublisher_data().getUsername());
+            VHPhoto.text_name.setText(p.getPosts().get(position).getPublisher_data().getUsername());
 
-            String cover = p.getItems().get(position).getPost_data().getPost_file();
+            String cover = p.getPosts().get(position).getPost_data().getPost_file();
             Glide.with(ctx)
                     .load(cover)
                     .into(VHPhoto.photo_content);
@@ -259,15 +259,15 @@ public class FeedUserListAdapter extends  RecyclerView.Adapter<RecyclerView.View
         if (holder.getItemViewType() == TYPE_VDEIO) {
             FeedUserListAdapter.VHViedo VHViedo = (FeedUserListAdapter.VHViedo) holder;
 
-            String avatar = p.getItems().get(position).getPublisher_data().getProfile_picture();
+            String avatar = p.getPosts().get(position).getPublisher_data().getProfile_picture();
             Picasso.with(ctx)
                     .load(avatar)
                     .resize(80, 80)
                     .transform(new CircleTransform())
                     .into(VHViedo.photo);
-            VHViedo.text_name.setText(p.getItems().get(position).getPublisher_data().getUsername());
+            VHViedo.text_name.setText(p.getPosts().get(position).getPublisher_data().getUsername());
 
-            String title = p.getItems().get(position).getPost_data().getPost_text();
+            String title = p.getPosts().get(position).getPost_data().getPost_text();
             VHViedo.txt_title_video.setText(title);
 //            Glide.with(ctx)
 //                    .load(cover)
@@ -277,16 +277,16 @@ public class FeedUserListAdapter extends  RecyclerView.Adapter<RecyclerView.View
         if (holder.getItemViewType() == TYPE_FILE) {
             FeedUserListAdapter.VHFile VHFile = (FeedUserListAdapter.VHFile) holder;
 
-            String avatar = p.getItems().get(position).getPublisher_data().getProfile_picture();
+            String avatar = p.getPosts().get(position).getPublisher_data().getProfile_picture();
             Picasso.with(ctx)
                     .load(avatar)
                     .resize(80, 80)
                     .transform(new CircleTransform())
                     .into(VHFile.photo);
-            VHFile.text_name.setText(p.getItems().get(position).getPublisher_data().getUsername());
+            VHFile.text_name.setText(p.getPosts().get(position).getPublisher_data().getUsername());
 
-            String postFifle = p.getItems().get(position).getPost_data().getPost_file();
-            String postText = p.getItems().get(position).getPost_data().getPost_text();
+            String postFifle = p.getPosts().get(position).getPost_data().getPost_file();
+            String postText = p.getPosts().get(position).getPost_data().getPost_text();
 
             VHFile.text_fifle.setText(postFifle);
             VHFile.text_content_title.setText(postText);
@@ -295,16 +295,16 @@ public class FeedUserListAdapter extends  RecyclerView.Adapter<RecyclerView.View
         if (holder.getItemViewType() == TYPE_MP3) {
             FeedUserListAdapter.VHMp3 VHMp3 = (FeedUserListAdapter.VHMp3) holder;
 
-            String avatar = p.getItems().get(position).getPublisher_data().getProfile_picture();
+            String avatar = p.getPosts().get(position).getPublisher_data().getProfile_picture();
             Picasso.with(ctx)
                     .load(avatar)
                     .resize(80, 80)
                     .transform(new CircleTransform())
                     .into(VHMp3.photo);
-            VHMp3.text_name.setText(p.getItems().get(position).getPublisher_data().getUsername());
+            VHMp3.text_name.setText(p.getPosts().get(position).getPublisher_data().getUsername());
 
-            String postFifle = p.getItems().get(position).getPost_data().getPost_file();
-            String postText = p.getItems().get(position).getPost_data().getPost_text();
+            String postFifle = p.getPosts().get(position).getPost_data().getPost_file();
+            String postText = p.getPosts().get(position).getPost_data().getPost_text();
 
             VHMp3.text_mp3.setText(postText);
             VHMp3.text_fifle.setText(postFifle);
@@ -313,16 +313,16 @@ public class FeedUserListAdapter extends  RecyclerView.Adapter<RecyclerView.View
         if (holder.getItemViewType() == TYPE_MAPS) {
             FeedUserListAdapter.VHMaps VHMaps = (FeedUserListAdapter.VHMaps) holder;
 
-            String avatar = p.getItems().get(position).getPublisher_data().getProfile_picture();
+            String avatar = p.getPosts().get(position).getPublisher_data().getProfile_picture();
             Picasso.with(ctx)
                     .load(avatar)
                     .resize(80, 80)
                     .transform(new CircleTransform())
                     .into(VHMaps.photo);
-            VHMaps.text_name.setText(p.getItems().get(position).getPublisher_data().getUsername());
+            VHMaps.text_name.setText(p.getPosts().get(position).getPublisher_data().getUsername());
 
-            String postFifle = p.getItems().get(position).getPost_data().getPost_file();
-            String postText = p.getItems().get(position).getPost_data().getPost_map();
+            String postFifle = p.getPosts().get(position).getPost_data().getPost_file();
+            String postText = p.getPosts().get(position).getPost_data().getPost_map();
 
             VHMaps.txt_maps.setText(postText);
 
@@ -332,16 +332,16 @@ public class FeedUserListAdapter extends  RecyclerView.Adapter<RecyclerView.View
         if (holder.getItemViewType() == TYPE_YOUTUBE) {
             FeedUserListAdapter.VHYoutube VHYoutube = (FeedUserListAdapter.VHYoutube) holder;
 
-            String avatar = p.getItems().get(position).getPublisher_data().getProfile_picture();
+            String avatar = p.getPosts().get(position).getPublisher_data().getProfile_picture();
             Picasso.with(ctx)
                     .load(avatar)
                     .resize(80, 80)
                     .transform(new CircleTransform())
                     .into(VHYoutube.photo);
-            VHYoutube.text_name.setText(p.getItems().get(position).getPublisher_data().getUsername());
+            VHYoutube.text_name.setText(p.getPosts().get(position).getPublisher_data().getUsername());
 
-            String postFifle = p.getItems().get(position).getPost_data().getPost_file();
-            String postText = p.getItems().get(position).getPost_data().getPost_text();
+            String postFifle = p.getPosts().get(position).getPost_data().getPost_file();
+            String postText = p.getPosts().get(position).getPost_data().getPost_text();
 
 
         }
@@ -349,16 +349,16 @@ public class FeedUserListAdapter extends  RecyclerView.Adapter<RecyclerView.View
         if (holder.getItemViewType() == TYPE_SOUNDCOULD) {
             FeedUserListAdapter.VHSoundCloud VHSoundCloud = (FeedUserListAdapter.VHSoundCloud) holder;
 
-            String avatar = p.getItems().get(position).getPublisher_data().getProfile_picture();
+            String avatar = p.getPosts().get(position).getPublisher_data().getProfile_picture();
             Picasso.with(ctx)
                     .load(avatar)
                     .resize(80, 80)
                     .transform(new CircleTransform())
                     .into(VHSoundCloud.photo);
-            VHSoundCloud.text_name.setText(p.getItems().get(position).getPublisher_data().getUsername());
+            VHSoundCloud.text_name.setText(p.getPosts().get(position).getPublisher_data().getUsername());
 
-            String postFifle = p.getItems().get(position).getPost_data().getPost_file();
-            String postText = p.getItems().get(position).getPost_data().getPost_text();
+            String postFifle = p.getPosts().get(position).getPost_data().getPost_file();
+            String postText = p.getPosts().get(position).getPost_data().getPost_text();
 
 
         }

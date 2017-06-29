@@ -34,6 +34,7 @@
                     android:padding="@dimen/spacing_xlarge">
 
                     <ImageView
+                        android:id="@+id/img_profile"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@mipmap/ic_launcher" />
@@ -71,6 +72,7 @@
                 android:background="@color/grey_medium" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/spacing_large"
@@ -83,6 +85,7 @@
 
             <com.balysv.materialripple.MaterialRippleLayout
                 style="@style/RippleStyleBlack"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -116,6 +119,7 @@
 
             <com.balysv.materialripple.MaterialRippleLayout
                 style="@style/RippleStyleBlack"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -148,6 +152,7 @@
 
             <com.balysv.materialripple.MaterialRippleLayout
                 style="@style/RippleStyleBlack"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -222,7 +227,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/spacing_mlarge"
-                        android:text="Setting"
+                        android:text="ตั้งค่า"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/material_grey_600" />
                 </LinearLayout>
@@ -286,7 +291,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/spacing_mlarge"
-                        android:text="Logout"
+                        android:text="ออกจากระบบ"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/material_grey_600" />
                 </LinearLayout>

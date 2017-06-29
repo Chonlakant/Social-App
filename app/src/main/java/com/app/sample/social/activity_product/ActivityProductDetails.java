@@ -61,6 +61,9 @@ public class ActivityProductDetails extends AppCompatActivity implements ListPro
         edit_text_comment = (EditText) findViewById(R.id.edit_text_comment);
 
         hideKeyboard(edit_text_comment);
+        edit_text_comment.setCursorVisible(false);
+        edit_text_comment.setFocusableInTouchMode(false);
+        edit_text_comment.setFocusable(false);
 
         recyclerViewDetails = (RecyclerView) findViewById(R.id.recyclerViewDetails);
         recyclerViewDetails.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

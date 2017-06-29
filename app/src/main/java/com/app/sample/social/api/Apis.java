@@ -31,10 +31,13 @@ public class Apis {
 
     public static ServiceApi getApis() {
 
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create();
+//        Gson gson = new GsonBuilder()
+//                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+//                .create();
 
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)

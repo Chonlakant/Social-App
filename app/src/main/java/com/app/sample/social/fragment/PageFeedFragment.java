@@ -3,17 +3,14 @@ package com.app.sample.social.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,7 +18,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.app.sample.social.ActivityFriendDetails;
@@ -29,11 +25,8 @@ import com.app.sample.social.R;
 import com.app.sample.social.activity_comment.CommentsActivity;
 import com.app.sample.social.activity_viedo_full.ActivityFullVideo;
 import com.app.sample.social.activity_youtube.ActivityYoutube;
-import com.app.sample.social.adapter.FeedListAdapter;
 import com.app.sample.social.adapter.FeedListAdapter2;
 import com.app.sample.social.api.Apis;
-import com.app.sample.social.api.ApisZaab;
-import com.app.sample.social.data.Constant;
 import com.app.sample.social.items.BaseItemModel;
 import com.app.sample.social.items.ContentModel;
 import com.app.sample.social.items.file.fileModel;
@@ -59,15 +52,11 @@ import com.app.sample.social.items.viedo.ViedoModel;
 import com.app.sample.social.items.youtube.YoutubeModel;
 import com.app.sample.social.items.youtube.YoutubeViewRenderer;
 import com.app.sample.social.model.Feed;
-import com.app.sample.social.model.Feed2;
-import com.app.sample.social.model.Header;
-import com.app.sample.social.model.Logout;
 import com.app.sample.social.model.PostLike;
 import com.app.sample.social.post_timeline.ActivityPostTimeline;
 import com.app.sample.social.presenter.FeedContract;
 import com.app.sample.social.presenter.FeedPresenter;
 import com.app.sample.social.service.ServiceApi;
-import com.app.sample.social.service.ServiceApiZaab;
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -94,6 +83,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
 
     FeedContract.HomePresenter presenter;
 
+
     int type;
     String name;
     String avatar;
@@ -103,6 +93,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     String postId;
 
     String userIdPreferences;
+    String timeStamp;
 
     @Nullable
     @Override
@@ -112,10 +103,12 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
 
         sharedpreferences = getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         userIdPreferences = sharedpreferences.getString("userId", "null");
+        timeStamp = sharedpreferences.getString("userId", "null");
         Log.e("userIdPreferences", userIdPreferences);
 
         presenter = new FeedPresenter(this);
-        presenter.getAllFeed();
+        presenter.getAllFeed(userIdPreferences,userIdPreferences,timeStamp,"30");
+
 
         mRecyclerViewAdapter = new RendererRecyclerViewAdapter();
         mRecyclerViewAdapter.registerRenderer(new HeaderViewRenderer(HeaderModel.TYPE, getActivity(), mListenerHeaderText));
@@ -146,7 +139,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     private void updateItems() {
 
         items.clear();
-        presenter.getAllFeed();
+        presenter.getAllFeed(userIdPreferences,userIdPreferences,timeStamp,"20");
         mRecyclerViewAdapter.notifyDataSetChanged();
         mSwipeToRefresh.setRefreshing(false);
     }
@@ -179,107 +172,107 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     }
 
     @Override
-    public void showAllFeed(final List<Feed2> feed) {
+    public void showAllFeed(final List<Feed> feed) {
         mRecyclerViewAdapter.notifyDataSetChanged();
         final int headerID = 1;
-        String nameHeader = feed.get(0).getItems().get(0).getPublisher_data().getFirst_name();
-        String avatarProFile = feed.get(0).getItems().get(0).getPublisher_data().getProfile_picture();
-        String time = feed.get(0).getItems().get(0).getPost_data().getPost_time();
+        String nameHeader = feed.get(0).getPosts().get(0).getPublisher_data().getFirst_name();
+        String avatarProFile = feed.get(0).getPosts().get(0).getPublisher_data().getProfile_picture();
+        String time = feed.get(0).getPosts().get(0).getPost_data().getPost_time();
         items.add(new HeaderModel(headerID, nameHeader, avatarProFile, time));
 
         for (int i = 0; i < feed.size(); i++) {
 
-            type = feed.get(i).getItems().get(i).getPost_type2();
-            name = feed.get(i).getItems().get(i).getPublisher_data().getUsername();
-            avatar = feed.get(i).getItems().get(i).getPublisher_data().getProfile_picture();
-            userId = feed.get(i).getItems().get(i).getPublisher_data().getId();
-            cover = feed.get(i).getItems().get(i).getPublisher_data().getCover_picture();
+            type = feed.get(i).getPosts().get(i).getPost_type2();
+            name = feed.get(i).getPosts().get(i).getPublisher_data().getUsername();
+            avatar = feed.get(i).getPosts().get(i).getPublisher_data().getProfile_picture();
+            userId = feed.get(i).getPosts().get(i).getPublisher_data().getId();
+            cover = feed.get(i).getPosts().get(i).getPublisher_data().getCover_picture();
 
             if (type == 1) {
 
-                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
-                postId = feed.get(i).getItems().get(i).getPost_id();
-                String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
-                String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                String text2 = feed.get(i).getItems().get(i).getPost_data().getPost_text2();
+                String timePost = feed.get(i).getPosts().get(i).getPost_data().getPost_time();
+                postId = feed.get(i).getPosts().get(i).getPost_id();
+                String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
+                String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
+                String text2 = feed.get(i).getPosts().get(i).getPost_data().getPost_text2();
 
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new TextModel(i, textContent, text2));
                 items.add(new CommentModel(i, countLike, false, postId));
             }
             if (type == 2) {
-                String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
-                String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
-                postId = feed.get(i).getItems().get(i).getPost_id();
-                String photoContent = feed.get(i).getItems().get(i).getPost_data().getPost_file();
+                String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
+                String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
+                String timePost = feed.get(i).getPosts().get(i).getPost_data().getPost_time();
+                postId = feed.get(i).getPosts().get(i).getPost_id();
+                String photoContent = feed.get(i).getPosts().get(i).getPost_data().getPost_thumb();
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new ImagesModel(i, photoContent));
                 items.add(new CommentModel(i, countLike, false, postId));
             }
             if (type == 3) {
-                postId = feed.get(i).getItems().get(i).getPost_id();
-                String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
-                String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
-                String urlMp4 = feed.get(i).getItems().get(i).getPost_data().getPost_file();
-                String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
+                postId = feed.get(i).getPosts().get(i).getPost_id();
+                String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
+                String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
+                String timePost = feed.get(i).getPosts().get(i).getPost_data().getPost_time();
+                String urlMp4 = feed.get(i).getPosts().get(i).getPost_data().getPost_file();
+                String title = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new ViedoModel(i, urlMp4, title));
                 items.add(new CommentModel(i, countLike, false, postId));
             }
 
             if (type == 4) {
-                postId = feed.get(i).getItems().get(i).getPost_id();
-                String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
-                String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
-                String urlfile = feed.get(i).getItems().get(i).getPost_data().getPost_file();
-                String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
+                postId = feed.get(i).getPosts().get(i).getPost_id();
+                String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
+                String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
+                String timePost = feed.get(i).getPosts().get(i).getPost_data().getPost_time();
+                String urlfile = feed.get(i).getPosts().get(i).getPost_data().getPost_file();
+                String title = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new fileModel(i, urlfile, title));
                 items.add(new CommentModel(i, countLike, false, postId));
             }
 
             if (type == 5) {
-                postId = feed.get(i).getItems().get(i).getPost_id();
-                String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
-                String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
-                String urlfile = feed.get(i).getItems().get(i).getPost_data().getPost_file();
-                String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
+                postId = feed.get(i).getPosts().get(i).getPost_id();
+                String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
+                String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
+                String timePost = feed.get(i).getPosts().get(i).getPost_data().getPost_time();
+                String urlfile = feed.get(i).getPosts().get(i).getPost_data().getPost_file();
+                String title = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new Mp3Model(i, urlfile, title));
                 items.add(new CommentModel(i, countLike, false, postId));
             }
             if (type == 6) {
-                postId = feed.get(i).getItems().get(i).getPost_id();
-                String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
-                String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
-                String title = feed.get(i).getItems().get(i).getPost_data().getPost_map();
+                postId = feed.get(i).getPosts().get(i).getPost_id();
+                String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
+                String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
+                String timePost = feed.get(i).getPosts().get(i).getPost_data().getPost_time();
+                String title = feed.get(i).getPosts().get(i).getPost_data().getPost_map();
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new MapsModel(i, title));
                 items.add(new CommentModel(i, countLike, false, postId));
             }
 
             if (type == 7) {
-                postId = feed.get(i).getItems().get(i).getPost_id();
-                String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
-                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
-                String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                String coverYoutube = feed.get(i).getItems().get(i).getPost_data().getPost_thumb();
-                String urlYoutube = feed.get(i).getItems().get(i).getPost_data().getPost_youtube();
+                postId = feed.get(i).getPosts().get(i).getPost_id();
+                String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
+                String timePost = feed.get(i).getPosts().get(i).getPost_data().getPost_time();
+                String title = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
+                String coverYoutube = feed.get(i).getPosts().get(i).getPost_data().getPost_thumb();
+                String urlYoutube = feed.get(i).getPosts().get(i).getPost_data().getPost_youtube();
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
                 items.add(new CommentModel(i, countLike, false, postId));
             }
             if (type == 8) {
-                postId = feed.get(i).getItems().get(i).getPost_id();
-                String countLike = feed.get(i).getItems().get(i).getPost_data().getPost_likes();
-                String textContent = feed.get(i).getItems().get(i).getPost_data().getPost_text();
-                String timePost = feed.get(i).getItems().get(i).getPost_data().getPost_time();
-                String title = feed.get(i).getItems().get(i).getPost_data().getPost_text();
+                postId = feed.get(i).getPosts().get(i).getPost_id();
+                String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
+                String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
+                String timePost = feed.get(i).getPosts().get(i).getPost_data().getPost_time();
+                String title = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new SoundCloudModel(i, title));
                 items.add(new CommentModel(i, countLike, false, postId));
@@ -497,6 +490,5 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
             }
         });
     }
-
 
 }

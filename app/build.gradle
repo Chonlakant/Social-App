@@ -8,8 +8,8 @@ android {
         applicationId "com.app.sample.social"
         minSdkVersion 16
         targetSdkVersion 24
-        versionCode 9
-        versionName "2.3"
+        versionCode 10
+        versionName "2.4"
     }
     buildTypes {
         release {
@@ -49,6 +49,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.1.2'
     compile files('libs/YouTubeAndroidPlayerApi.jar')
     compile project(':rendererrecyclerviewadapter')
+    compile 'com.siclo.ezphotopick:library:1.0.6'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
 
 }

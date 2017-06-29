@@ -18,4 +18,13 @@
         android:icon="@drawable/ic_menu_new_message"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_post_product"
+        android:orderInCategory="100"
+        android:title="New Message"
+        android:icon="@drawable/ic_menu_create_feed"
+        app:showAsAction="always" />
+
+
+
 </menu>

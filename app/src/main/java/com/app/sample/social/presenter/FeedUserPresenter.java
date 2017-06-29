@@ -27,15 +27,15 @@ public class FeedUserPresenter implements FeedUserContract.HomePresenterUser {
 
 
     @Override
-    public void getAllFeedUser(String user_id,String timeStamp) {
+    public void getAllFeedUser(String userid, String user_profile_id, String timeStamp, String limit) {
         viewUser.showLoading();
 
 
-        starWarsApi.getFeedUser(user_id,timeStamp).enqueue(new Callback<FeedUser>() {
+        starWarsApi.getFeedUser(userid, user_profile_id, timeStamp, limit).enqueue(new Callback<FeedUser>() {
             @Override
             public void onResponse(Call<FeedUser> call, Response<FeedUser> response) {
-                if(response.body() != null){
-                    for (int i = 0; i < response.body().getItems().size(); i++) {
+                if (response.body() != null) {
+                    for (int i = 0; i < response.body().getPosts().size(); i++) {
                         list.add(response.body());
 
                     }

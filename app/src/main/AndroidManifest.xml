@@ -45,6 +45,7 @@
         <activity android:name=".activity_youtube.ActivityYoutube"/>
         <activity android:name=".post_timeline.ActivityPostTimeline"/>
         <activity android:name=".activity_comment.CommentsActivity"/>
+        <activity android:name=".activity_product.ActivityPostPostduct"/>
     </application>
 
 </manifest>

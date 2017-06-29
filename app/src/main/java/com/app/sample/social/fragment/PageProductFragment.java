@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.app.sample.social.ActivitySelectFriend;
 import com.app.sample.social.R;
+import com.app.sample.social.activity_product.ActivityPostPostduct;
 import com.app.sample.social.activity_product.ActivityProductDetails;
 import com.app.sample.social.adapter.ProductDetailsImageListAdapter;
 import com.app.sample.social.adapter.ProductListAdapter;
@@ -83,6 +84,13 @@ public class PageProductFragment extends Fragment implements ListProductContract
             case R.id.action_new_message:
                 Intent i = new Intent(getActivity(), ActivitySelectFriend.class);
                 startActivity(i);
+                return true;
+
+            case R.id.action_post_product:
+
+                Intent intent = new Intent(getActivity(), ActivityPostPostduct.class);
+                startActivity(intent);
+
                 return true;
         }
         return super.onOptionsItemSelected(item);

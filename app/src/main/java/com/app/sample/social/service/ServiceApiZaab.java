@@ -2,16 +2,10 @@ package com.app.sample.social.service;
 
 import com.app.sample.social.mode_product.product;
 import com.app.sample.social.mode_product.productDetails;
-import com.app.sample.social.model.Feed;
-import com.app.sample.social.model.Feed2;
-import com.app.sample.social.model.FeedUser;
-import com.app.sample.social.model.Friend2;
-import com.app.sample.social.model.PostLike;
 import com.app.sample.social.model_articles.ArticlesList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ServiceApiZaab {
