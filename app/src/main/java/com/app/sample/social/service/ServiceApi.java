@@ -3,6 +3,8 @@ package com.app.sample.social.service;
 import com.app.sample.social.model.Feed;
 import com.app.sample.social.model.FeedUser;
 import com.app.sample.social.model.Friend2;
+import com.app.sample.social.model.GetPostId;
+import com.app.sample.social.model.GetPostImageId;
 import com.app.sample.social.model.Login;
 import com.app.sample.social.model.Logout;
 import com.app.sample.social.model.Notifications;
@@ -34,6 +36,18 @@ public interface ServiceApi {
     @GET("app_api.php?application=phone&type=get_user_data&")
     Call<UserProfile> getUserProfile(@Query("user_id") String id,@Query("user_profile_id") String user_profile_id,@Query("s") String s);
 
+
+    @GET("app_api.php?application=phone&type=get_post_data&user_id=164&post_id=1612&s=7618202086683&limit=1")
+    Call<GetPostId> getFeedId(@Query("user_id") String id,
+                           @Query("post_id") String post_id,
+                           @Query("s") String s,
+                           @Query("limit") String limit);
+
+    @GET("app_api.php?application=phone&type=get_post_data&user_id=164&post_id=1612&s=7618202086683&limit=1")
+    Call<GetPostId> getCommentId(@Query("user_id") String id,
+                              @Query("post_id") String post_id,
+                              @Query("s") String s,
+                              @Query("limit") String limit);
 
 
 

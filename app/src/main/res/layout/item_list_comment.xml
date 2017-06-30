@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#dcdee3"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#dcdee3">
 
     <LinearLayout
-        android:background="#ffffff"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:background="#ffffff">
+
+        <View
+            android:textColor="#778899"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
 
         <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
+            android:layout_height="50dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/spacing_middle"
-            android:paddingLeft="@dimen/spacing_middle"
-            android:paddingTop="@dimen/spacing_middle">
+            android:layout_marginBottom="10dp">
+
 
             <ImageView
                 android:id="@+id/photo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@mipmap/ic_launcher" />
 
             <LinearLayout
@@ -40,8 +45,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Person name"
+                    android:layout_marginTop="10dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/material_grey_800"
+                    android:textSize="12dp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -49,20 +56,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="comment"
-                    android:textSize="12dp"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textColor="@color/material_grey_800" />
+                    android:textColor="@color/material_grey_800"
+                    android:textSize="12dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@drawable/ic_clock" />
 
                     <TextView
                         android:id="@+id/text_date"

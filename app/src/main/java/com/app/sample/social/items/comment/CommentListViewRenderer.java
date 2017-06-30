@@ -4,36 +4,40 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.sample.social.R;
+import com.app.sample.social.adapter.CommentListAdapter;
 import com.app.sample.social.items.footer.CommentModel;
 import com.app.sample.social.items.footer.CommentViewHolder;
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CommentListViewRenderer extends ViewRenderer<CommentModel, CommentViewHolder> {
+public class CommentListViewRenderer extends ViewRenderer<CommentListModel, CommentListViewHolder> {
 
     boolean isPressed = false;
     int status = 0;
 
+    CommentListAdapter commentListAdapter;
+
     @NonNull
     private final Listener mListener;
 
-    @NonNull
-    private final ListenerLike mListenerLike;
 
-    public CommentListViewRenderer(final int type, final Context context, @NonNull final Listener listener, @NonNull final ListenerLike mListenerL) {
+    public CommentListViewRenderer(final int type, final Context context, @NonNull final Listener listener) {
         super(type, context);
         mListener = listener;
-        mListenerLike = mListenerL;
+
     }
 
     @Override
-    public void bindView(final CommentModel item, final CommentViewHolder holder, final List payloads) {
+    public void bindView(final CommentListModel item, final CommentListViewHolder holder, final List payloads) {
         final Bundle o = (Bundle) payloads.get(0);
         for (String key : o.keySet()) {
 
@@ -41,52 +45,39 @@ public class CommentListViewRenderer extends ViewRenderer<CommentModel, CommentV
     }
 
     @Override
-    public void bindView(@NonNull final CommentModel model, @NonNull final CommentViewHolder holder) {
-        Log.e("nnnn",model.getCountLike());
-        holder.txt_like.setText(model.getCountLike());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                // mListener.onContentItemClicked(model);
-            }
-        });
-        holder.bt_comment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.onCommentClicked(model);
-            }
-        });
+    public void bindView(@NonNull final CommentListModel model, @NonNull final CommentListViewHolder holder) {
 
-        holder.bt_like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListenerLike.onLikeClicked(model);
 
-                if (status == 0) {
-                    holder.bt_like.setImageResource(R.drawable.ic_heart_red);
-                    status=1 ;
-                }
+        commentListAdapter = new CommentListAdapter(getContext(), model.getCommentLists());
 
-                else {
-                    holder.bt_like.setImageResource(R.drawable.ic_heart_outline_grey);
-                    status =0;
-                }
+        holder.re_comment.setLayoutManager(new LinearLayoutManager(getContext()));
+        holder.re_comment.setHasFixedSize(true);
+        holder.re_comment.setItemAnimator(new DefaultItemAnimator());
 
-            }
-        });
+        holder.re_comment.setAdapter(commentListAdapter);
+
+//        for (int i = 0; i < model.getCommentLists().size(); i++) {//Wasnt accepting for each
+//
+//            if (model.getCommentLists().size() > 0) {
+//                Log.e("getCommentLists", model.getCommentLists().get(i).getText());
+//                Log.e("getPostId", model.getCommentLists().get(i).getPostId());
+//                holder.text_name.setText(model.getCommentLists().get(i).getName());
+//                holder.text_comment.setText(model.getCommentLists().get(i).getText());
+//                holder.text_date.setText(model.getCommentLists().get(i).getText());
+//            }
+//
+//        }
+
     }
 
     @NonNull
     @Override
-    public CommentViewHolder createViewHolder(@Nullable final ViewGroup parent) {
-        return new CommentViewHolder(inflate(R.layout.item_tap_comments, parent));
+    public CommentListViewHolder createViewHolder(@Nullable final ViewGroup parent) {
+        return new CommentListViewHolder(inflate(R.layout.view_comment, parent));
     }
 
     public interface Listener {
-        void onCommentClicked(@NonNull CommentModel model);
+        void onCommentClicked(@NonNull CommentListModel model);
     }
 
-    public interface ListenerLike {
-        void onLikeClicked(@NonNull CommentModel model);
-    }
 }

@@ -23,18 +23,24 @@ import android.widget.Toast;
 import com.app.sample.social.ActivityFriendDetails;
 import com.app.sample.social.R;
 import com.app.sample.social.activity_comment.CommentsActivity;
+import com.app.sample.social.activity_feed_mutiple_image.ActivityImageFeed;
+import com.app.sample.social.activity_feed_mutiple_image.ActivityMutiImageFeed;
 import com.app.sample.social.activity_viedo_full.ActivityFullVideo;
 import com.app.sample.social.activity_youtube.ActivityYoutube;
 import com.app.sample.social.adapter.FeedListAdapter2;
 import com.app.sample.social.api.Apis;
 import com.app.sample.social.items.BaseItemModel;
 import com.app.sample.social.items.ContentModel;
+import com.app.sample.social.items.comment.CommentListModel;
+import com.app.sample.social.items.comment.CommentListViewRenderer;
 import com.app.sample.social.items.file.fileModel;
 import com.app.sample.social.items.file.fileViewRenderer;
 import com.app.sample.social.items.footer.CommentModel;
 import com.app.sample.social.items.footer.CommentViewRenderer;
 import com.app.sample.social.items.header.HeaderModel;
 import com.app.sample.social.items.header.HeaderViewRenderer;
+import com.app.sample.social.items.image_mutiple.ImagesMutiModel;
+import com.app.sample.social.items.image_mutiple.ImagesMutiViewRenderer;
 import com.app.sample.social.items.images.ImagesModel;
 import com.app.sample.social.items.images.ImagesViewRenderer;
 import com.app.sample.social.items.maps.MapsModel;
@@ -81,6 +87,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
 
     ArrayList<BaseItemModel> items = new ArrayList<>();
 
+
     FeedContract.HomePresenter presenter;
 
 
@@ -95,6 +102,9 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     String userIdPreferences;
     String timeStamp;
 
+
+    ArrayList<String> arrImage = new ArrayList<String>();
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -107,14 +117,15 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
         Log.e("userIdPreferences", userIdPreferences);
 
         presenter = new FeedPresenter(this);
-        presenter.getAllFeed(userIdPreferences,userIdPreferences,timeStamp,"30");
+        presenter.getAllFeed(userIdPreferences, userIdPreferences, timeStamp, "30");
 
 
         mRecyclerViewAdapter = new RendererRecyclerViewAdapter();
         mRecyclerViewAdapter.registerRenderer(new HeaderViewRenderer(HeaderModel.TYPE, getActivity(), mListenerHeaderText));
         mRecyclerViewAdapter.registerRenderer(new ProfileViewRenderer(ProfileModel.TYPE, getActivity(), mListenerProfile));
         mRecyclerViewAdapter.registerRenderer(new TextViewRenderer(TextModel.TYPE, getActivity(), mListenerText));
-        mRecyclerViewAdapter.registerRenderer(new ImagesViewRenderer(ImagesModel.TYPE, getActivity(), mListenerPhoto));
+        mRecyclerViewAdapter.registerRenderer(new ImagesViewRenderer(ImagesModel.TYPE, getActivity(), mListenerPhoto, mListenerImage));
+        mRecyclerViewAdapter.registerRenderer(new ImagesMutiViewRenderer(ImagesMutiModel.TYPE, getActivity(), mListenerMutiPhoto));
         mRecyclerViewAdapter.registerRenderer(new VideoViewRenderer(ViedoModel.TYPE, getActivity(), mListenerVideo));
         mRecyclerViewAdapter.registerRenderer(new fileViewRenderer(fileModel.TYPE, getActivity(), mListenerfile));
         mRecyclerViewAdapter.registerRenderer(new Mp3ViewRenderer(Mp3Model.TYPE, getActivity(), mListenerMp3));
@@ -122,6 +133,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
         mRecyclerViewAdapter.registerRenderer(new YoutubeViewRenderer(YoutubeModel.TYPE, getActivity(), mListenerYoutube));
         mRecyclerViewAdapter.registerRenderer(new SoundCloudViewRenderer(SoundCloudModel.TYPE, getActivity(), mListenerSoundCloud));
         mRecyclerViewAdapter.registerRenderer(new CommentViewRenderer(CommentModel.TYPE, getActivity(), mListenerComment, mListenerLike));
+        mRecyclerViewAdapter.registerRenderer(new CommentListViewRenderer(CommentListModel.TYPE, getActivity(), mListenerListComment));
 
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -139,7 +151,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     private void updateItems() {
 
         items.clear();
-        presenter.getAllFeed(userIdPreferences,userIdPreferences,timeStamp,"20");
+        presenter.getAllFeed(userIdPreferences, userIdPreferences, timeStamp, "20");
         mRecyclerViewAdapter.notifyDataSetChanged();
         mSwipeToRefresh.setRefreshing(false);
     }
@@ -183,6 +195,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
         for (int i = 0; i < feed.size(); i++) {
 
             type = feed.get(i).getPosts().get(i).getPost_type2();
+            Log.e("type", type + "");
             name = feed.get(i).getPosts().get(i).getPublisher_data().getUsername();
             avatar = feed.get(i).getPosts().get(i).getPublisher_data().getProfile_picture();
             userId = feed.get(i).getPosts().get(i).getPublisher_data().getId();
@@ -199,6 +212,14 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new TextModel(i, textContent, text2));
                 items.add(new CommentModel(i, countLike, false, postId));
+                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
+
+
+                for (int j = 0; j < feed.get(i).getPosts().get(i).getGet_post_comments().size(); j++) {
+                    Log.e("ggggg", feed.get(i).getPosts().get(i).getGet_post_comments().get(j).getText() + "");
+                }
+
+
             }
             if (type == 2) {
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
@@ -207,8 +228,28 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 postId = feed.get(i).getPosts().get(i).getPost_id();
                 String photoContent = feed.get(i).getPosts().get(i).getPost_data().getPost_thumb();
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                items.add(new ImagesModel(i, photoContent));
+                items.add(new ImagesModel(i, photoContent, postId));
                 items.add(new CommentModel(i, countLike, false, postId));
+                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
+
+                arrImage.add(photoContent);
+
+
+            }
+
+            if (type == 22) {
+                String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
+                String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
+                String timePost = feed.get(i).getPosts().get(i).getPost_data().getPost_time();
+                String ii = "https://www.zaab-d.com/upload/photos/2017/06/1azi9cp99MHYXHRfgubQ_18_7e5a2f752367d74642bb85a6fcb66ba7_image.jpg";
+                postId = feed.get(i).getPosts().get(i).getPost_id();
+                String photoContent = feed.get(i).getPosts().get(i).getPost_data().getPost_thumb();
+                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                items.add(new ImagesMutiModel(i, ii, postId));
+                items.add(new CommentModel(i, countLike, false, postId));
+                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
+
+
             }
             if (type == 3) {
                 postId = feed.get(i).getPosts().get(i).getPost_id();
@@ -220,6 +261,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new ViedoModel(i, urlMp4, title));
                 items.add(new CommentModel(i, countLike, false, postId));
+                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
             }
 
             if (type == 4) {
@@ -232,6 +274,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new fileModel(i, urlfile, title));
                 items.add(new CommentModel(i, countLike, false, postId));
+                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
             }
 
             if (type == 5) {
@@ -244,6 +287,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new Mp3Model(i, urlfile, title));
                 items.add(new CommentModel(i, countLike, false, postId));
+                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
             }
             if (type == 6) {
                 postId = feed.get(i).getPosts().get(i).getPost_id();
@@ -254,6 +298,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new MapsModel(i, title));
                 items.add(new CommentModel(i, countLike, false, postId));
+                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
             }
 
             if (type == 7) {
@@ -266,6 +311,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
                 items.add(new CommentModel(i, countLike, false, postId));
+                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
             }
             if (type == 8) {
                 postId = feed.get(i).getPosts().get(i).getPost_id();
@@ -276,6 +322,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new SoundCloudModel(i, title));
                 items.add(new CommentModel(i, countLike, false, postId));
+                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
             }
 
         }
@@ -309,8 +356,19 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     private final CommentViewRenderer.Listener mListenerComment = new CommentViewRenderer.Listener() {
         @Override
         public void onCommentClicked(@NonNull CommentModel model) {
+
             Intent i = new Intent(getActivity(), CommentsActivity.class);
+            i.putExtra("postId", model.getPostId());
             startActivity(i);
+        }
+
+    };
+
+    @NonNull
+    private final CommentListViewRenderer.Listener mListenerListComment = new CommentListViewRenderer.Listener() {
+        @Override
+        public void onCommentClicked(@NonNull CommentListModel model) {
+
         }
 
     };
@@ -330,9 +388,45 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     private final ImagesViewRenderer.Listener mListenerPhoto = new ImagesViewRenderer.Listener() {
         @Override
         public void onProfileClicked(@NonNull ImagesModel model) {
-            Toast.makeText(getActivity(), "gggg" + model.getID() + "", Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(getContext(), "Check Image" + model.getPostId(), Toast.LENGTH_SHORT).show();
+
+            Intent i = new Intent(getActivity(), ActivityImageFeed.class);
+            i.putExtra("array_list", arrImage);
+            startActivity(i);
         }
 
+        ;
+    };
+
+    @NonNull
+    private final ImagesMutiViewRenderer.Listener mListenerMutiPhoto = new ImagesMutiViewRenderer.Listener() {
+        @Override
+        public void onProfileClicked(@NonNull ImagesMutiModel model) {
+
+
+            Toast.makeText(getActivity(), "gggg" + "", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(getActivity(), ActivityMutiImageFeed.class);
+            i.putExtra("postId", model.getPostId());
+            startActivity(i);
+
+        }
+
+    };
+
+
+    @NonNull
+    private final ImagesViewRenderer.ListeneImage mListenerImage = new ImagesViewRenderer.ListeneImage() {
+        @Override
+        public void onLikeImageked(@NonNull ImagesModel model) {
+            Toast.makeText(getContext(), "Check Image" + model.getPostId(), Toast.LENGTH_SHORT).show();
+
+
+            Intent i = new Intent(getActivity(), ActivityImageFeed.class);
+            i.putExtra("array_list", arrImage);
+            startActivity(i);
+
+        }
     };
 
     @NonNull

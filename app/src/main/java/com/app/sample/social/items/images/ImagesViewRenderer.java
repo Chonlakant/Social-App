@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.sample.social.R;
+import com.app.sample.social.items.footer.CommentModel;
+import com.app.sample.social.items.footer.CommentViewRenderer;
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
 import com.squareup.picasso.Picasso;
 
@@ -18,9 +20,13 @@ public class ImagesViewRenderer extends ViewRenderer<ImagesModel, ImagesViewHold
     @NonNull
     private final Listener mListener;
 
-    public ImagesViewRenderer(final int type, final Context context, @NonNull final Listener listener) {
+    @NonNull
+    private final ListeneImage mListenerImage;
+
+    public ImagesViewRenderer(final int type, final Context context, @NonNull final Listener listener, @NonNull final ListeneImage ListenerImage) {
         super(type, context);
         mListener = listener;
+        mListenerImage = ListenerImage;
     }
 
     @Override
@@ -38,10 +44,17 @@ public class ImagesViewRenderer extends ViewRenderer<ImagesModel, ImagesViewHold
                 .load(model.getUrlAvatra())
                 .into(holder.photo_content);
 
+//        holder.photo_content.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mListener.onProfileClicked(model);
+//            }
+//        });
+
         holder.photo_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onProfileClicked(model);
+                mListenerImage.onLikeImageked(model);
             }
         });
 
@@ -55,6 +68,10 @@ public class ImagesViewRenderer extends ViewRenderer<ImagesModel, ImagesViewHold
 
     public interface Listener {
         void onProfileClicked(@NonNull ImagesModel model);
+    }
+
+    public interface ListeneImage {
+        void onLikeImageked(@NonNull ImagesModel model);
     }
 
 }

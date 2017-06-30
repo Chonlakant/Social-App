@@ -129,7 +129,7 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
         mRecyclerViewAdapter.registerRenderer(new HeaderViewRenderer(HeaderModel.TYPE, getActivity(), mListenerHeaderText));
         mRecyclerViewAdapter.registerRenderer(new ProfileViewRenderer(ProfileModel.TYPE, getActivity(), mListenerProfile));
         mRecyclerViewAdapter.registerRenderer(new TextViewRenderer(TextModel.TYPE, getActivity(), mListenerText));
-        mRecyclerViewAdapter.registerRenderer(new ImagesViewRenderer(ImagesModel.TYPE, getActivity(), mListenerPhoto));
+        mRecyclerViewAdapter.registerRenderer(new ImagesViewRenderer(ImagesModel.TYPE, getActivity(), mListenerPhoto,mListenerImage));
         mRecyclerViewAdapter.registerRenderer(new VideoViewRenderer(ViedoModel.TYPE, getActivity(), mListenerVideo));
         mRecyclerViewAdapter.registerRenderer(new fileViewRenderer(fileModel.TYPE, getActivity(), mListenerfile));
         mRecyclerViewAdapter.registerRenderer(new Mp3ViewRenderer(Mp3Model.TYPE, getActivity(), mListenerMp3));
@@ -207,7 +207,7 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
                 String postId = feed.get(i).getPosts().get(i).getPost_id();
                 String photoContent = feed.get(i).getPosts().get(i).getPost_data().getPost_thumb();
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                items.add(new ImagesModel(i, photoContent));
+                items.add(new ImagesModel(i, photoContent,postId));
                 items.add(new CommentModel(i, countLike, false, postId));
             }
             if (type == 3) {
@@ -323,6 +323,15 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
         }
 
     };
+
+    @NonNull
+    private final ImagesViewRenderer.ListeneImage mListenerImage = new ImagesViewRenderer.ListeneImage() {
+        @Override
+        public void onLikeImageked(@NonNull ImagesModel model) {
+            Toast.makeText(getContext(),"Check Image",Toast.LENGTH_SHORT).show();
+        }
+    };
+
 
     @NonNull
     private final fileViewRenderer.Listener mListenerfile = new fileViewRenderer.Listener() {

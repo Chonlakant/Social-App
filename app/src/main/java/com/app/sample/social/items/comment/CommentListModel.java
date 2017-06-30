@@ -3,30 +3,25 @@ package com.app.sample.social.items.comment;
 import android.support.annotation.NonNull;
 
 import com.app.sample.social.items.BaseItemModel;
+import com.app.sample.social.model.Feed;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CommentListModel implements BaseItemModel {
 
-    public boolean isLiked;
+
     public static final int TYPE = 11;
     private final int mID;
-    private String userId;
-    private String postId;
-    private String text;
-    private String timeStamp;
 
-    @NonNull
-    private final String countLike;
+    private List<Feed.PostsBean.GetPostCommentsBean> commentLists ;
 
-
-    public CommentListModel(final int ID, String userId, @NonNull final String countLike, boolean isLiked, String postId, String text, String timeStamp) {
+    public CommentListModel(final int ID, List<Feed.PostsBean.GetPostCommentsBean> commentLists) {
         mID = ID;
-        this.countLike = countLike;
-        this.userId = userId;
-        this.isLiked = isLiked;
-        this.postId = postId;
-        this.text = text;
-        this.timeStamp = timeStamp;
+
+
+        this.commentLists = commentLists;
     }
 
     @Override
@@ -39,40 +34,20 @@ public class CommentListModel implements BaseItemModel {
         return TYPE;
     }
 
-    @NonNull
-    public String getCountLike() {
-        return countLike;
+
+    public static int getTYPE() {
+        return TYPE;
     }
 
-    public String getPostId() {
-        return postId;
+    public int getmID() {
+        return mID;
     }
 
-    public void setPostId(String postId) {
-        this.postId = postId;
+    public List<Feed.PostsBean.GetPostCommentsBean> getCommentLists() {
+        return commentLists;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
+    public void setCommentLists(ArrayList<Feed.PostsBean.GetPostCommentsBean> commentLists) {
+        this.commentLists = commentLists;
     }
 }

@@ -89,7 +89,7 @@ public class ActivityFriendDetails extends AppCompatActivity {
     private void setupViewPager(ViewPager mViewPager) {
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
 
-        if( frag_friendAbout == null ){ frag_friendAbout = new FriendAboutFragment(); }
+        if( frag_friendAbout == null ){ frag_friendAbout = FriendAboutFragment.getInstance(userId); }
         if( frag_friendActivity == null ){ frag_friendActivity = FriendActivitiesFragment.getInstance(userId); }
         if( frag_friendPhotos == null ){ frag_friendPhotos = new FriendPhotosFragment(); }
 

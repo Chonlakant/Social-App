@@ -46,6 +46,8 @@
         <activity android:name=".post_timeline.ActivityPostTimeline"/>
         <activity android:name=".activity_comment.CommentsActivity"/>
         <activity android:name=".activity_product.ActivityPostPostduct"/>
+        <activity android:name=".activity_feed_mutiple_image.ActivityImageFeed"/>
+        <activity android:name=".activity_feed_mutiple_image.ActivityMutiImageFeed"/>
     </application>
 
 </manifest>

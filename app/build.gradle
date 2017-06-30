@@ -51,5 +51,8 @@ dependencies {
     compile project(':rendererrecyclerviewadapter')
     compile 'com.siclo.ezphotopick:library:1.0.6'
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
+    compile 'org.parceler:parceler-api:1.1.9'
+    annotationProcessor 'org.parceler:parceler:1.1.9'
+
 
 }

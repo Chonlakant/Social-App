@@ -1,17 +1,17 @@
-package com.app.sample.social.items.images;
+package com.app.sample.social.items.image_mutiple;
 
 
 import com.app.sample.social.items.BaseItemModel;
 
-public class ImagesModel implements BaseItemModel {
+public class ImagesMutiModel implements BaseItemModel {
 
-    public static final int TYPE = 2;
+    public static final int TYPE = 22;
     private final int mID;
     private String urlAvatra;
     private String postId;
 
 
-    public ImagesModel(int mID, String urlAvatra,String postId) {
+    public ImagesMutiModel(int mID, String urlAvatra, String postId) {
         this.mID = mID;
 
         this.urlAvatra = urlAvatra;

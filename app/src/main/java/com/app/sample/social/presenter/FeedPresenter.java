@@ -1,6 +1,8 @@
 package com.app.sample.social.presenter;
 
 
+import android.util.Log;
+
 import com.app.sample.social.api.Apis;
 import com.app.sample.social.model.Feed;
 import com.app.sample.social.service.ServiceApi;
@@ -32,6 +34,8 @@ public class FeedPresenter implements FeedContract.HomePresenter {
                 for(int i =0;i<response.body().getPosts().size();i++){
 
                     list.add(response.body());
+                    Log.e("dddd",response.body().getPosts().get(i).getGet_post_comments()+"");
+
                 }
                 view.showAllFeed(list);
 
