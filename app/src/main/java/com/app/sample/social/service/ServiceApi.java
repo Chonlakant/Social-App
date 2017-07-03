@@ -37,13 +37,13 @@ public interface ServiceApi {
     Call<UserProfile> getUserProfile(@Query("user_id") String id,@Query("user_profile_id") String user_profile_id,@Query("s") String s);
 
 
-    @GET("app_api.php?application=phone&type=get_post_data&user_id=164&post_id=1612&s=7618202086683&limit=1")
+    @GET("app_api.php?application=phone&type=get_post_data&")
     Call<GetPostId> getFeedId(@Query("user_id") String id,
                            @Query("post_id") String post_id,
                            @Query("s") String s,
                            @Query("limit") String limit);
 
-    @GET("app_api.php?application=phone&type=get_post_data&user_id=164&post_id=1612&s=7618202086683&limit=1")
+    @GET("app_api.php?application=phone&type=get_post_data&")
     Call<GetPostId> getCommentId(@Query("user_id") String id,
                               @Query("post_id") String post_id,
                               @Query("s") String s,

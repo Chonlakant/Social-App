@@ -16,7 +16,7 @@ public interface GetFeedPostIdContract {
     }
 
     interface HomePostIdPresenter {
-        void getAllPostIdFeed(String userId, String user_profile_id, String s, String limit);
+        void getAllPostIdFeed(String userId, String post_id, String s, String limit);
 
     }
 }

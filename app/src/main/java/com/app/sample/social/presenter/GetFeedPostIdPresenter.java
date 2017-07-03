@@ -27,13 +27,13 @@ public class GetFeedPostIdPresenter implements GetFeedPostIdContract.HomePostIdP
     }
 
     @Override
-    public void getAllPostIdFeed(String userId, String user_profile_id, String s, String limit) {
+    public void getAllPostIdFeed(String userId, String post_id, String s, String limit) {
 
         Log.e("userId", userId);
-        Log.e("user_profile_id", user_profile_id);
+        Log.e("post_id", post_id);
         Log.e("2", s);
         Log.e("limit", limit);
-        starWarsApi.getFeedId(userId, user_profile_id, s, limit).enqueue(new Callback<GetPostId>() {
+        starWarsApi.getFeedId(userId, post_id, s, limit).enqueue(new Callback<GetPostId>() {
             @Override
             public void onResponse(Call<GetPostId> call, Response<GetPostId> response) {
 

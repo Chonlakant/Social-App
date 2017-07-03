@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import com.app.sample.social.R;
 import com.app.sample.social.model.Feed;
 import com.app.sample.social.model.GetPostId;
+import com.app.sample.social.model.ObjectComment;
 import com.app.sample.social.presenter.GetFeedPostCommentIdContract;
 import com.app.sample.social.presenter.GetFeedPostCommentIdPresenter;
 import com.app.sample.social.presenter.GetFeedPostIdContract;
@@ -24,7 +25,7 @@ import com.app.sample.social.presenter.GetFeedPostIdPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentsActivity extends AppCompatActivity implements GetFeedPostCommentIdContract.HomeViewPostId  {
+public class CommentsActivity extends AppCompatActivity implements GetFeedPostCommentIdContract.HomeViewPostId {
     public static final String ARG_DRAWING_START_LOCATION = "arg_drawing_start_location";
 
     SharedPreferences sharedpreferences;
@@ -46,6 +47,8 @@ public class CommentsActivity extends AppCompatActivity implements GetFeedPostCo
     String postId;
 
 
+    ArrayList<ObjectComment> llistComment = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +62,7 @@ public class CommentsActivity extends AppCompatActivity implements GetFeedPostCo
         timeStamp = sharedpreferences.getString("userId", "null");
 
         homePostIdPresenter = new GetFeedPostCommentIdPresenter(this);
-        homePostIdPresenter.getAllPostCommentIdFeed(userIdPreferences,postId,timeStamp,"1");
+        homePostIdPresenter.getAllPostCommentIdFeed(userIdPreferences, postId, timeStamp, "1");
 
 
         contentRoot = (LinearLayout) findViewById(R.id.contentRoot);
@@ -77,27 +80,9 @@ public class CommentsActivity extends AppCompatActivity implements GetFeedPostCo
         rvComments.setLayoutManager(linearLayoutManager);
         rvComments.setHasFixedSize(true);
 
-        commentsAdapter = new CommentsAdapter(this);
-        rvComments.setAdapter(commentsAdapter);
-        rvComments.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        rvComments.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    commentsAdapter.setAnimationsLocked(true);
-                }
-            }
-        });
+
     }
 
-
-    private void animateContent() {
-        commentsAdapter.updateItems();
-        llAddComment.animate().translationY(0)
-                .setInterpolator(new DecelerateInterpolator())
-                .setDuration(200)
-                .start();
-    }
 
     @Override
     public void showAllCommentPostId(List<GetPostId> feed) {
@@ -106,7 +91,11 @@ public class CommentsActivity extends AppCompatActivity implements GetFeedPostCo
     }
 
     @Override
-    public void showCommentArr(ArrayList<String> listStr) {
+    public void showCommentArr(ArrayList<ObjectComment> listStr) {
 
+        commentsAdapter = new CommentsAdapter(getApplicationContext(), listStr);
+        rvComments.setAdapter(commentsAdapter);
+        rvComments.setOverScrollMode(View.OVER_SCROLL_NEVER);
     }
+
 }
