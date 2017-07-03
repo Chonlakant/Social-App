@@ -5,11 +5,20 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class FeedUser {
+    /**
+     * api_status : 200
+     * api_text : success
+     * api_version : 1.4.4
+     * posts : [{"post_id":"2019","post_type":"photo_multi","post_type2":22,"post_data":{"post_id":"2019","post_text":"ทดสอบ POST รูป","post_text2":"","post_file":"","post_thumb":"http://zaab-d.com/imgd.php?w=600&src=","post_soundcloud":"","post_youtube":"","post_vine":"","post_map":"","post_time":"1499091935","post_likes":"0","post_wonders":"0"},"publisher_data":{"id":"164","username":"Chonlakant","first_name":"","last_name":"","gender":"male","birthday":"0000-00-00","about":null,"website":"","facebook":"","twitter":"","vk":"","google+":"","profile_picture":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_picture":"https://www.zaab-d.com/upload/photos/d-cover.jpg","verified":"0","url":"https://www.zaab-d.com/post/2019_ทดสอบ-post-ร-ป.html"},"id":"2019","user_id":"164","recipient_id":"0","postText":"ทดสอบ POST รูป","page_id":"0","group_id":"0","postLink":"","postLinkTitle":"","postLinkImage":"","postLinkContent":"","postVimeo":"","postDailymotion":"","postFacebook":"","postFile":"","postFileName":"","postYoutube":"","postVine":"","postSoundCloud":"","postMap":"","postShare":"0","postPrivacy":"0","postType":"post","postFeeling":"","postListening":"","postTraveling":"","postWatching":"","postPlaying":"","time":"1499091935","registered":"7/2017","album_name":"","multi_image":"1","boosted":"0","product_id":"0","poll_id":"0","blog_id":"0","publisher":{"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1499094585","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"},"limit_comments":5,"limited_comments":true,"is_group_post":false,"group_recipient_exists":false,"group_admin":false,"postText_API":"ทดสอบ POST รูป","Orginaltext":"ทดสอบ POST รูป","post_time":"44 นาที ที่ผ่านมา","page":0,"url":"https://www.zaab-d.com/post/2019_ทดสอบ-post-ร-ป.html","via_type":"","recipient_exists":false,"recipient":"","admin":false,"is_post_saved":false,"is_post_reported":false,"is_post_boosted":0,"is_liked":false,"is_wondered":false,"post_comments":"1","post_shares":"0","post_likes":"0","post_wonders":"0","is_post_pinned":false,"get_post_comments":[{"id":"236","user_id":"164","page_id":"0","post_id":"2019","text":"Like","c_file":"","time":"1499094587","publisher":{"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1499094585","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"},"url":"https://www.zaab-d.com/Chonlakant","Orginaltext":"Like","onwer":false,"post_onwer":false,"comment_likes":"0","comment_wonders":"0","is_comment_wondered":false,"is_comment_liked":false}],"photo_album":[],"photo_multi":[{"id":"1983","image":"https://www.zaab-d.com/upload/photos/2017/07/lW6SsZVAwCvQMCfUBl7Y_03_0ab5da7fe8ff2641423f236577f8191d_image.jpg","post_id":"2019","image_org":"upload/photos/2017/07/lW6SsZVAwCvQMCfUBl7Y_03_0ab5da7fe8ff2641423f236577f8191d_image_small.jpg"},{"id":"1982","image":"https://www.zaab-d.com/upload/photos/2017/07/ulRL5dSHQb5OVrX1ULfq_03_8b7465b76386b04ea38b607a5d6b0ca5_image.jpg","post_id":"2019","image_org":"upload/photos/2017/07/ulRL5dSHQb5OVrX1ULfq_03_8b7465b76386b04ea38b607a5d6b0ca5_image_small.jpg"},{"id":"1981","image":"https://www.zaab-d.com/upload/photos/2017/07/B1y9RSFHBueDOyos8JmK_03_8b7465b76386b04ea38b607a5d6b0ca5_image.jpg","post_id":"2019","image_org":"upload/photos/2017/07/B1y9RSFHBueDOyos8JmK_03_8b7465b76386b04ea38b607a5d6b0ca5_image_small.jpg"}],"options":[],"postFile_full":"","comments":[{"id":"236","user_id":"164","page_id":"0","post_id":"2019","text":"Like","c_file":"","time":"1499094587","publisher":{"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1499094585","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"},"url":"https://www.zaab-d.com/Chonlakant","Orginaltext":"Like","onwer":false,"post_onwer":false,"comment_likes":"0","comment_wonders":"0","is_comment_wondered":false,"is_comment_liked":false}],"time_text":"44 นาที ที่ผ่านมา"}]
+     * friends : []
+     * connectivity_system : เพื่อน
+     */
+
     private String api_status;
     private String api_text;
     private String api_version;
     private String connectivity_system;
-    private List<FeedUser.PostsBean> posts;
+    private List<Feed.PostsBean> posts;
     private List<?> friends;
 
     public String getApi_status() {
@@ -44,11 +53,11 @@ public class FeedUser {
         this.connectivity_system = connectivity_system;
     }
 
-    public List<FeedUser.PostsBean> getPosts() {
+    public List<Feed.PostsBean> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<FeedUser.PostsBean> posts) {
+    public void setPosts(List<Feed.PostsBean> posts) {
         this.posts = posts;
     }
 
@@ -62,15 +71,15 @@ public class FeedUser {
 
     public static class PostsBean {
         /**
-         * post_id : 1669
-         * post_type : post_text
-         * post_type2 : 1
-         * post_data : {"post_id":"1669","post_text":"fff","post_text2":"","post_file":"","post_thumb":"http://zaab-d.com/imgd.php?w=600&src=","post_soundcloud":"","post_youtube":"","post_vine":"","post_map":"","post_time":"1497932867","post_likes":"1","post_wonders":"0"}
-         * publisher_data : {"id":"164","username":"Chonlakant","first_name":"","last_name":"","gender":"male","birthday":"0000-00-00","about":null,"website":"","facebook":"","twitter":"","vk":"","google+":"","profile_picture":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_picture":"https://www.zaab-d.com/upload/photos/d-cover.jpg","verified":"0","url":"https://www.zaab-d.com/post/1669_d-d-d-d-d.html"}
-         * id : 1669
+         * post_id : 2019
+         * post_type : photo_multi
+         * post_type2 : 22
+         * post_data : {"post_id":"2019","post_text":"ทดสอบ POST รูป","post_text2":"","post_file":"","post_thumb":"http://zaab-d.com/imgd.php?w=600&src=","post_soundcloud":"","post_youtube":"","post_vine":"","post_map":"","post_time":"1499091935","post_likes":"0","post_wonders":"0"}
+         * publisher_data : {"id":"164","username":"Chonlakant","first_name":"","last_name":"","gender":"male","birthday":"0000-00-00","about":null,"website":"","facebook":"","twitter":"","vk":"","google+":"","profile_picture":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_picture":"https://www.zaab-d.com/upload/photos/d-cover.jpg","verified":"0","url":"https://www.zaab-d.com/post/2019_ทดสอบ-post-ร-ป.html"}
+         * id : 2019
          * user_id : 164
          * recipient_id : 0
-         * postText : fff
+         * postText : ทดสอบ POST รูป
          * page_id : 0
          * group_id : 0
          * postLink :
@@ -94,25 +103,25 @@ public class FeedUser {
          * postTraveling :
          * postWatching :
          * postPlaying :
-         * time : 1497932867
-         * registered : 6/2017
+         * time : 1499091935
+         * registered : 7/2017
          * album_name :
-         * multi_image : 0
+         * multi_image : 1
          * boosted : 0
          * product_id : 0
          * poll_id : 0
          * blog_id : 0
-         * publisher : {"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1498708923","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"}
+         * publisher : {"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1499094585","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"}
          * limit_comments : 5
          * limited_comments : true
          * is_group_post : false
          * group_recipient_exists : false
          * group_admin : false
-         * postText_API : ggg
-         * Orginaltext : :D  :D :D :D :D
-         * post_time : 9 วัน ที่ผ่านมา
+         * postText_API : ทดสอบ POST รูป
+         * Orginaltext : ทดสอบ POST รูป
+         * post_time : 44 นาที ที่ผ่านมา
          * page : 0
-         * url : https://www.zaab-d.com/post/1669_d-d-d-d-d.html
+         * url : https://www.zaab-d.com/post/2019_ทดสอบ-post-ร-ป.html
          * via_type :
          * recipient_exists : false
          * recipient :
@@ -120,19 +129,20 @@ public class FeedUser {
          * is_post_saved : false
          * is_post_reported : false
          * is_post_boosted : 0
-         * is_liked : true
+         * is_liked : false
          * is_wondered : false
          * post_comments : 1
          * post_shares : 0
-         * post_likes : 1
+         * post_likes : 0
          * post_wonders : 0
          * is_post_pinned : false
-         * get_post_comments : [{"id":"225","user_id":"164","page_id":"0","post_id":"1669","text":"ทดสอบ","c_file":"","time":"1498708903","publisher":{"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1498708923","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"},"url":"https://www.zaab-d.com/Chonlakant","Orginaltext":"ทดสอบ","onwer":false,"post_onwer":false,"comment_likes":"0","comment_wonders":"0","is_comment_wondered":false,"is_comment_liked":false}]
+         * get_post_comments : [{"id":"236","user_id":"164","page_id":"0","post_id":"2019","text":"Like","c_file":"","time":"1499094587","publisher":{"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1499094585","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"},"url":"https://www.zaab-d.com/Chonlakant","Orginaltext":"Like","onwer":false,"post_onwer":false,"comment_likes":"0","comment_wonders":"0","is_comment_wondered":false,"is_comment_liked":false}]
          * photo_album : []
+         * photo_multi : [{"id":"1983","image":"https://www.zaab-d.com/upload/photos/2017/07/lW6SsZVAwCvQMCfUBl7Y_03_0ab5da7fe8ff2641423f236577f8191d_image.jpg","post_id":"2019","image_org":"upload/photos/2017/07/lW6SsZVAwCvQMCfUBl7Y_03_0ab5da7fe8ff2641423f236577f8191d_image_small.jpg"},{"id":"1982","image":"https://www.zaab-d.com/upload/photos/2017/07/ulRL5dSHQb5OVrX1ULfq_03_8b7465b76386b04ea38b607a5d6b0ca5_image.jpg","post_id":"2019","image_org":"upload/photos/2017/07/ulRL5dSHQb5OVrX1ULfq_03_8b7465b76386b04ea38b607a5d6b0ca5_image_small.jpg"},{"id":"1981","image":"https://www.zaab-d.com/upload/photos/2017/07/B1y9RSFHBueDOyos8JmK_03_8b7465b76386b04ea38b607a5d6b0ca5_image.jpg","post_id":"2019","image_org":"upload/photos/2017/07/B1y9RSFHBueDOyos8JmK_03_8b7465b76386b04ea38b607a5d6b0ca5_image_small.jpg"}]
          * options : []
          * postFile_full :
-         * comments : [{"id":"225","user_id":"164","page_id":"0","post_id":"1669","text":"ทดสอบ","c_file":"","time":"1498708903","publisher":{"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1498708923","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"},"url":"https://www.zaab-d.com/Chonlakant","Orginaltext":"ทดสอบ","onwer":false,"post_onwer":false,"comment_likes":"0","comment_wonders":"0","is_comment_wondered":false,"is_comment_liked":false}]
-         * time_text : 9 วัน ที่ผ่านมา
+         * comments : [{"id":"236","user_id":"164","page_id":"0","post_id":"2019","text":"Like","c_file":"","time":"1499094587","publisher":{"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1499094585","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"},"url":"https://www.zaab-d.com/Chonlakant","Orginaltext":"Like","onwer":false,"post_onwer":false,"comment_likes":"0","comment_wonders":"0","is_comment_wondered":false,"is_comment_liked":false}]
+         * time_text : 44 นาที ที่ผ่านมา
          */
 
         private String post_id;
@@ -204,6 +214,7 @@ public class FeedUser {
         private String time_text;
         private List<Feed.PostsBean.GetPostCommentsBean> get_post_comments;
         private List<?> photo_album;
+        private List<Feed.PostsBean.PhotoMultiBean> photo_multi;
         private List<?> options;
         private List<Feed.PostsBean.CommentsBean> comments;
 
@@ -759,6 +770,14 @@ public class FeedUser {
             this.photo_album = photo_album;
         }
 
+        public List<Feed.PostsBean.PhotoMultiBean> getPhoto_multi() {
+            return photo_multi;
+        }
+
+        public void setPhoto_multi(List<Feed.PostsBean.PhotoMultiBean> photo_multi) {
+            this.photo_multi = photo_multi;
+        }
+
         public List<?> getOptions() {
             return options;
         }
@@ -777,8 +796,8 @@ public class FeedUser {
 
         public static class PostDataBean {
             /**
-             * post_id : 1669
-             * post_text : fff
+             * post_id : 2019
+             * post_text : ทดสอบ POST รูป
              * post_text2 :
              * post_file :
              * post_thumb : http://zaab-d.com/imgd.php?w=600&src=
@@ -786,8 +805,8 @@ public class FeedUser {
              * post_youtube :
              * post_vine :
              * post_map :
-             * post_time : 1497932867
-             * post_likes : 1
+             * post_time : 1499091935
+             * post_likes : 0
              * post_wonders : 0
              */
 
@@ -918,7 +937,7 @@ public class FeedUser {
              * profile_picture : https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg
              * cover_picture : https://www.zaab-d.com/upload/photos/d-cover.jpg
              * verified : 0
-             * url : https://www.zaab-d.com/post/1669_d-d-d-d-d.html
+             * url : https://www.zaab-d.com/post/2019_ทดสอบ-post-ร-ป.html
              */
 
             private String id;
@@ -933,7 +952,7 @@ public class FeedUser {
             private String twitter;
             private String vk;
             @SerializedName("google+")
-            private String _$Google63; // FIXME check this code
+            private String _$Google224; // FIXME check this code
             private String profile_picture;
             private String cover_picture;
             private String verified;
@@ -1027,12 +1046,12 @@ public class FeedUser {
                 this.vk = vk;
             }
 
-            public String get_$Google63() {
-                return _$Google63;
+            public String get_$Google224() {
+                return _$Google224;
             }
 
-            public void set_$Google63(String _$Google63) {
-                this._$Google63 = _$Google63;
+            public void set_$Google224(String _$Google224) {
+                this._$Google224 = _$Google224;
             }
 
             public String getProfile_picture() {
@@ -1109,7 +1128,7 @@ public class FeedUser {
              * birth_privacy : 0
              * visit_privacy : 0
              * verified : 0
-             * lastseen : 1498708923
+             * lastseen : 1499094585
              * showlastseen : 1
              * emailNotification : 1
              * e_liked : 1
@@ -1906,16 +1925,16 @@ public class FeedUser {
 
         public static class GetPostCommentsBean {
             /**
-             * id : 225
+             * id : 236
              * user_id : 164
              * page_id : 0
-             * post_id : 1669
-             * text : ทดสอบ
+             * post_id : 2019
+             * text : Like
              * c_file :
-             * time : 1498708903
-             * publisher : {"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1498708923","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"}
+             * time : 1499094587
+             * publisher : {"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1499094585","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"}
              * url : https://www.zaab-d.com/Chonlakant
-             * Orginaltext : ทดสอบ
+             * Orginaltext : Like
              * onwer : false
              * post_onwer : false
              * comment_likes : 0
@@ -2110,7 +2129,7 @@ public class FeedUser {
                  * birth_privacy : 0
                  * visit_privacy : 0
                  * verified : 0
-                 * lastseen : 1498708923
+                 * lastseen : 1499094585
                  * showlastseen : 1
                  * emailNotification : 1
                  * e_liked : 1
@@ -2906,18 +2925,64 @@ public class FeedUser {
             }
         }
 
+        public static class PhotoMultiBean {
+            /**
+             * id : 1983
+             * image : https://www.zaab-d.com/upload/photos/2017/07/lW6SsZVAwCvQMCfUBl7Y_03_0ab5da7fe8ff2641423f236577f8191d_image.jpg
+             * post_id : 2019
+             * image_org : upload/photos/2017/07/lW6SsZVAwCvQMCfUBl7Y_03_0ab5da7fe8ff2641423f236577f8191d_image_small.jpg
+             */
+
+            private String id;
+            private String image;
+            private String post_id;
+            private String image_org;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
+
+            public String getPost_id() {
+                return post_id;
+            }
+
+            public void setPost_id(String post_id) {
+                this.post_id = post_id;
+            }
+
+            public String getImage_org() {
+                return image_org;
+            }
+
+            public void setImage_org(String image_org) {
+                this.image_org = image_org;
+            }
+        }
+
         public static class CommentsBean {
             /**
-             * id : 225
+             * id : 236
              * user_id : 164
              * page_id : 0
-             * post_id : 1669
-             * text : ทดสอบ
+             * post_id : 2019
+             * text : Like
              * c_file :
-             * time : 1498708903
-             * publisher : {"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1498708923","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"}
+             * time : 1499094587
+             * publisher : {"user_id":"164","username":"Chonlakant","email":"sattboot1@gmail.com","password":"e10adc3949ba59abbe56e057f20f883e","first_name":"","last_name":"","avatar":"https://www.zaab-d.com/upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover":"https://www.zaab-d.com/upload/photos/d-cover.jpg","background_image":"","background_image_status":"0","relationship_id":"0","address":"","working":"","working_link":"","about":null,"school":"","gender":"male","birthday":"0000-00-00","country_id":"0","website":"","facebook":"","google":"","twitter":"","linkedin":"","youtube":"","vk":"","instagram":"","language":"thai","email_code":"913f0a07b228a298e638ea2626d1838f","src":"site","ip_address":"110.168.6.8","follow_privacy":"0","post_privacy":"ifollow","message_privacy":"0","confirm_followers":"0","show_activities_privacy":"1","birth_privacy":"0","visit_privacy":"0","verified":"0","lastseen":"1499094585","showlastseen":"1","emailNotification":"1","e_liked":"1","e_wondered":"1","e_shared":"1","e_followed":"1","e_commented":"1","e_visited":"1","e_liked_page":"1","e_mentioned":"1","e_joined_group":"1","e_accepted":"1","e_profile_wall_post":"1","status":"0","active":"1","admin":"0","type":"user","registered":"6/2017","start_up":"0","start_up_info":"0","startup_follow":"0","startup_image":"1","last_email_sent":"0","phone_number":"","sms_code":"0","is_pro":"0","pro_time":"0","pro_type":"0","joined":"1496826926","css_file":"","timezone":"UTC","referrer":"0","balance":"0","paypal_email":"","notifications_sound":"0","order_posts_by":"1","social_login":"0","avatar_org":"upload/photos/2017/06/46LTgnYPwnoR7VBaKXCt_17_70ef68232ea9523ade99770aaeb7dd0a_avatar.jpg","cover_org":"upload/photos/d-cover.jpg","cover_full":"upload/photos/d-cover.jpg","id":"164","url":"https://www.zaab-d.com/Chonlakant","name":"Chonlakant"}
              * url : https://www.zaab-d.com/Chonlakant
-             * Orginaltext : ทดสอบ
+             * Orginaltext : Like
              * onwer : false
              * post_onwer : false
              * comment_likes : 0
@@ -3112,7 +3177,7 @@ public class FeedUser {
                  * birth_privacy : 0
                  * visit_privacy : 0
                  * verified : 0
-                 * lastseen : 1498708923
+                 * lastseen : 1499094585
                  * showlastseen : 1
                  * emailNotification : 1
                  * e_liked : 1

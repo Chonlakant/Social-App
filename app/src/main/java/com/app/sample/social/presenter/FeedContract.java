@@ -1,7 +1,9 @@
 package com.app.sample.social.presenter;
 
 import com.app.sample.social.model.Feed;
+import com.app.sample.social.model.ObjectImageMutiple;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface FeedContract {
@@ -11,7 +13,7 @@ public interface FeedContract {
         void hideLoading();
 
 
-        void showAllFeed(List<Feed> feed);
+        void showAllFeed(List<Feed> feed, ArrayList<ObjectImageMutiple> objectImageMutiples);
 
 
     }

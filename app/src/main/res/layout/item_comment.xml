@@ -15,17 +15,36 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            />
+            android:layout_marginRight="16dp" />
 
-        <TextView
-            android:id="@+id/tvComment"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="16dp"
-            android:layout_weight="1"
-            android:text="Lorem ipsum dolor sit amet" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:text="Lorem ipsum dolor sit amet" />
+
+            <TextView
+                android:id="@+id/tvComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:textSize="12dp"
+                android:text="Lorem ipsum dolor sit amet" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
     <View
@@ -33,5 +52,6 @@
         android:layout_height="1dp"
         android:layout_gravity="bottom"
         android:layout_marginLeft="88dp"
+        android:layout_marginRight="88dp"
         android:background="#cccccc" />
 </FrameLayout>

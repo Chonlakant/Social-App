@@ -21,17 +21,21 @@ import android.widget.Toast;
 
 import com.app.sample.social.ActivityFriendDetails;
 import com.app.sample.social.R;
+import com.app.sample.social.activity_feed_mutiple_image.ActivityMutiImageFeed;
 import com.app.sample.social.activity_viedo_full.ActivityFullVideo;
 import com.app.sample.social.activity_youtube.ActivityYoutube;
 import com.app.sample.social.adapter.FeedUserListAdapter;
 import com.app.sample.social.items.BaseItemModel;
 import com.app.sample.social.items.ContentModel;
+import com.app.sample.social.items.comment.CommentListModel;
 import com.app.sample.social.items.file.fileModel;
 import com.app.sample.social.items.file.fileViewRenderer;
 import com.app.sample.social.items.footer.CommentModel;
 import com.app.sample.social.items.footer.CommentViewRenderer;
 import com.app.sample.social.items.header.HeaderModel;
 import com.app.sample.social.items.header.HeaderViewRenderer;
+import com.app.sample.social.items.image_mutiple.ImagesMutiModel;
+import com.app.sample.social.items.image_mutiple.ImagesMutiViewRenderer;
 import com.app.sample.social.items.images.ImagesModel;
 import com.app.sample.social.items.images.ImagesViewRenderer;
 import com.app.sample.social.items.maps.MapsModel;
@@ -76,6 +80,7 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
 
     String userIdPreferences;
     String timeStamp;
+    String postId;
 
     int type;
     String name;
@@ -130,6 +135,7 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
         mRecyclerViewAdapter.registerRenderer(new ProfileViewRenderer(ProfileModel.TYPE, getActivity(), mListenerProfile));
         mRecyclerViewAdapter.registerRenderer(new TextViewRenderer(TextModel.TYPE, getActivity(), mListenerText));
         mRecyclerViewAdapter.registerRenderer(new ImagesViewRenderer(ImagesModel.TYPE, getActivity(), mListenerPhoto,mListenerImage));
+        mRecyclerViewAdapter.registerRenderer(new ImagesMutiViewRenderer(ImagesMutiModel.TYPE, getActivity(), mListenerMutiPhoto));
         mRecyclerViewAdapter.registerRenderer(new VideoViewRenderer(ViedoModel.TYPE, getActivity(), mListenerVideo));
         mRecyclerViewAdapter.registerRenderer(new fileViewRenderer(fileModel.TYPE, getActivity(), mListenerfile));
         mRecyclerViewAdapter.registerRenderer(new Mp3ViewRenderer(Mp3Model.TYPE, getActivity(), mListenerMp3));
@@ -209,6 +215,24 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new ImagesModel(i, photoContent,postId));
                 items.add(new CommentModel(i, countLike, false, postId));
+            }
+
+            if (type == 22) {
+//                String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
+//                String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
+//                String timePost = feed.get(i).getPosts().get(i).getPost_data().getPost_time();
+//                String ii = "https://www.zaab-d.com/upload/photos/2017/06/1azi9cp99MHYXHRfgubQ_18_7e5a2f752367d74642bb85a6fcb66ba7_image.jpg";
+//                postId = feed.get(i).getPosts().get(i).getPost_id();
+//
+//                if(feed.get(i).getPosts().get(i).getPhoto_multi() != null){
+//
+//                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+//                    items.add(new ImagesMutiModel(i, ii, postId,feed.get(i).getPosts().get(i).getPhoto_multi(),textContent));
+//                    items.add(new CommentModel(i, countLike, false, postId));
+//                    items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
+//                }
+
+
             }
             if (type == 3) {
                 String postId = feed.get(i).getPosts().get(i).getPost_id();
@@ -332,6 +356,20 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
         }
     };
 
+    @NonNull
+    private final ImagesMutiViewRenderer.Listener mListenerMutiPhoto = new ImagesMutiViewRenderer.Listener() {
+        @Override
+        public void onProfileClicked(@NonNull ImagesMutiModel model) {
+
+
+            Toast.makeText(getActivity(), "gggg" + "", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(getActivity(), ActivityMutiImageFeed.class);
+            i.putExtra("postId", model.getPostId());
+            startActivity(i);
+
+        }
+
+    };
 
     @NonNull
     private final fileViewRenderer.Listener mListenerfile = new fileViewRenderer.Listener() {

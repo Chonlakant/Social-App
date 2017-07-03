@@ -58,6 +58,7 @@ import com.app.sample.social.items.viedo.ViedoModel;
 import com.app.sample.social.items.youtube.YoutubeModel;
 import com.app.sample.social.items.youtube.YoutubeViewRenderer;
 import com.app.sample.social.model.Feed;
+import com.app.sample.social.model.ObjectImageMutiple;
 import com.app.sample.social.model.PostLike;
 import com.app.sample.social.post_timeline.ActivityPostTimeline;
 import com.app.sample.social.presenter.FeedContract;
@@ -183,8 +184,9 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
 
     }
 
+
     @Override
-    public void showAllFeed(final List<Feed> feed) {
+    public void showAllFeed(final List<Feed> feed, ArrayList<ObjectImageMutiple> objectImageMutiples) {
         mRecyclerViewAdapter.notifyDataSetChanged();
         final int headerID = 1;
         String nameHeader = feed.get(0).getPosts().get(0).getPublisher_data().getFirst_name();
@@ -227,6 +229,13 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 String timePost = feed.get(i).getPosts().get(i).getPost_data().getPost_time();
                 postId = feed.get(i).getPosts().get(i).getPost_id();
                 String photoContent = feed.get(i).getPosts().get(i).getPost_data().getPost_thumb();
+
+//                for(int j = 0 ; j < feed.get(i).getPosts().get(i).getPhoto_multi().size();j++){
+//
+//                    String image = feed.get(j).getPosts().get(j).getPhoto_multi().get(j).getImage();
+//                    Log.e("image",image);
+//                }
+
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new ImagesModel(i, photoContent, postId));
                 items.add(new CommentModel(i, countLike, false, postId));
@@ -244,10 +253,17 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 String ii = "https://www.zaab-d.com/upload/photos/2017/06/1azi9cp99MHYXHRfgubQ_18_7e5a2f752367d74642bb85a6fcb66ba7_image.jpg";
                 postId = feed.get(i).getPosts().get(i).getPost_id();
                 String photoContent = feed.get(i).getPosts().get(i).getPost_data().getPost_thumb();
-                items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                items.add(new ImagesMutiModel(i, ii, postId));
-                items.add(new CommentModel(i, countLike, false, postId));
-                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
+
+                Log.e("textContent",textContent);
+
+
+                if(feed.get(i).getPosts().get(i).getPhoto_multi() != null){
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new ImagesMutiModel(i, ii, postId,feed.get(i).getPosts().get(i).getPhoto_multi(),textContent));
+                    items.add(new CommentModel(i, countLike, false, postId));
+                    items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
+                }
 
 
             }

@@ -49,13 +49,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
         // each data item is just a string in this case
         public TextView tvComment;
         public ImageView ivUserAvatar;
-
+        public TextView tvName;
 
         public ViewHolder(View v) {
             super(v);
             tvComment = (TextView) v.findViewById(R.id.tvComment);
             ivUserAvatar = (ImageView) v.findViewById(R.id.ivUserAvatar);
-
+            tvName = (TextView) v.findViewById(R.id.tvName);
         }
     }
 
@@ -74,6 +74,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final ObjectComment c = original_items.get(position);
         holder.tvComment.setText(c.getTextComment());
+        holder.tvName.setText(c.getName());
         Picasso.with(ctx)
                 .load(c.getAvatar())
                 .resize(100, 100)

@@ -8,6 +8,7 @@ import com.app.sample.social.model.GetPostImageId;
 import com.app.sample.social.model.Login;
 import com.app.sample.social.model.Logout;
 import com.app.sample.social.model.Notifications;
+import com.app.sample.social.model.PostComment;
 import com.app.sample.social.model.PostLike;
 import com.app.sample.social.model.PostProduct;
 import com.app.sample.social.model.PostText;
@@ -48,6 +49,15 @@ public interface ServiceApi {
                               @Query("post_id") String post_id,
                               @Query("s") String s,
                               @Query("limit") String limit);
+
+
+    @FormUrlEncoded
+    @POST("app_api.php?application=phone&type=new_comment")
+    Call<PostComment> postCommentId(@Field("user_id") String user_id,
+                                    @Field("s") String s,
+                                    @Field("text") String text,
+                                    @Field("post_id") String post_id);
+
 
 
 
