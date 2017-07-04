@@ -29,10 +29,6 @@ public class PostCommentPresenter implements PostCommentContract.HomePresenterPo
     @Override
     public void postText(String userId,  String timeStamp , String postText, String post_id) {
 
-        Log.e("userId",userId);
-        Log.e("timeStamp",timeStamp);
-        Log.e("postText",postText);
-        Log.e("post_id",post_id);
 
         starWarsApi.postCommentId(userId, timeStamp , postText, post_id).enqueue(new Callback<PostComment>() {
             @Override

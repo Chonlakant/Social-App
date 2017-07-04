@@ -3,6 +3,7 @@ package com.app.sample.social.items.profile;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.sample.social.R;
@@ -16,7 +17,7 @@ public class ProfileViewHolder
     public final ImageView bt_more;
     public final TextView text_name;
     public final TextView text_date;
-
+    public final LinearLayout ls_onclick;
 
     public ProfileViewHolder(final View itemView) {
         super(itemView);
@@ -25,6 +26,6 @@ public class ProfileViewHolder
         bt_more = (ImageView) itemView.findViewById(R.id.bt_more);
         text_name = (TextView) itemView.findViewById(R.id.text_name);
         text_date = (TextView) itemView.findViewById(R.id.text_date);
-
+        ls_onclick = (LinearLayout) itemView.findViewById(R.id.ls_onclickr);
     }
 }

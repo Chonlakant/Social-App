@@ -13,8 +13,8 @@ public class CommentViewHolder
 
 
     public final ImageButton bt_like;
-    public final ImageView bt_comment;
-    public final ImageView bt_share;
+    public final ImageButton bt_comment;
+    public final ImageButton btnMore;
     public final TextView txt_like;
 
 
@@ -22,8 +22,8 @@ public class CommentViewHolder
         super(itemView);
 
         bt_like = (ImageButton) itemView.findViewById(R.id.bt_like);
-        bt_comment = (ImageView) itemView.findViewById(R.id.bt_comment);
-        bt_share = (ImageView) itemView.findViewById(R.id.bt_share);
+        bt_comment = (ImageButton) itemView.findViewById(R.id.bt_comment);
+        btnMore = (ImageButton) itemView.findViewById(R.id.btnMore);
         txt_like = (TextView) itemView.findViewById(R.id.txt_like);
 
     }

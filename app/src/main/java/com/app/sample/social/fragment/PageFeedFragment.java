@@ -1,8 +1,11 @@
 package com.app.sample.social.fragment;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -254,13 +257,13 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
                 postId = feed.get(i).getPosts().get(i).getPost_id();
                 String photoContent = feed.get(i).getPosts().get(i).getPost_data().getPost_thumb();
 
-                Log.e("textContent",textContent);
+                Log.e("textContent", textContent);
 
 
-                if(feed.get(i).getPosts().get(i).getPhoto_multi() != null){
+                if (feed.get(i).getPosts().get(i).getPhoto_multi() != null) {
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new ImagesMutiModel(i, ii, postId,feed.get(i).getPosts().get(i).getPhoto_multi(),textContent));
+                    items.add(new ImagesMutiModel(i, ii, postId, feed.get(i).getPosts().get(i).getPhoto_multi(), textContent));
                     items.add(new CommentModel(i, countLike, false, postId));
                     items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
                 }
@@ -449,6 +452,23 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
     private final fileViewRenderer.Listener mListenerfile = new fileViewRenderer.Listener() {
         @Override
         public void onFileClicked(@NonNull fileModel model) {
+
+
+            Toast.makeText(getActivity(), "Download File...", Toast.LENGTH_SHORT).show();
+
+            String DownloadUrl = model.getUrlfifle();
+            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(DownloadUrl));
+            request.setDescription("sample pdf file for testing");   //appears the same in Notification bar while downloading
+            request.setTitle(model.getTitle());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                request.allowScanningByMediaScanner();
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            }
+            request.setDestinationInExternalFilesDir(getActivity(), null, model.getTitle());
+
+            // get download service and enqueue file
+            DownloadManager manager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+            manager.enqueue(request);
 
         }
 
