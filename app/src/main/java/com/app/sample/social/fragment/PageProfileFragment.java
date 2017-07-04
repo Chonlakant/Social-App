@@ -1,6 +1,7 @@
 package com.app.sample.social.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,14 +16,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.app.sample.social.ActivityFriendDetails;
+import com.app.sample.social.ActivityLogin;
 import com.app.sample.social.R;
+import com.app.sample.social.api.Apis;
+import com.app.sample.social.model.Logout;
 import com.app.sample.social.model.UserProfile;
 import com.app.sample.social.presenter.UserProfileContract;
 import com.app.sample.social.presenter.UserProfilePresenter;
+import com.app.sample.social.service.ServiceApi;
 import com.app.sample.social.widget.CircleTransform;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PageProfileFragment extends Fragment implements UserProfileContract.HomeViewUserProfile {
     View view;
@@ -35,6 +45,10 @@ public class PageProfileFragment extends Fragment implements UserProfileContract
 
     TextView userName;
     ImageView imagProfile;
+
+    String title;
+    String cover;
+    String userId;
 
     UserProfileContract.HomePresenteUserProfile presenteUserProfile;
 
@@ -57,7 +71,6 @@ public class PageProfileFragment extends Fragment implements UserProfileContract
         presenteUserProfile.getAllUserProfile(userIdPreferences, userIdPreferences, timeStamp);
 
 
-
         return view;
     }
 
@@ -65,6 +78,13 @@ public class PageProfileFragment extends Fragment implements UserProfileContract
         switch (view.getId()) {
             case R.id.lyt_view_profile:
                 Snackbar.make(view, "View Profile Clicked", Snackbar.LENGTH_SHORT).show();
+
+                Intent i = new Intent(getActivity(), ActivityFriendDetails.class);
+                i.putExtra("title", title);
+                i.putExtra("cover", cover);
+                i.putExtra("userId", userId);
+                startActivity(i);
+
                 break;
             case R.id.lyt_group_cat:
                 Snackbar.make(view, "Group - Cat Lover Clicked", Snackbar.LENGTH_SHORT).show();
@@ -83,7 +103,14 @@ public class PageProfileFragment extends Fragment implements UserProfileContract
                 Snackbar.make(view, "Help nad FAQ Clicked", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.lyt_logout:
-                Snackbar.make(view, "Logout Clicked", Snackbar.LENGTH_SHORT).show();
+                logoutGet(userIdPreferences, timeStamp);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.clear();
+                editor.commit();
+
+                Intent ii = new Intent(getActivity(), ActivityLogin.class);
+                startActivity(ii);
+                getActivity().finish();
                 break;
         }
     }
@@ -92,13 +119,35 @@ public class PageProfileFragment extends Fragment implements UserProfileContract
     public void showUserProfile(List<UserProfile> feed) {
 
         Log.e("ddddd", feed.get(0).getUser_data().getUsername());
+        title = feed.get(0).getUser_data().getUsername();
+        cover = feed.get(0).getUser_data().getCover();
+        userId = feed.get(0).getUser_data().getUser_id();
         userName.setText(feed.get(0).getUser_data().getUsername());
         Picasso.with(getActivity())
                 .load(feed.get(0)
-                .getUser_data()
-                .getAvatar())
+                        .getUser_data()
+                        .getAvatar())
                 .resize(100, 100)
                 .transform(new CircleTransform())
                 .into(imagProfile);
+    }
+
+    private void logoutGet(String userId, String timeStamp) {
+
+        ServiceApi service = Apis.getClient().create(ServiceApi.class);
+
+        Call<Logout> userCall = service.getLogoutUser(userId, timeStamp);
+
+        userCall.enqueue(new Callback<Logout>() {
+            @Override
+            public void onResponse(Call<Logout> call, Response<Logout> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<Logout> call, Throwable t) {
+
+            }
+        });
     }
 }

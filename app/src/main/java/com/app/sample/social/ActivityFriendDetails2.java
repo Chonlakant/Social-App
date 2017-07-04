@@ -95,10 +95,10 @@ public class ActivityFriendDetails2 extends AppCompatActivity {
         if(item.getItemId() == android.R.id.home){
             onBackPressed();
             return true;
-        } else if(item.getItemId() == R.id.action_send_message){
-            Intent i = new Intent(getApplicationContext(), ActivityChatDetails.class);
-            i.putExtra(ActivityChatDetails.KEY_FRIEND, friend);
-            startActivity(i);
+        } else if(item.getItemId() == R.id.action_add_friends){
+//            Intent i = new Intent(getApplicationContext(), ActivityChatDetails.class);
+//            i.putExtra(ActivityChatDetails.KEY_FRIEND, friend);
+//            startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);

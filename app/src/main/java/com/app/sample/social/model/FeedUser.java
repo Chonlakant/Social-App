@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class FeedUser {
+
     /**
      * api_status : 200
      * api_text : success

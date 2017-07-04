@@ -46,6 +46,7 @@ public class ActivityFriendDetails extends AppCompatActivity {
     String title;
     String cover;
     String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,15 +65,15 @@ public class ActivityFriendDetails extends AppCompatActivity {
         title = getIntent().getStringExtra("title");
         cover = getIntent().getStringExtra("cover");
         userId = getIntent().getStringExtra("userId");
-        Log.e("userId",userId);
+        Log.e("userId", userId);
         // get extra object
         friend = (Friend) getIntent().getSerializableExtra(EXTRA_OBJCT);
 
         // scollable toolbar
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(title);
-        ImageView ivImage = (ImageView)findViewById(R.id.ivImage);
-      //  ivImage.setImageResource(friend.getPhoto());
+        ImageView ivImage = (ImageView) findViewById(R.id.ivImage);
+        //  ivImage.setImageResource(friend.getPhoto());
         Glide.with(getApplicationContext())
                 .load(cover)
                 .into(ivImage);
@@ -89,30 +90,37 @@ public class ActivityFriendDetails extends AppCompatActivity {
     private void setupViewPager(ViewPager mViewPager) {
         MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager());
 
-        if( frag_friendAbout == null ){ frag_friendAbout = FriendAboutFragment.getInstance(userId); }
-        if( frag_friendActivity == null ){ frag_friendActivity = FriendActivitiesFragment.getInstance(userId); }
-        if( frag_friendPhotos == null ){ frag_friendPhotos =  FriendPhotosFragment.getInstance(userId); }
+        if (frag_friendAbout == null) {
+            frag_friendAbout = FriendAboutFragment.getInstance(userId);
+        }
+        if (frag_friendActivity == null) {
+            frag_friendActivity = FriendActivitiesFragment.getInstance(userId);
+        }
+        if (frag_friendPhotos == null) {
+            frag_friendPhotos = FriendPhotosFragment.getInstance(userId);
+        }
 
-        adapter.addFragment(frag_friendAbout, "ABOUT");
         adapter.addFragment(frag_friendActivity, "ACTIVITIES");
         adapter.addFragment(frag_friendPhotos, "PHOTOS");
+        adapter.addFragment(frag_friendAbout, "ABOUT");
 
         mViewPager.setAdapter(adapter);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
-        } else if(item.getItemId() == R.id.action_send_message){
-            Intent i = new Intent(getApplicationContext(), ActivityChatDetails.class);
-            i.putExtra(ActivityChatDetails.KEY_FRIEND, friend);
-            startActivity(i);
+        } else if (item.getItemId() == R.id.action_add_friends) {
+//            Intent i = new Intent(getApplicationContext(), ActivityChatDetails.class);
+//            i.putExtra(ActivityChatDetails.KEY_FRIEND, friend);
+//            startActivity(i);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_activity_friend_details, menu);

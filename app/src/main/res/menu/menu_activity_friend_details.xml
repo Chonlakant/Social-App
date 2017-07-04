@@ -1,10 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
+    <!--<item-->
+        <!--android:id="@+id/action_send_message"-->
+        <!--android:orderInCategory="100"-->
+        <!--app:showAsAction="ifRoom"-->
+        <!--android:icon="@drawable/ic_menu_new_message"-->
+        <!--android:title="action call"/>-->
+
     <item
-        android:id="@+id/action_send_message"
+        android:id="@+id/action_add_friends"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_menu_new_message"
+        android:icon="@drawable/add_user_104"
         android:title="action call"/>
 </menu>
