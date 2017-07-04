@@ -34,6 +34,7 @@ public class FeedPresenter implements FeedContract.HomePresenter {
             @Override
             public void onResponse(Call<Feed> call, Response<Feed> response) {
                 list.clear();
+
                 for (int i = 0; i < response.body().getPosts().size(); i++) {
 
                     list.add(response.body());

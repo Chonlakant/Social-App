@@ -1,5 +1,6 @@
 package com.app.sample.social.service;
 
+import com.app.sample.social.model.Album;
 import com.app.sample.social.model.Feed;
 import com.app.sample.social.model.FeedUser;
 import com.app.sample.social.model.Friend2;
@@ -35,20 +36,35 @@ public interface ServiceApi {
 
 
     @GET("app_api.php?application=phone&type=get_user_data&")
-    Call<UserProfile> getUserProfile(@Query("user_id") String id,@Query("user_profile_id") String user_profile_id,@Query("s") String s);
+    Call<UserProfile> getUserProfile(@Query("user_id") String id, @Query("user_profile_id") String user_profile_id, @Query("s") String s);
 
 
     @GET("app_api.php?application=phone&type=get_post_data&")
     Call<GetPostId> getFeedId(@Query("user_id") String id,
-                           @Query("post_id") String post_id,
-                           @Query("s") String s,
-                           @Query("limit") String limit);
-
-    @GET("app_api.php?application=phone&type=get_post_data&")
-    Call<GetPostId> getCommentId(@Query("user_id") String id,
                               @Query("post_id") String post_id,
                               @Query("s") String s,
                               @Query("limit") String limit);
+
+
+    @GET("app_api.php?application=phone&type=get_post_data&")
+    Call<GetPostId> getFeedNoti(@Query("user_id") String id,
+                                @Query("post_id") String post_id,
+                                @Query("s") String s,
+                                @Query("limit") String limit);
+
+    @GET("app_api.php?application=phone&type=get_user_posts&")
+    Call<Album> getAlbum(@Query("user_id") String id,
+                        @Query("user_profile_id") String user_profile_id,
+                        @Query("s") String s,
+                        @Query("limit") String limit,
+                        @Query("album") String album);
+
+
+    @GET("app_api.php?application=phone&type=get_post_data&")
+    Call<GetPostId> getCommentId(@Query("user_id") String id,
+                                 @Query("post_id") String post_id,
+                                 @Query("s") String s,
+                                 @Query("limit") String limit);
 
 
     @FormUrlEncoded
@@ -57,9 +73,6 @@ public interface ServiceApi {
                                     @Field("s") String s,
                                     @Field("text") String text,
                                     @Field("post_id") String post_id);
-
-
-
 
 
     @GET("app_api.php?application=phone&type=get_user_posts&")
@@ -110,7 +123,7 @@ public interface ServiceApi {
             , @Part("s") RequestBody s
             , @Part("name") RequestBody name,
                                   @Part("description") RequestBody description,
-                                  @Part ("postPhotos")MultipartBody.Part filename,
+                                  @Part("postPhotos") MultipartBody.Part filename,
                                   @Part("price") RequestBody price,
                                   @Part("category") RequestBody category,
                                   @Part("type") RequestBody type,

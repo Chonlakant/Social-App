@@ -19,6 +19,7 @@ public class CommentViewHolder
     public final TextSwitcher txt_like;
 
 
+
     public CommentViewHolder(final View itemView) {
         super(itemView);
 

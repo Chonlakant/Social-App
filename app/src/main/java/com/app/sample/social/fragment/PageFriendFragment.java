@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -113,6 +114,10 @@ public class PageFriendFragment extends Fragment implements ListFriendsUserContr
                 String title = feed.get(position).getUsers().get(position).getName();
                 String cover = feed.get(position).getUsers().get(position).getCover_picture();
                 String userId = feed.get(position).getUsers().get(position).getUser_id();
+
+                Log.e("title",title);
+                Log.e("userId",userId);
+
                 Intent i = new Intent(getActivity(),ActivityFriendDetails.class);
                 i.putExtra("title",title);
                 i.putExtra("cover",cover);

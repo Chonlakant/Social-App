@@ -61,7 +61,7 @@ public class FriendAboutFragment extends Fragment implements UserProfileContract
         Log.e("userId", userId);
 
         presenteUserProfile = new UserProfilePresenter(this);
-        presenteUserProfile.getAllUserProfile(userIdPreferences, userIdPreferences, timeStamp);
+        presenteUserProfile.getAllUserProfile(userIdPreferences, userId, timeStamp);
 
         return view;
     }

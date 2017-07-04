@@ -1,6 +1,7 @@
 package com.app.sample.social.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.sample.social.R;
+import com.app.sample.social.activity_articles.activity_noti.ActivityNoti;
 import com.app.sample.social.adapter.FriendsListAdapter;
 import com.app.sample.social.adapter.NotifListAdapter;
 import com.app.sample.social.data.Constant;
@@ -63,7 +65,6 @@ public class PageNotifFragment extends Fragment implements NotiUserContract.Home
         recyclerView.setHasFixedSize(true);
 
 
-
         presenter = new NotiUserPresenter(this);
         presenter.notiUser(userIdPreferences, timeStamp);
 
@@ -87,12 +88,20 @@ public class PageNotifFragment extends Fragment implements NotiUserContract.Home
     }
 
     @Override
-    public void notiUser(List<Notifications> notificationsList) {
+    public void notiUser(final List<Notifications> notificationsList) {
 
         //set data and list adapter
         mAdapter = new NotifListAdapter(getActivity(), notificationsList);
         recyclerView.setAdapter(mAdapter);
-
+        mAdapter.setOnItemClickListener(new NotifListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent i = new Intent(getActivity(), ActivityNoti.class);
+                i.putExtra("post_id", notificationsList.get(position).getNotifications().get(position).getPost_id());
+                startActivity(i);
+                Toast.makeText(getActivity(), "Check", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 }

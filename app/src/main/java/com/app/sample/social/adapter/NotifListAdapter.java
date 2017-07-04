@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.app.sample.social.R;
+import com.app.sample.social.items.image_mutiple.ImageMutipleAdapter;
 import com.app.sample.social.model.Notif;
 import com.app.sample.social.model.Notifications;
 import com.app.sample.social.widget.CircleTransform;
@@ -27,14 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.ViewHolder> implements Filterable {
-
+    public OnItemClickListener mOnItemClickListener;
     private List<Notifications> original_items = new ArrayList<>();
     private List<Notifications> filtered_items = new ArrayList<>();
     private ItemFilter mFilter = new ItemFilter();
 
     private Context ctx;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
         public TextView content;
         public TextView date;
@@ -49,8 +50,19 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
             image = (ImageView) v.findViewById(R.id.image);
             lyt_parent = (LinearLayout) v.findViewById(R.id.lyt_parent);
             txt_text = (TextView) v.findViewById(R.id.txt_text);
+            lyt_parent.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.lyt_parent:
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(v, getPosition());
+                    }
+
+            }
+        }
     }
 
     public Filter getFilter() {
@@ -148,5 +160,13 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
             notifyDataSetChanged();
         }
 
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
+        this.mOnItemClickListener = mItemClickListener;
     }
 }

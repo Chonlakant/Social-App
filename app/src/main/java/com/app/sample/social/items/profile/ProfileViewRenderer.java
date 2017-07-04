@@ -41,7 +41,6 @@ public class ProfileViewRenderer extends ViewRenderer<ProfileModel, ProfileViewH
     public void bindView(@NonNull final ProfileModel model, @NonNull final ProfileViewHolder holder) {
         holder.text_name.setText(model.getName());
 
-        long t = Long.parseLong(model.getTime());
         holder.text_date.setText(model.getTime());
 
         Picasso.with(getContext())

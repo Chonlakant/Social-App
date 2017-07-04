@@ -15,6 +15,7 @@ public class CommentListModel implements BaseItemModel {
     public static final int TYPE = 11;
     private final int mID;
 
+
     private List<Feed.PostsBean.GetPostCommentsBean> commentLists ;
 
     public CommentListModel(final int ID, List<Feed.PostsBean.GetPostCommentsBean> commentLists) {

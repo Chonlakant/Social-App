@@ -78,7 +78,6 @@ public class ProductDetailsImageListAdapter extends RecyclerView.Adapter<Product
         final productImage c = original_items.get(position);
 
         Picasso.with(ctx).load(c.getImageUrl())
-                .transform(new CircleTransform())
                 .into(holder.image);
 
         setAnimation(holder.itemView, position);

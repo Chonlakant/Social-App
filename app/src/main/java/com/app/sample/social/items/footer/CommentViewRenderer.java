@@ -42,13 +42,15 @@ public class CommentViewRenderer extends ViewRenderer<CommentModel, CommentViewH
     @Override
     public void bindView(@NonNull final CommentModel model, @NonNull final CommentViewHolder holder) {
         Log.e("nnnn",model.getCountLike());
-        holder.txt_like.setText(model.getCountLike());
+       // holder.txt_like.setText(model.getCountLike());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 // mListener.onContentItemClicked(model);
             }
         });
+
+        holder.txt_like.setCurrentText(model.getCountLike()+" likes");
         holder.bt_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,23 +58,39 @@ public class CommentViewRenderer extends ViewRenderer<CommentModel, CommentViewH
             }
         });
 
-        holder.bt_like.setOnClickListener(new View.OnClickListener() {
+        if(model.isLiked == true){
+
+            holder.bt_like.setImageResource(R.drawable.ic_heart_red);
+
+        }else{
+
+            holder.bt_like.setImageResource(R.drawable.ic_heart_outline_grey);
+        }
+
+      holder.bt_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListenerLike.onLikeClicked(model);
-
-                if (status == 0) {
-                    holder.bt_like.setImageResource(R.drawable.ic_heart_red);
-                    status=1 ;
-                }
-
-                else {
-                    holder.bt_like.setImageResource(R.drawable.ic_heart_outline_grey);
-                    status =0;
-                }
-
             }
         });
+
+//        holder.bt_like.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mListenerLike.onLikeClicked(model);
+//
+//                if (status == 0) {
+//
+//                    status=1 ;
+//                }
+//
+//                else {
+//
+//                    status =0;
+//                }
+//
+//            }
+//        });
     }
 
     @NonNull
