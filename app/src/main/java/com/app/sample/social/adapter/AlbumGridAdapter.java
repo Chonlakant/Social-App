@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.app.sample.social.R;
 import com.app.sample.social.model.Album;
+import com.app.sample.social.model.Friend;
 import com.app.sample.social.model.Friend_photos;
 import com.app.sample.social.widget.CircleTransform;
 import com.balysv.materialripple.MaterialRippleLayout;
@@ -28,12 +29,13 @@ import java.util.List;
 
 public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.ViewHolder> {
 
+    private OnItemClickListener mOnItemClickListener;
     private List<Album> original_items = new ArrayList<>();
 
 
     private Context ctx;
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
         public TextView title;
         public TextView content;
@@ -46,8 +48,21 @@ public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.View
             content = (TextView) v.findViewById(R.id.content);
             image = (ImageView) v.findViewById(R.id.image);
             lyt_parent = (MaterialRippleLayout) v.findViewById(R.id.lyt_parent);
+
+            image.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.image:
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(v, getPosition());
+                    }
+
+            }
+
+        }
     }
 
     public AlbumGridAdapter(Context ctx, List<Album> items) {
@@ -76,12 +91,7 @@ public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.View
                 .into(holder.image);
         setAnimation(holder.itemView, position);
         // view detail message conversation
-        holder.lyt_parent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Album " + p.getPosts().get(position).getAlbum_name() + " clicked", Snackbar.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     // Here is the key method to apply the animation
@@ -100,6 +110,13 @@ public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.View
     @Override
     public int getItemCount() {
         return original_items.size();
+    }
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
+        this.mOnItemClickListener = mItemClickListener;
     }
 
 }

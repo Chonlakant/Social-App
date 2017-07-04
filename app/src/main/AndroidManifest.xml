@@ -48,6 +48,7 @@
         <activity android:name=".activity_product.ActivityPostPostduct"/>
         <activity android:name=".activity_feed_mutiple_image.ActivityImageFeed"/>
         <activity android:name=".activity_feed_mutiple_image.ActivityMutiImageFeed"/>
+        <activity android:name=".activity_feed_mutiple_image.ActivityAlbumMutiImageFeed"/>
     </application>
 
 </manifest>

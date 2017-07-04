@@ -1,6 +1,7 @@
 package com.app.sample.social.service;
 
 import com.app.sample.social.model.Album;
+import com.app.sample.social.model.Album2;
 import com.app.sample.social.model.Feed;
 import com.app.sample.social.model.FeedUser;
 import com.app.sample.social.model.Friend2;
@@ -44,6 +45,13 @@ public interface ServiceApi {
                               @Query("post_id") String post_id,
                               @Query("s") String s,
                               @Query("limit") String limit);
+
+
+    @GET("app_api.php?application=phone&type=get_post_data&")
+    Call<Album2> getAlbumMutiId(@Query("user_id") String id,
+                                @Query("post_id") String post_id,
+                                @Query("s") String s,
+                                @Query("limit") String limit);
 
 
     @GET("app_api.php?application=phone&type=get_post_data&")

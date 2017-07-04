@@ -1,6 +1,7 @@
 package com.app.sample.social.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,11 +10,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.app.sample.social.R;
+import com.app.sample.social.activity_feed_mutiple_image.ActivityAlbumMutiImageFeed;
+import com.app.sample.social.activity_feed_mutiple_image.ActivityMutiImageFeed;
 import com.app.sample.social.adapter.AlbumGridAdapter;
 import com.app.sample.social.album_presenter.GetAlbumIdContract;
 import com.app.sample.social.album_presenter.GetAlbumIdPresenter;
@@ -34,7 +39,19 @@ public class FriendPhotosFragment extends Fragment implements GetAlbumIdContract
     String userIdPreferences;
     String timeStamp;
 
+    String userId;
+
     GetAlbumIdContract.HomePostAlbumIdPresenter homePostAlbumIdPresenter;
+
+
+    public static FriendPhotosFragment getInstance(String userId) {
+        FriendPhotosFragment mainFragment = new FriendPhotosFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("MSG", userId);
+        mainFragment.setArguments(bundle);
+        return mainFragment;
+    }
+
 
     @Nullable
     @Override
@@ -46,9 +63,11 @@ public class FriendPhotosFragment extends Fragment implements GetAlbumIdContract
         userIdPreferences = sharedpreferences.getString("userId", "null");
         timeStamp = sharedpreferences.getString("userId", "null");
 
+        Bundle args = getArguments();
+        userId = args.getString("MSG");
 
         homePostAlbumIdPresenter = new GetAlbumIdPresenter(this);
-        homePostAlbumIdPresenter.getAllPostIdAlbum(userIdPreferences, userIdPreferences, timeStamp, "100", "1");
+        homePostAlbumIdPresenter.getAllPostIdAlbum(userId, userId, timeStamp, "100", "1");
 
         LinearLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), Tools.getGridSpanCount(getActivity()));
         recyclerView.setLayoutManager(mLayoutManager);
@@ -59,10 +78,21 @@ public class FriendPhotosFragment extends Fragment implements GetAlbumIdContract
     }
 
     @Override
-    public void showAllAlbumId(List<Album> feed) {
+    public void showAllAlbumId(final List<Album> feed) {
 
         mAdapter = new AlbumGridAdapter(getActivity(), feed);
         recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener(new AlbumGridAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(), "gggg" + "", Toast.LENGTH_SHORT).show();
+                Log.e("post_id",feed.get(position).getPosts().get(position).getPost_id());
+                Intent i = new Intent(getActivity(), ActivityAlbumMutiImageFeed.class);
+                i.putExtra("postId", feed.get(position).getPosts().get(position).getPost_id());
+                startActivity(i);
+            }
+        });
 
     }
 }

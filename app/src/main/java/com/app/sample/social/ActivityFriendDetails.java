@@ -91,7 +91,7 @@ public class ActivityFriendDetails extends AppCompatActivity {
 
         if( frag_friendAbout == null ){ frag_friendAbout = FriendAboutFragment.getInstance(userId); }
         if( frag_friendActivity == null ){ frag_friendActivity = FriendActivitiesFragment.getInstance(userId); }
-        if( frag_friendPhotos == null ){ frag_friendPhotos = new FriendPhotosFragment(); }
+        if( frag_friendPhotos == null ){ frag_friendPhotos =  FriendPhotosFragment.getInstance(userId); }
 
         adapter.addFragment(frag_friendAbout, "ABOUT");
         adapter.addFragment(frag_friendActivity, "ACTIVITIES");
