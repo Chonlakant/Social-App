@@ -24,7 +24,7 @@ import com.app.sample.social.R;
 import com.app.sample.social.activity_feed_mutiple_image.ActivityMutiImageFeed;
 import com.app.sample.social.activity_viedo_full.ActivityFullVideo;
 import com.app.sample.social.activity_youtube.ActivityYoutube;
-import com.app.sample.social.adapter.FeedUserListAdapter;
+
 import com.app.sample.social.items.BaseItemModel;
 import com.app.sample.social.items.ContentModel;
 import com.app.sample.social.items.comment.CommentListModel;

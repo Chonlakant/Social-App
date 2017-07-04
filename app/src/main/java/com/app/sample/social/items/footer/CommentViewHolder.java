@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 
 import com.app.sample.social.R;
@@ -15,7 +16,7 @@ public class CommentViewHolder
     public final ImageButton bt_like;
     public final ImageButton bt_comment;
     public final ImageButton btnMore;
-    public final TextView txt_like;
+    public final TextSwitcher txt_like;
 
 
     public CommentViewHolder(final View itemView) {
@@ -24,7 +25,7 @@ public class CommentViewHolder
         bt_like = (ImageButton) itemView.findViewById(R.id.bt_like);
         bt_comment = (ImageButton) itemView.findViewById(R.id.bt_comment);
         btnMore = (ImageButton) itemView.findViewById(R.id.btnMore);
-        txt_like = (TextView) itemView.findViewById(R.id.txt_like);
+        txt_like = (TextSwitcher) itemView.findViewById(R.id.txt_like);
 
     }
 }

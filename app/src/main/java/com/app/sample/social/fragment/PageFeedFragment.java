@@ -30,7 +30,6 @@ import com.app.sample.social.activity_feed_mutiple_image.ActivityImageFeed;
 import com.app.sample.social.activity_feed_mutiple_image.ActivityMutiImageFeed;
 import com.app.sample.social.activity_viedo_full.ActivityFullVideo;
 import com.app.sample.social.activity_youtube.ActivityYoutube;
-import com.app.sample.social.adapter.FeedListAdapter2;
 import com.app.sample.social.api.Apis;
 import com.app.sample.social.items.BaseItemModel;
 import com.app.sample.social.items.ContentModel;
@@ -76,7 +75,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PageFeedFragment extends Fragment implements FeedContract.HomeView, FeedListAdapter2.OnCommentClick {
+public class PageFeedFragment extends Fragment implements FeedContract.HomeView {
 
 
     SharedPreferences sharedpreferences;
@@ -364,13 +363,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView,
 
     };
 
-
-    @Override
-    public void onCommentClick(View view, int position) {
-        Snackbar.make(view, "Comment Clicked", Snackbar.LENGTH_SHORT).show();
-    }
-
-
+    
     @NonNull
     private final CommentViewRenderer.Listener mListenerComment = new CommentViewRenderer.Listener() {
         @Override
