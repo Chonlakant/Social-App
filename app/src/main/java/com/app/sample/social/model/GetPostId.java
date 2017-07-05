@@ -210,6 +210,12 @@ public class GetPostId {
         private List<PhotoMultiBean> photo_multi;
         private List<?> options;
 
+        private String post_type;
+        private int post_type2;
+
+
+
+
         public String getId() {
             return id;
         }
@@ -736,6 +742,22 @@ public class GetPostId {
 
         public void setOptions(List<?> options) {
             this.options = options;
+        }
+
+        public String getPost_type() {
+            return post_type;
+        }
+
+        public void setPost_type(String post_type) {
+            this.post_type = post_type;
+        }
+
+        public int getPost_type2() {
+            return post_type2;
+        }
+
+        public void setPost_type2(int post_type2) {
+            this.post_type2 = post_type2;
         }
 
         public static class PublisherBean {
@@ -2002,6 +2024,9 @@ public class GetPostId {
             }
         }
     }
+
+
+
 
     public static class PostLikesBean {
         /**

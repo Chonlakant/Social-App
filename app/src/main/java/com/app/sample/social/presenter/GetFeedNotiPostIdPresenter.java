@@ -39,15 +39,17 @@ public class GetFeedNotiPostIdPresenter implements GetFeedNotiPostIdContract.Hom
             @Override
             public void onResponse(Call<GetPostId> call, Response<GetPostId> response) {
 
-                for (int i = 0; i < response.body().getPost_data().getPhoto_multi().size(); i++) {
+//                for (int i = 0; i < response.body().getPost_data().si; i++) {
+//
+//
+//                    lusStr.add(response.body().getPost_data().getPhoto_multi().get(i).getImage());
+//                    list.clear();
+//
+//
+//
+//                }
 
-                    Log.e("hhhh", response.body().getPost_data().getPhoto_multi().get(i).getImage() + "");
-                    lusStr.add(response.body().getPost_data().getPhoto_multi().get(i).getImage());
-                    list.clear();
-                    list.add(response.body());
-
-
-                }
+                list.add(response.body());
 
                 view.showAllFeedNotiPostId(list);
 

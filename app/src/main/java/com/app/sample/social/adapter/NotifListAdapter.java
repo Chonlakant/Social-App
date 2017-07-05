@@ -41,6 +41,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
         public TextView date;
         public ImageView image;
         public LinearLayout lyt_parent;
+        public LinearLayout ls_click;
         public TextView txt_text;
 
         public ViewHolder(View v) {
@@ -49,6 +50,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
             date = (TextView) v.findViewById(R.id.date);
             image = (ImageView) v.findViewById(R.id.image);
             lyt_parent = (LinearLayout) v.findViewById(R.id.lyt_parent);
+            ls_click = (LinearLayout) v.findViewById(R.id.ls_click);
             txt_text = (TextView) v.findViewById(R.id.txt_text);
             lyt_parent.setOnClickListener(this);
         }
@@ -99,13 +101,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
                 .into(holder.image);
         setAnimation(holder.itemView, position);
         // view detail message conversation
-        holder.lyt_parent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Notif - " + n.getNotifications().get(position).getNotifier().getUsername()
-                        + " clicked", Snackbar.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     // Here is the key method to apply the animation

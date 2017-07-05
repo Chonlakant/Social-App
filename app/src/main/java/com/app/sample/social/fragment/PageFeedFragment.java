@@ -100,6 +100,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
     String userId;
     String cover;
 
+
     String postId;
 
     String userIdPreferences;
@@ -212,12 +213,15 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
     public void showAllFeed(final List<Feed> feed, ArrayList<ObjectImageMutiple> objectImageMutiples) {
         mRecyclerViewAdapter.notifyDataSetChanged();
 
+        String nameHeader;
+        final int headerID = 1;
 
-            final int headerID = 1;
-            String nameHeader = feed.get(0).getPosts().get(0).getPublisher_data().getFirst_name();
-            String avatarProFile = feed.get(0).getPosts().get(0).getPublisher_data().getProfile_picture();
-            String time = feed.get(0).getPosts().get(0).getPost_data().getPost_time();
-            items.add(new HeaderModel(headerID, nameHeader, avatarProFile, time));
+
+        nameHeader = feed.get(0).getPosts().get(0).getPublisher_data().getFirst_name();
+
+        String avatarProFile = feed.get(0).getPosts().get(0).getPublisher_data().getProfile_picture();
+        String time = feed.get(0).getPosts().get(0).getPost_data().getPost_time();
+        items.add(new HeaderModel(headerID, nameHeader, avatarProFile, time));
 
 
         for (int i = 0; i < feed.size(); i++) {
@@ -230,7 +234,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
             cover = feed.get(i).getPosts().get(i).getPublisher_data().getCover_picture();
 
             if (type == 1) {
-                boolean  is_liked = feed.get(i).getPosts().get(i).isIs_liked();
+                boolean is_liked = feed.get(i).getPosts().get(i).isIs_liked();
                 String timePost = feed.get(i).getPosts().get(i).getPost_time();
                 postId = feed.get(i).getPosts().get(i).getPost_id();
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
@@ -250,7 +254,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
 
             }
             if (type == 2) {
-                boolean  is_liked = feed.get(i).getPosts().get(i).isIs_liked();
+                boolean is_liked = feed.get(i).getPosts().get(i).isIs_liked();
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
                 String timePost = feed.get(i).getPosts().get(i).getPost_time();
@@ -274,7 +278,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
             }
 
             if (type == 22) {
-                boolean  is_liked = feed.get(i).getPosts().get(i).isIs_liked();
+                boolean is_liked = feed.get(i).getPosts().get(i).isIs_liked();
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
                 String timePost = feed.get(i).getPosts().get(i).getPost_time();
@@ -297,7 +301,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
             }
             if (type == 3) {
                 postId = feed.get(i).getPosts().get(i).getPost_id();
-                boolean  is_liked = feed.get(i).getPosts().get(i).isIs_liked();
+                boolean is_liked = feed.get(i).getPosts().get(i).isIs_liked();
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
                 String timePost = feed.get(i).getPosts().get(i).getPost_time();
@@ -310,7 +314,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
             }
 
             if (type == 4) {
-                boolean  is_liked = feed.get(i).getPosts().get(i).isIs_liked();
+                boolean is_liked = feed.get(i).getPosts().get(i).isIs_liked();
                 postId = feed.get(i).getPosts().get(i).getPost_id();
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
@@ -324,7 +328,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
             }
 
             if (type == 5) {
-                boolean  is_liked = feed.get(i).getPosts().get(i).isIs_liked();
+                boolean is_liked = feed.get(i).getPosts().get(i).isIs_liked();
                 postId = feed.get(i).getPosts().get(i).getPost_id();
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
@@ -337,7 +341,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
                 items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
             }
             if (type == 6) {
-                boolean  is_liked = feed.get(i).getPosts().get(i).isIs_liked();
+                boolean is_liked = feed.get(i).getPosts().get(i).isIs_liked();
                 postId = feed.get(i).getPosts().get(i).getPost_id();
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
@@ -350,7 +354,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
             }
 
             if (type == 7) {
-                boolean  is_liked = feed.get(i).getPosts().get(i).isIs_liked();
+                boolean is_liked = feed.get(i).getPosts().get(i).isIs_liked();
                 postId = feed.get(i).getPosts().get(i).getPost_id();
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
                 String timePost = feed.get(i).getPosts().get(i).getPost_time();
@@ -363,7 +367,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
                 items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
             }
             if (type == 8) {
-                boolean  is_liked = feed.get(i).getPosts().get(i).isIs_liked();
+                boolean is_liked = feed.get(i).getPosts().get(i).isIs_liked();
                 postId = feed.get(i).getPosts().get(i).getPost_id();
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();

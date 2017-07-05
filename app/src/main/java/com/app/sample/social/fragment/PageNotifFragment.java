@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.sample.social.ActivityFriendDetails;
 import com.app.sample.social.R;
 import com.app.sample.social.activity_articles.activity_noti.ActivityNoti;
 import com.app.sample.social.adapter.FriendsListAdapter;
@@ -96,10 +97,40 @@ public class PageNotifFragment extends Fragment implements NotiUserContract.Home
         mAdapter.setOnItemClickListener(new NotifListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent i = new Intent(getActivity(), ActivityNoti.class);
-                i.putExtra("post_id", notificationsList.get(position).getNotifications().get(position).getPost_id());
-                startActivity(i);
-                Toast.makeText(getActivity(), "Check", Toast.LENGTH_SHORT).show();
+                String post_id = notificationsList.get(position).getNotifications().get(position).getPost_id();
+                String type = notificationsList.get(position).getNotifications().get(position).getType();
+                if (type.equals("visited_profile")) {
+
+                    String userId = notificationsList.get(position).getNotifications().get(position).getNotifier().getUser_id();
+                    String cover = notificationsList.get(position).getNotifications().get(position).getNotifier().getCover();
+                    String title = notificationsList.get(position).getNotifications().get(position).getNotifier().getName();
+
+                    Intent i = new Intent(getActivity(), ActivityFriendDetails.class);
+                    i.putExtra("userId", userId);
+                    i.putExtra("cover", cover);
+                    i.putExtra("title", title);
+                    startActivity(i);
+                    Toast.makeText(getActivity(), "Check", Toast.LENGTH_SHORT).show();
+                }
+                if (type.equals("comment")) {
+
+                    Intent i = new Intent(getActivity(), ActivityNoti.class);
+                    i.putExtra("post_id", post_id);
+                    i.putExtra("post_type", "comment");
+                    startActivity(i);
+
+                }
+                if (type.equals("profile_wall_post")) {
+
+                }
+                if (type.equals("liked_post")) {
+
+                }
+
+//                Intent i = new Intent(getActivity(), ActivityNoti.class);
+//                i.putExtra("post_id", notificationsList.get(position).getNotifications().get(position).getPost_id());
+//                startActivity(i);
+//                Toast.makeText(getActivity(), "Check", Toast.LENGTH_SHORT).show();
             }
         });
 
