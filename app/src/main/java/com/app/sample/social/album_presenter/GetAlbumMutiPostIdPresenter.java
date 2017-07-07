@@ -7,6 +7,7 @@ import com.app.sample.social.api.Apis;
 import com.app.sample.social.model.Album;
 import com.app.sample.social.model.Album2;
 import com.app.sample.social.model.GetPostId;
+import com.app.sample.social.model.ObjectImage;
 import com.app.sample.social.model.ObjectMutiImageAlbum;
 import com.app.sample.social.presenter.GetFeedPostIdContract;
 import com.app.sample.social.service.ServiceApi;
@@ -32,10 +33,7 @@ public class GetAlbumMutiPostIdPresenter implements GetAlbumMutiPostIdContract.H
 
     @Override
     public void getAllAlbumMutiFeed(String userId, String post_id, String s, String limit) {
-        Log.e("userId", userId);
-        Log.e("post_id", post_id);
-        Log.e("2", s);
-        Log.e("limit", limit);
+
         starWarsApi.getAlbumMutiId(userId, post_id, s, limit).enqueue(new Callback<Album2>() {
             @Override
             public void onResponse(Call<Album2> call, Response<Album2> response) {
@@ -44,9 +42,24 @@ public class GetAlbumMutiPostIdPresenter implements GetAlbumMutiPostIdContract.H
 
                     Log.e("hhhh", response.body().getPost_data().getPhoto_album().get(i).getImage() + "");
 
-                    String url = response.body().getPost_data().getPhoto_album().get(i).getImage();
+                    String postId = response.body().getPost_data().getPost_id();
+                    String image =  response.body().getPost_data().getPhoto_album().get(i).getImage();
+                    String avatar = response.body().getPost_data().getPublisher().getAvatar();
+                    String username = response.body().getPost_data().getPublisher().getUsername();
+                    String time = response.body().getPost_data().getPost_time();
+                    String countLike = response.body().getPost_data().getPost_likes();
+                    int countComment = response.body().getPost_data().getGet_post_comments().size();
+                    boolean isLike = response.body().getPost_data().isIs_liked();
+
                     ObjectMutiImageAlbum item = new ObjectMutiImageAlbum();
-                    item.setUrlImage(url);
+                    item.setCountComment(countComment);
+                    item.setAvatar(avatar);
+                    item.setImage(image);
+                    item.setPostId(postId);
+                    item.setLike(isLike);
+                    item.setUsername(username);
+                    item.setTimeStamp(time);
+                    item.setCountLike(countLike);
                     listO.add(item);
 
                     list.clear();

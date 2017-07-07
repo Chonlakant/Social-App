@@ -34,8 +34,6 @@ public class ActivityAlbumMutiImageFeed extends AppCompatActivity implements Get
     String timeStamp;
     String postId;
 
-    ArrayList<String> list = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
