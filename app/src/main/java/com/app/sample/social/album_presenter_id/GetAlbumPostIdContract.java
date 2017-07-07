@@ -2,6 +2,7 @@ package com.app.sample.social.album_presenter_id;
 
 import com.app.sample.social.mode_product.productImage;
 import com.app.sample.social.model.GetPostId;
+import com.app.sample.social.model.ObjectImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ public interface GetAlbumPostIdContract {
     interface HomeViewPostId {
 
         void showAllFeedPostId(List<GetPostId> feed);
-        void showImageArr(ArrayList<String> listStr);
+        void showImageArr(ArrayList<ObjectImage> listStr);
 
 
 

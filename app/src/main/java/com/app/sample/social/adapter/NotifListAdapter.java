@@ -39,6 +39,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
         // each data item is just a string in this case
         public TextView content;
         public TextView date;
+        public TextView txt_text_noti;
         public ImageView image;
         public LinearLayout lyt_parent;
         public LinearLayout ls_click;
@@ -52,6 +53,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
             lyt_parent = (LinearLayout) v.findViewById(R.id.lyt_parent);
             ls_click = (LinearLayout) v.findViewById(R.id.ls_click);
             txt_text = (TextView) v.findViewById(R.id.txt_text);
+            txt_text_noti = (TextView) v.findViewById(R.id.txt_text_noti);
             lyt_parent.setOnClickListener(this);
         }
 
@@ -94,6 +96,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
         //  holder.content.setText(Html.fromHtml(n.getContent()));
         holder.content.setText(n.getNotifications().get(position).getNotifier().getUsername());
         holder.txt_text.setText(n.getNotifications().get(position).getType_text());
+        holder.txt_text_noti.setText(n.getNotifications().get(position).getText());
         holder.date.setText(n.getNotifications().get(position).getTime_text_string());
         Picasso.with(ctx).load(n.getNotifications().get(position).getNotifier().getAvatar())
                 .resize(60, 60)

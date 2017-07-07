@@ -40,7 +40,7 @@ public class ImagesViewRenderer extends ViewRenderer<ImagesModel, ImagesViewHold
     public void bindView(@NonNull final ImagesModel model, @NonNull final ImagesViewHolder holder) {
 
         Picasso.with(getContext())
-                .load(model.getUrlAvatra())
+                .load(model.getUrlConntent())
                 .into(holder.photo_content);
 
 //        holder.photo_content.setOnClickListener(new View.OnClickListener() {

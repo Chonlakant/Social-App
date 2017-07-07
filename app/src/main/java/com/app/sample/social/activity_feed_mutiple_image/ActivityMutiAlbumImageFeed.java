@@ -11,6 +11,7 @@ import com.app.sample.social.R;
 import com.app.sample.social.album_presenter_id.GetAlbumPostIdContract;
 import com.app.sample.social.album_presenter_id.GetAlbumPostIdPresenter;
 import com.app.sample.social.model.GetPostId;
+import com.app.sample.social.model.ObjectImage;
 import com.app.sample.social.presenter.GetFeedPostIdContract;
 import com.app.sample.social.presenter.GetFeedPostIdPresenter;
 
@@ -31,7 +32,7 @@ public class ActivityMutiAlbumImageFeed extends AppCompatActivity implements Get
     String timeStamp;
     String postId;
 
-    ArrayList<String> list = new ArrayList<>();
+    ArrayList<ObjectImage> list = new ArrayList<>();
 
 
     @Override
@@ -59,7 +60,7 @@ public class ActivityMutiAlbumImageFeed extends AppCompatActivity implements Get
     }
 
     @Override
-    public void showImageArr(ArrayList<String> listStr) {
+    public void showImageArr(ArrayList<ObjectImage> listStr) {
 
         myImagePagerAdapter = new MyMutiImagePagerAdapter(getApplicationContext(), listStr);
         viewPager.setAdapter(myImagePagerAdapter);

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.app.sample.social.api.Apis;
 import com.app.sample.social.model.Feed;
 import com.app.sample.social.model.GetPostId;
+import com.app.sample.social.model.ObjectImage;
 import com.app.sample.social.service.ServiceApi;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class GetFeedPostIdPresenter implements GetFeedPostIdContract.HomePostIdP
     private GetFeedPostIdContract.HomeViewPostId view;
     private ServiceApi starWarsApi;
     ArrayList<GetPostId> list = new ArrayList<>();
-    ArrayList<String> lusStr = new ArrayList<>();
+    ArrayList<ObjectImage> lusStr = new ArrayList<>();
 
 
     public GetFeedPostIdPresenter(GetFeedPostIdContract.HomeViewPostId view) {
@@ -29,18 +30,34 @@ public class GetFeedPostIdPresenter implements GetFeedPostIdContract.HomePostIdP
     @Override
     public void getAllPostIdFeed(String userId, String post_id, String s, String limit) {
 
-        Log.e("userId", userId);
-        Log.e("post_id", post_id);
-        Log.e("2", s);
-        Log.e("limit", limit);
         starWarsApi.getFeedId(userId, post_id, s, limit).enqueue(new Callback<GetPostId>() {
             @Override
             public void onResponse(Call<GetPostId> call, Response<GetPostId> response) {
 
                 for (int i = 0; i < response.body().getPost_data().getPhoto_multi().size(); i++) {
 
+                    String postId = response.body().getPost_data().getPost_id();
+                    String image = response.body().getPost_data().getPhoto_multi().get(i).getImage();
+                    String avatar = response.body().getPost_data().getPublisher().getAvatar();
+                    String username = response.body().getPost_data().getPublisher().getUsername();
+                    String time = response.body().getPost_data().getPost_time();
+                    String countLike = response.body().getPost_data().getPost_likes();
+                    int countComment = response.body().getPost_data().getGet_post_comments().size();
+                    boolean isLike = response.body().getPost_data().isIs_liked();
+
+                    ObjectImage item = new ObjectImage();
+                    item.setCountComment(countComment);
+                    item.setAvatar(avatar);
+                    item.setImage(image);
+                    item.setPostId(postId);
+                    item.setLike(isLike);
+                    item.setUsername(username);
+                    item.setTimeStamp(time);
+                    item.setCountLike(countLike);
+                    lusStr.add(item);
+
                     Log.e("hhhh", response.body().getPost_data().getPhoto_multi().get(i).getImage() + "");
-                    lusStr.add(response.body().getPost_data().getPhoto_multi().get(i).getImage());
+                   // lusStr.add(response.body().getPost_data().getPhoto_multi().get(i).getImage());
                     list.clear();
                     list.add(response.body());
 

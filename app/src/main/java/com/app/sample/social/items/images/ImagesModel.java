@@ -7,16 +7,26 @@ public class ImagesModel implements BaseItemModel {
 
     public static final int TYPE = 2;
     private final int mID;
-    private String urlAvatra;
+    private String urlConntent;
     private String postId;
+    private String username;
+    private String avatarUrl;
+    private boolean isLike;
+    private String time;
+    private String countLike;
+    private int countComment;
 
-
-    public ImagesModel(int mID, String urlAvatra,String postId) {
+    public ImagesModel(int mID, String urlConntent, String postId, String username, String avatarUrl,boolean isLike,String time,String countLike,int countComment) {
         this.mID = mID;
 
-        this.urlAvatra = urlAvatra;
+        this.urlConntent = urlConntent;
         this.postId = postId;
-
+        this.username = username;
+        this.avatarUrl = avatarUrl;
+        this.isLike = isLike;
+        this.time = time;
+        this.countLike = countLike;
+        this.countComment = countComment;
     }
 
     @Override
@@ -29,13 +39,36 @@ public class ImagesModel implements BaseItemModel {
         return TYPE;
     }
 
-
-    public String getUrlAvatra() {
-        return urlAvatra;
+    public String getUrlConntent() {
+        return urlConntent;
     }
 
-    public void setUrlAvatra(String urlAvatra) {
-        this.urlAvatra = urlAvatra;
+    public void setUrlConntent(String urlConntent) {
+        this.urlConntent = urlConntent;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
+
+    public boolean isLike() {
+        return isLike;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
     }
 
     public String getPostId() {
@@ -44,5 +77,37 @@ public class ImagesModel implements BaseItemModel {
 
     public void setPostId(String postId) {
         this.postId = postId;
+    }
+
+    public static int getTYPE() {
+        return TYPE;
+    }
+
+    public int getmID() {
+        return mID;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getCountLike() {
+        return countLike;
+    }
+
+    public void setCountLike(String countLike) {
+        this.countLike = countLike;
+    }
+
+    public int getCountComment() {
+        return countComment;
+    }
+
+    public void setCountComment(int countComment) {
+        this.countComment = countComment;
     }
 }

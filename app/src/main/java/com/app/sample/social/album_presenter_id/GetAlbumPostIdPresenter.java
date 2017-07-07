@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.app.sample.social.api.Apis;
 import com.app.sample.social.model.GetPostId;
+import com.app.sample.social.model.ObjectImage;
 import com.app.sample.social.presenter.GetFeedPostIdContract;
 import com.app.sample.social.service.ServiceApi;
 
@@ -18,7 +19,7 @@ public class GetAlbumPostIdPresenter implements GetAlbumPostIdContract.HomePostI
     private GetAlbumPostIdContract.HomeViewPostId view;
     private ServiceApi starWarsApi;
     ArrayList<GetPostId> list = new ArrayList<>();
-    ArrayList<String> lusStr = new ArrayList<>();
+    ArrayList<ObjectImage> lusStr = new ArrayList<>();
 
 
     public GetAlbumPostIdPresenter(GetAlbumPostIdContract.HomeViewPostId view) {
@@ -39,8 +40,28 @@ public class GetAlbumPostIdPresenter implements GetAlbumPostIdContract.HomePostI
 
                 for (int i = 0; i < response.body().getPost_data().getPhoto_album().size(); i++) {
 
+                    String postId = response.body().getPost_data().getPost_id();
+                    String image = response.body().getPost_data().getPhoto_album().get(i).getImage();
+                    String avatar = response.body().getPost_data().getPublisher().getAvatar();
+                    String username = response.body().getPost_data().getPublisher().getUsername();
+                    String time = response.body().getPost_data().getPost_time();
+                    String countLike = response.body().getPost_data().getPost_likes();
+                    int countComment = response.body().getPost_data().getGet_post_comments().size();
+                    boolean isLike = response.body().getPost_data().isIs_liked();
+
+                    ObjectImage item = new ObjectImage();
+                    item.setCountComment(countComment);
+                    item.setAvatar(avatar);
+                    item.setImage(image);
+                    item.setPostId(postId);
+                    item.setLike(isLike);
+                    item.setUsername(username);
+                    item.setTimeStamp(time);
+                    item.setCountLike(countLike);
+                    lusStr.add(item);
+
                     Log.e("hhhh", response.body().getPost_data().getPhoto_album().get(i).getImage() + "");
-                    lusStr.add(response.body().getPost_data().getPhoto_album().get(i).getImage());
+                   // lusStr.add(response.body().getPost_data().getPhoto_album().get(i).getImage());
                     list.clear();
                     list.add(response.body());
 

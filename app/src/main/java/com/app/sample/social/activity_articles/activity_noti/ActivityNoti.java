@@ -35,6 +35,8 @@ import com.app.sample.social.articles_presenter.ArticlesPresenter;
 import com.app.sample.social.articles_presenter.ListArticlesContract;
 import com.app.sample.social.data.Tools;
 import com.app.sample.social.items.BaseItemModel;
+import com.app.sample.social.items.Comment_noti.CommentListNotiViewRenderer;
+import com.app.sample.social.items.Comment_noti.CommentNotiListModel;
 import com.app.sample.social.items.ContentModel;
 import com.app.sample.social.items.comment.CommentListModel;
 import com.app.sample.social.items.comment.CommentListViewRenderer;
@@ -137,7 +139,7 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
         mRecyclerViewAdapter.registerRenderer(new YoutubeViewRenderer(YoutubeModel.TYPE, ActivityNoti.this, mListenerYoutube));
         mRecyclerViewAdapter.registerRenderer(new SoundCloudViewRenderer(SoundCloudModel.TYPE, ActivityNoti.this, mListenerSoundCloud));
         mRecyclerViewAdapter.registerRenderer(new CommentViewRenderer(CommentModel.TYPE, ActivityNoti.this, mListenerComment, mListenerLike));
-        mRecyclerViewAdapter.registerRenderer(new CommentListViewRenderer(CommentListModel.TYPE, ActivityNoti.this, mListenerListComment));
+        mRecyclerViewAdapter.registerRenderer(new CommentListNotiViewRenderer(CommentNotiListModel.TYPE, ActivityNoti.this, mListenerListComment));
 
 
         parent_view = findViewById(android.R.id.content);
@@ -223,13 +225,14 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
 
                     Log.e("photoContent", photoContent);
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new TextModel(i, textContent, postId));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 2) {
@@ -238,13 +241,13 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
-                    arrImage.add(photoContent);
-                    Log.e("photoContent", photoContent);
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new ImagesModel(i, photoContent, postId));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new ImagesModel(i, photoContent, postId,userName,avatar,is_liked,timePost,countLike,countComment));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 3) {
@@ -254,11 +257,12 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new ViedoModel(i, urlMp4, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 4) {
@@ -268,11 +272,12 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlfile = feed.get(i).getPost_data().getPostFile_full();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new fileModel(i, urlfile, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 5) {
@@ -282,11 +287,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlfile = feed.get(i).getPost_data().getPostFile_full();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new Mp3Model(i, urlfile, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 6) {
@@ -295,11 +300,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostMap();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new MapsModel(i, photoContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 7) {
@@ -310,10 +315,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String title = feed.get(i).getPost_data().getPostLinkTitle();
                     String coverYoutube = feed.get(i).getPost_data().getPostLinkImage();
                     String urlYoutube = feed.get(i).getPost_data().getPostLink();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 8) {
@@ -322,10 +328,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String title = feed.get(i).getPost_data().getPostSoundCloud();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new SoundCloudModel(i, title));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
 
@@ -335,13 +342,13 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String ii = "https://www.zaab-d.com/upload/photos/2017/06/1azi9cp99MHYXHRfgubQ_18_7e5a2f752367d74642bb85a6fcb66ba7_image.jpg";
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     if (feed.get(i).getPost_data().getPhoto_multi() != null) {
 
                         items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                         items.add(new ImagesMutiNotiModel(i, ii, postId, feed.get(i).getPost_data().getPhoto_multi(), textContent));
-                        items.add(new CommentModel(i, countLike, is_liked, postId));
-                        items.add(new CommentListModel(i, l));
+                        items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                        items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                     }
 
 
@@ -366,13 +373,13 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     Log.e("photoContent", photoContent);
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new TextModel(i, textContent, postId));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 2) {
@@ -381,13 +388,15 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
                     arrImage.add(photoContent);
                     Log.e("photoContent", photoContent);
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new ImagesModel(i, photoContent, postId));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new ImagesModel(i, photoContent, postId,userName,avatar,is_liked,timePost,countLike,countComment));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 3) {
@@ -397,11 +406,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new ViedoModel(i, urlMp4, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 4) {
@@ -411,11 +420,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlfile = feed.get(i).getPost_data().getPostFile_full();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new fileModel(i, urlfile, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 5) {
@@ -425,11 +434,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlfile = feed.get(i).getPost_data().getPostFile_full();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new Mp3Model(i, urlfile, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 6) {
@@ -438,11 +447,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostMap();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new MapsModel(i, photoContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 7) {
@@ -455,10 +464,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String title = feed.get(i).getPost_data().getPostLinkTitle();
                     String coverYoutube = feed.get(i).getPost_data().getPostLinkImage();
                     String urlYoutube = feed.get(i).getPost_data().getPostLink();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 8) {
@@ -467,10 +477,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String title = feed.get(i).getPost_data().getPostSoundCloud();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new SoundCloudModel(i, title));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
 
@@ -480,13 +491,13 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String ii = "https://www.zaab-d.com/upload/photos/2017/06/1azi9cp99MHYXHRfgubQ_18_7e5a2f752367d74642bb85a6fcb66ba7_image.jpg";
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     if (feed.get(i).getPost_data().getPhoto_multi() != null) {
 
                         items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                         items.add(new ImagesMutiNotiModel(i, ii, postId, feed.get(i).getPost_data().getPhoto_multi(), textContent));
-                        items.add(new CommentModel(i, countLike, is_liked, postId));
-                        items.add(new CommentListModel(i, l));
+                        items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                        items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                     }
 
 
@@ -513,13 +524,14 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
 
                     Log.e("photoContent", photoContent);
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new TextModel(i, textContent, postId));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 2) {
@@ -528,13 +540,15 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
                     arrImage.add(photoContent);
                     Log.e("photoContent", photoContent);
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new ImagesModel(i, photoContent, postId));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new ImagesModel(i, photoContent, postId,userName,avatar,is_liked,timePost,countLike,countComment));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 3) {
@@ -544,11 +558,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new ViedoModel(i, urlMp4, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 4) {
@@ -558,11 +572,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlfile = feed.get(i).getPost_data().getPostFile_full();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new fileModel(i, urlfile, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 5) {
@@ -572,11 +586,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlfile = feed.get(i).getPost_data().getPostFile_full();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new Mp3Model(i, urlfile, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 6) {
@@ -585,11 +599,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostMap();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new MapsModel(i, photoContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 7) {
@@ -600,10 +614,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String title = feed.get(i).getPost_data().getPostLinkTitle();
                     String coverYoutube = feed.get(i).getPost_data().getPostLinkImage();
                     String urlYoutube = feed.get(i).getPost_data().getPostLink();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 8) {
@@ -612,10 +627,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String title = feed.get(i).getPost_data().getPostSoundCloud();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new SoundCloudModel(i, title));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
 
@@ -624,14 +640,15 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String countLike = feed.get(i).getPost_data().getPost_likes();
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     String ii = "https://www.zaab-d.com/upload/photos/2017/06/1azi9cp99MHYXHRfgubQ_18_7e5a2f752367d74642bb85a6fcb66ba7_image.jpg";
 
                     if (feed.get(i).getPost_data().getPhoto_multi() != null) {
 
                         items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                         items.add(new ImagesMutiNotiModel(i, ii, postId, feed.get(i).getPost_data().getPhoto_multi(), textContent));
-                        items.add(new CommentModel(i, countLike, is_liked, postId));
-                        items.add(new CommentListModel(i, l));
+                        items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                        items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                     }
 
 
@@ -656,13 +673,14 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
                     Log.e("photoContent", photoContent);
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new TextModel(i, textContent, postId));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 2) {
@@ -671,13 +689,13 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
-                    arrImage.add(photoContent);
-                    Log.e("photoContent", photoContent);
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new ImagesModel(i, photoContent, postId));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new ImagesModel(i, photoContent, postId,userName,avatar,is_liked,timePost,countLike,countComment));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 3) {
@@ -687,11 +705,12 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new ViedoModel(i, urlMp4, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 4) {
@@ -701,11 +720,12 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlfile = feed.get(i).getPost_data().getPostFile_full();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new fileModel(i, urlfile, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 5) {
@@ -715,11 +735,12 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlfile = feed.get(i).getPost_data().getPostFile_full();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new Mp3Model(i, urlfile, textContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 6) {
@@ -728,11 +749,12 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostMap();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new MapsModel(i, photoContent));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 7) {
@@ -743,10 +765,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String title = feed.get(i).getPost_data().getPostLinkTitle();
                     String coverYoutube = feed.get(i).getPost_data().getPostLinkImage();
                     String urlYoutube = feed.get(i).getPost_data().getPostLink();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
                 if (type == 8) {
@@ -755,10 +778,11 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String title = feed.get(i).getPost_data().getPostSoundCloud();
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new SoundCloudModel(i, title));
-                    items.add(new CommentModel(i, countLike, is_liked, postId));
-                    items.add(new CommentListModel(i, l));
+                    items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                    items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
 
 
@@ -768,13 +792,13 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String ii = "https://www.zaab-d.com/upload/photos/2017/06/1azi9cp99MHYXHRfgubQ_18_7e5a2f752367d74642bb85a6fcb66ba7_image.jpg";
-
+                    int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     if (feed.get(i).getPost_data().getPhoto_multi() != null) {
 
                         items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                         items.add(new ImagesMutiNotiModel(i, ii, postId, feed.get(i).getPost_data().getPhoto_multi(), textContent));
-                        items.add(new CommentModel(i, countLike, is_liked, postId));
-                        items.add(new CommentListModel(i, l));
+                        items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                        items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                     }
 
 
@@ -818,7 +842,7 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
     };
 
     @NonNull
-    private final CommentListViewRenderer.Listener mListenerListComment = new CommentListViewRenderer.Listener() {
+    private final CommentListNotiViewRenderer.Listener mListenerListComment = new CommentListNotiViewRenderer.Listener() {
         @Override
         public void onCommentClicked(@NonNull CommentListModel model) {
 
@@ -837,20 +861,7 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
 
     };
 
-    @NonNull
-    private final ImagesViewRenderer.Listener mListenerPhoto = new ImagesViewRenderer.Listener() {
-        @Override
-        public void onProfileClicked(@NonNull ImagesModel model) {
 
-            Toast.makeText(getApplicationContext(), "Check Image" + model.getPostId(), Toast.LENGTH_SHORT).show();
-
-            Intent i = new Intent(getApplicationContext(), ActivityImageFeed.class);
-            i.putExtra("array_list", arrImage);
-            startActivity(i);
-        }
-
-        ;
-    };
 
     @NonNull
     private final ImagesMutiNotiViewRenderer.Listener mListenerMutiPhoto = new ImagesMutiNotiViewRenderer.Listener() {
@@ -873,7 +884,13 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
 
 
             Intent i = new Intent(getApplicationContext(), ActivityImageFeed.class);
-            i.putExtra("array_list", arrImage);
+            i.putExtra("array_list", model.getUrlConntent());
+            i.putExtra("avatar",model.getAvatarUrl());
+            i.putExtra("username",model.getUsername());
+            i.putExtra("isLike",model.isLike());
+            i.putExtra("time",model.getTime());
+            i.putExtra("countLike",model.getCountLike());
+            i.putExtra("countComment",model.getCountComment());
             startActivity(i);
 
         }

@@ -35,7 +35,7 @@ public class GetFeedPostCommentIdPresenter implements GetFeedPostCommentIdContra
                 for (int i = 0; i < response.body().getPost_data().getGet_post_comments().size(); i++) {
 
                 Log.e("hhhh",response.body().getPost_data().getGet_post_comments().get(i).getText());
-//                    lusStr.add(response.body().getPost_data().getPhoto_multi().get(i).getImage());
+
                     list.clear();
                     list.add(response.body());
 

@@ -10,6 +10,7 @@ import android.util.Log;
 import com.app.sample.social.R;
 import com.app.sample.social.model.GetPostId;
 import com.app.sample.social.model.GetPostImageId;
+import com.app.sample.social.model.ObjectImage;
 import com.app.sample.social.presenter.GetFeedPostIdContract;
 import com.app.sample.social.presenter.GetFeedPostIdPresenter;
 
@@ -64,9 +65,9 @@ public class ActivityMutiImageFeed extends AppCompatActivity implements GetFeedP
     }
 
     @Override
-    public void showImageArr(ArrayList<String> listStr) {
-
+    public void showImageArr(ArrayList<ObjectImage> listStr) {
         myImagePagerAdapter = new MyMutiImagePagerAdapter(getApplicationContext(), listStr);
         viewPager.setAdapter(myImagePagerAdapter);
     }
+
 }

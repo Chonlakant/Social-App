@@ -36,9 +36,7 @@ public class CommentsActivity extends AppCompatActivity implements GetFeedPostCo
     public static final String mypreference = "login";
 
 
-    LinearLayout contentRoot;
     RecyclerView rvComments;
-    LinearLayout llAddComment;
     EditText etComment;
     Button btnSendComment;
 
@@ -69,9 +67,7 @@ public class CommentsActivity extends AppCompatActivity implements GetFeedPostCo
         presenterPostComment = new PostCommentPresenter(this);
 
 
-        contentRoot = (LinearLayout) findViewById(R.id.contentRoot);
         rvComments = (RecyclerView) findViewById(R.id.rvComments);
-        llAddComment = (LinearLayout) findViewById(R.id.llAddComment);
         etComment = (EditText) findViewById(R.id.etComment);
         btnSendComment = (Button) findViewById(R.id.btnSendComment);
 

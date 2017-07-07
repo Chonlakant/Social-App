@@ -13,12 +13,15 @@ public class CommentModel implements BaseItemModel {
     @NonNull
     private final String countLike;
     private String postId;
+    private int countComment;
 
-    public CommentModel(final int ID, @NonNull final String countLike,boolean isLiked,String postId) {
+
+    public CommentModel(final int ID, @NonNull final String countLike,boolean isLiked,String postId,int countComment) {
         mID = ID;
         this.countLike = countLike;
        this.isLiked = isLiked;
         this.postId = postId;
+        this.countComment = countComment;
     }
 
     @Override
@@ -42,5 +45,13 @@ public class CommentModel implements BaseItemModel {
 
     public void setPostId(String postId) {
         this.postId = postId;
+    }
+
+    public int getCountComment() {
+        return countComment;
+    }
+
+    public void setCountComment(int countComment) {
+        this.countComment = countComment;
     }
 }

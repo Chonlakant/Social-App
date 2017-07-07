@@ -51,6 +51,7 @@ public class CommentViewRenderer extends ViewRenderer<CommentModel, CommentViewH
         });
 
         holder.txt_like.setCurrentText(model.getCountLike()+" likes");
+        holder.txt_count_comment.setText(model.getCountComment()+ "  รายการ");
         holder.bt_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
