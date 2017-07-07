@@ -887,6 +887,7 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
             i.putExtra("array_list", model.getUrlConntent());
             i.putExtra("avatar",model.getAvatarUrl());
             i.putExtra("username",model.getUsername());
+            i.putExtra("postId",model.getPostId());
             i.putExtra("isLike",model.isLike());
             i.putExtra("time",model.getTime());
             i.putExtra("countLike",model.getCountLike());
