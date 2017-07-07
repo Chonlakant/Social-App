@@ -192,7 +192,7 @@ public class GetPostId {
         private String url;
         private String via_type;
         private boolean recipient_exists;
-        private String recipient;
+
         private boolean admin;
         private boolean is_post_saved;
         private boolean is_post_reported;
@@ -206,14 +206,13 @@ public class GetPostId {
         private boolean is_post_pinned;
         private String postFile_full;
         private List<GetPostCommentsBean> get_post_comments;
-        private List<?> photo_album;
+        private List<PhotoAlbum> photo_album;
         private List<PhotoMultiBean> photo_multi;
+        private String recipient;
         private List<?> options;
 
         private String post_type;
         private int post_type2;
-
-
 
 
         public String getId() {
@@ -720,11 +719,11 @@ public class GetPostId {
             this.get_post_comments = get_post_comments;
         }
 
-        public List<?> getPhoto_album() {
+        public List<PhotoAlbum> getPhoto_album() {
             return photo_album;
         }
 
-        public void setPhoto_album(List<?> photo_album) {
+        public void setPhoto_album(List<PhotoAlbum> photo_album) {
             this.photo_album = photo_album;
         }
 
@@ -2022,6 +2021,46 @@ public class GetPostId {
             public void setImage_org(String image_org) {
                 this.image_org = image_org;
             }
+        }
+    }
+
+
+    public static class PhotoAlbum {
+        String id;
+        String image;
+        String post_id;
+        String image_org;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getPost_id() {
+            return post_id;
+        }
+
+        public void setPost_id(String post_id) {
+            this.post_id = post_id;
+        }
+
+        public String getImage_org() {
+            return image_org;
+        }
+
+        public void setImage_org(String image_org) {
+            this.image_org = image_org;
         }
     }
 

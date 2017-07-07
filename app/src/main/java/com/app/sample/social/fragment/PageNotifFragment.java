@@ -121,16 +121,25 @@ public class PageNotifFragment extends Fragment implements NotiUserContract.Home
 
                 }
                 if (type.equals("profile_wall_post")) {
-
+                    Intent i = new Intent(getActivity(), ActivityNoti.class);
+                    i.putExtra("post_id", post_id);
+                    i.putExtra("post_type", "profile_wall_post");
+                    startActivity(i);
                 }
                 if (type.equals("liked_post")) {
 
+                    Intent i = new Intent(getActivity(), ActivityNoti.class);
+                    i.putExtra("post_id", post_id);
+                    i.putExtra("post_type", "liked_post");
+                    startActivity(i);
+                }
+                if (type.equals("comment_reply")) {
+                    Intent i = new Intent(getActivity(), ActivityNoti.class);
+                    i.putExtra("post_id", post_id);
+                    i.putExtra("post_type", "comment");
+                    startActivity(i);
                 }
 
-//                Intent i = new Intent(getActivity(), ActivityNoti.class);
-//                i.putExtra("post_id", notificationsList.get(position).getNotifications().get(position).getPost_id());
-//                startActivity(i);
-//                Toast.makeText(getActivity(), "Check", Toast.LENGTH_SHORT).show();
             }
         });
 

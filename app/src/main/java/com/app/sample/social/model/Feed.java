@@ -215,7 +215,7 @@ public class Feed {
         private String postFile_full;
         private String time_text;
         private List<GetPostCommentsBean> get_post_comments;
-        private List<?> photo_album;
+        private List<Album> photo_album;
         private List<PhotoMultiBean> photo_multi;
         private List<?> options;
         private List<CommentsBean> comments;
@@ -764,11 +764,11 @@ public class Feed {
             this.get_post_comments = get_post_comments;
         }
 
-        public List<?> getPhoto_album() {
+        public List<Album> getPhoto_album() {
             return photo_album;
         }
 
-        public void setPhoto_album(List<?> photo_album) {
+        public void setPhoto_album(List<Album> photo_album) {
             this.photo_album = photo_album;
         }
 
@@ -1922,6 +1922,46 @@ public class Feed {
 
             public void setName(String name) {
                 this.name = name;
+            }
+        }
+
+
+        public static class Album {
+            private String id;
+            private String image;
+            private String post_id;
+            private String image_org;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getImage() {
+                return image;
+            }
+
+            public void setImage(String image) {
+                this.image = image;
+            }
+
+            public String getPost_id() {
+                return post_id;
+            }
+
+            public void setPost_id(String post_id) {
+                this.post_id = post_id;
+            }
+
+            public String getImage_org() {
+                return image_org;
+            }
+
+            public void setImage_org(String image_org) {
+                this.image_org = image_org;
             }
         }
 

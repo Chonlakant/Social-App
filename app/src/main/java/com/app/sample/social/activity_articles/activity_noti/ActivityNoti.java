@@ -44,6 +44,8 @@ import com.app.sample.social.items.footer.CommentModel;
 import com.app.sample.social.items.footer.CommentViewRenderer;
 import com.app.sample.social.items.header.HeaderModel;
 import com.app.sample.social.items.header.HeaderViewRenderer;
+import com.app.sample.social.items.imageMutipleNoti.ImagesMutiNotiModel;
+import com.app.sample.social.items.imageMutipleNoti.ImagesMutiNotiViewRenderer;
 import com.app.sample.social.items.image_mutiple.ImagesMutiModel;
 import com.app.sample.social.items.image_mutiple.ImagesMutiViewRenderer;
 import com.app.sample.social.items.images.ImagesModel;
@@ -122,24 +124,20 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
         timeStamp = sharedpreferences.getString("timeStamp", "null");
 
 
-
-
         mRecyclerViewAdapter = new RendererRecyclerViewAdapter();
 
-        mRecyclerViewAdapter.registerRenderer(new ProfileViewRenderer(ProfileModel.TYPE, getApplicationContext(), mListenerProfile));
-//        mRecyclerViewAdapter.registerRenderer(new TextViewRenderer(TextModel.TYPE, getApplicationContext(), mListenerText));
-         mRecyclerViewAdapter.registerRenderer(new ImagesViewRenderer(ImagesModel.TYPE, getApplicationContext(), mListenerPhoto, mListenerImage));
-//        mRecyclerViewAdapter.registerRenderer(new ImagesMutiViewRenderer(ImagesMutiModel.TYPE, getApplicationContext(), mListenerMutiPhoto));
-//        mRecyclerViewAdapter.registerRenderer(new VideoViewRenderer(ViedoModel.TYPE, getApplicationContext(), mListenerVideo));
-//        mRecyclerViewAdapter.registerRenderer(new fileViewRenderer(fileModel.TYPE, getApplicationContext(), mListenerfile));
-//        mRecyclerViewAdapter.registerRenderer(new Mp3ViewRenderer(Mp3Model.TYPE, getApplicationContext(), mListenerMp3));
-//        mRecyclerViewAdapter.registerRenderer(new MapsViewRenderer(MapsModel.TYPE, getApplicationContext(), mListenerMaps));
-//        mRecyclerViewAdapter.registerRenderer(new YoutubeViewRenderer(YoutubeModel.TYPE, getApplicationContext(), mListenerYoutube));
-//        mRecyclerViewAdapter.registerRenderer(new SoundCloudViewRenderer(SoundCloudModel.TYPE, getApplicationContext(), mListenerSoundCloud));
-        mRecyclerViewAdapter.registerRenderer(new CommentViewRenderer(CommentModel.TYPE, getApplicationContext(), mListenerComment, mListenerLike));
-        mRecyclerViewAdapter.registerRenderer(new CommentListViewRenderer(CommentListModel.TYPE, getApplicationContext(), mListenerListComment));
-
-
+        mRecyclerViewAdapter.registerRenderer(new ProfileViewRenderer(ProfileModel.TYPE, ActivityNoti.this, mListenerProfile));
+        mRecyclerViewAdapter.registerRenderer(new TextViewRenderer(TextModel.TYPE, ActivityNoti.this, mListenerText));
+        mRecyclerViewAdapter.registerRenderer(new ImagesViewRenderer(ImagesModel.TYPE, ActivityNoti.this, mListenerImage));
+        mRecyclerViewAdapter.registerRenderer(new ImagesMutiNotiViewRenderer(ImagesMutiNotiModel.TYPE, ActivityNoti.this, mListenerMutiPhoto));
+        mRecyclerViewAdapter.registerRenderer(new VideoViewRenderer(ViedoModel.TYPE, ActivityNoti.this, mListenerVideo));
+        mRecyclerViewAdapter.registerRenderer(new fileViewRenderer(fileModel.TYPE, ActivityNoti.this, mListenerfile));
+        mRecyclerViewAdapter.registerRenderer(new Mp3ViewRenderer(Mp3Model.TYPE, ActivityNoti.this, mListenerMp3));
+        mRecyclerViewAdapter.registerRenderer(new MapsViewRenderer(MapsModel.TYPE, ActivityNoti.this, mListenerMaps));
+        mRecyclerViewAdapter.registerRenderer(new YoutubeViewRenderer(YoutubeModel.TYPE, ActivityNoti.this, mListenerYoutube));
+        mRecyclerViewAdapter.registerRenderer(new SoundCloudViewRenderer(SoundCloudModel.TYPE, ActivityNoti.this, mListenerSoundCloud));
+        mRecyclerViewAdapter.registerRenderer(new CommentViewRenderer(CommentModel.TYPE, ActivityNoti.this, mListenerComment, mListenerLike));
+        mRecyclerViewAdapter.registerRenderer(new CommentListViewRenderer(CommentListModel.TYPE, ActivityNoti.this, mListenerListComment));
 
 
         parent_view = findViewById(android.R.id.content);
@@ -147,13 +145,8 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
         postType = getIntent().getStringExtra("post_type");
         postId = getIntent().getStringExtra("post_id");
 
-        Log.e("postId",postId);
-        Log.e("postType",postType);
-
-
-
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewDetails);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(ActivityNoti.this));
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
 
@@ -170,7 +163,7 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
 
     private void updateItems() {
 
-
+        items.clear();
         presenter = new GetFeedNotiPostIdPresenter(this);
         presenter.getAllPostIdFeedNoti(userIdPreferences, postId, timeStamp, "1");
 
@@ -214,49 +207,585 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
     public void showAllFeedNotiPostId(List<GetPostId> feed) {
         mRecyclerViewAdapter.notifyDataSetChanged();
 
-        if(postType.equals("comment")){
+        if (postType.equals("comment")) {
 
-            for(int i=0; i < feed.size();i++){
+            for (int i = 0; i < feed.size(); i++) {
                 int type = feed.get(i).getPost_data().getPost_type2();
 
                 name = feed.get(i).getPost_data().getPublisher().getUsername();
                 avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
-                cover =  feed.get(i).getPost_data().getPublisher().getCover();
+                cover = feed.get(i).getPost_data().getPublisher().getCover();
 
-                if(type == 2){
+
+                if (type == 1) {
                     boolean is_liked = feed.get(i).getPost_data().isIs_liked();
                     String countLike = feed.get(i).getPost_data().getPost_likes();
                     String textContent = feed.get(i).getPost_data().getPostText();
                     String timePost = feed.get(i).getPost_data().getPost_time();
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
 
-                    Log.e("photoContent",photoContent);
+                    Log.e("photoContent", photoContent);
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                  //  items.add(new ImagesModel(i, photoContent, postId));
-                    items.add(new CommentModel(i, "0", is_liked, postId));
+                    items.add(new TextModel(i, textContent, postId));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
                     items.add(new CommentListModel(i, l));
                 }
 
-//                boolean is_liked = feed.get(i).getPost_data().isIs_liked();
-//                String countLike = feed.get(i).getPost_data().getPost_likes();
-//                String textContent = feed.get(i).getPost_data().getPostText();
-//                String timePost = feed.get(i).getPost_data().getPost_time();
-//
-//
-//
-//                Log.e("countLike",countLike);
-//                Log.e("textContent",textContent);
-//                Log.e("timePost",timePost);
-//                Log.e("type",type+"");
+                if (type == 2) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    arrImage.add(photoContent);
+                    Log.e("photoContent", photoContent);
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new ImagesModel(i, photoContent, postId));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 3) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new ViedoModel(i, urlMp4, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 4) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlfile = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new fileModel(i, urlfile, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 5) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlfile = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new Mp3Model(i, urlfile, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 6) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostMap();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new MapsModel(i, photoContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 7) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String title = feed.get(i).getPost_data().getPostLinkTitle();
+                    String coverYoutube = feed.get(i).getPost_data().getPostLinkImage();
+                    String urlYoutube = feed.get(i).getPost_data().getPostLink();
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 8) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String title = feed.get(i).getPost_data().getPostSoundCloud();
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new SoundCloudModel(i, title));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+
+                if (type == 22) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String ii = "https://www.zaab-d.com/upload/photos/2017/06/1azi9cp99MHYXHRfgubQ_18_7e5a2f752367d74642bb85a6fcb66ba7_image.jpg";
+
+                    if (feed.get(i).getPost_data().getPhoto_multi() != null) {
+
+                        items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                        items.add(new ImagesMutiNotiModel(i, ii, postId, feed.get(i).getPost_data().getPhoto_multi(), textContent));
+                        items.add(new CommentModel(i, countLike, is_liked, postId));
+                        items.add(new CommentListModel(i, l));
+                    }
+
+
+                }
+
+            }
+        }
+
+        if (postType.equals("liked_post")) {
+
+            for (int i = 0; i < feed.size(); i++) {
+                int type = feed.get(i).getPost_data().getPost_type2();
+                Log.e("liked_post",type+"");
+                name = feed.get(i).getPost_data().getPublisher().getUsername();
+                avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
+                cover = feed.get(i).getPost_data().getPublisher().getCover();
+
+
+                if (type == 1) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+
+                    Log.e("photoContent", photoContent);
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new TextModel(i, textContent, postId));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 2) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    arrImage.add(photoContent);
+                    Log.e("photoContent", photoContent);
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new ImagesModel(i, photoContent, postId));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 3) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new ViedoModel(i, urlMp4, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 4) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlfile = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new fileModel(i, urlfile, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 5) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlfile = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new Mp3Model(i, urlfile, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 6) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostMap();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new MapsModel(i, photoContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 7) {
+
+                    Toast.makeText(getApplicationContext(),"dddd",Toast.LENGTH_SHORT).show();
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String title = feed.get(i).getPost_data().getPostLinkTitle();
+                    String coverYoutube = feed.get(i).getPost_data().getPostLinkImage();
+                    String urlYoutube = feed.get(i).getPost_data().getPostLink();
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 8) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String title = feed.get(i).getPost_data().getPostSoundCloud();
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new SoundCloudModel(i, title));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+
+                if (type == 22) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String ii = "https://www.zaab-d.com/upload/photos/2017/06/1azi9cp99MHYXHRfgubQ_18_7e5a2f752367d74642bb85a6fcb66ba7_image.jpg";
+
+                    if (feed.get(i).getPost_data().getPhoto_multi() != null) {
+
+                        items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                        items.add(new ImagesMutiNotiModel(i, ii, postId, feed.get(i).getPost_data().getPhoto_multi(), textContent));
+                        items.add(new CommentModel(i, countLike, is_liked, postId));
+                        items.add(new CommentListModel(i, l));
+                    }
+
+
+                }
+
             }
 
-            Toast.makeText(getApplicationContext(),"comment",Toast.LENGTH_SHORT).show();
+        }
+
+        if (postType.equals("comment_reply")) {
 
 
+            for (int i = 0; i < feed.size(); i++) {
+                int type = feed.get(i).getPost_data().getPost_type2();
 
+                name = feed.get(i).getPost_data().getPublisher().getUsername();
+                avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
+                cover = feed.get(i).getPost_data().getPublisher().getCover();
+
+
+                if (type == 1) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+
+                    Log.e("photoContent", photoContent);
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new TextModel(i, textContent, postId));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 2) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    arrImage.add(photoContent);
+                    Log.e("photoContent", photoContent);
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new ImagesModel(i, photoContent, postId));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 3) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new ViedoModel(i, urlMp4, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 4) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlfile = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new fileModel(i, urlfile, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 5) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlfile = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new Mp3Model(i, urlfile, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 6) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostMap();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new MapsModel(i, photoContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 7) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String title = feed.get(i).getPost_data().getPostLinkTitle();
+                    String coverYoutube = feed.get(i).getPost_data().getPostLinkImage();
+                    String urlYoutube = feed.get(i).getPost_data().getPostLink();
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 8) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String title = feed.get(i).getPost_data().getPostSoundCloud();
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new SoundCloudModel(i, title));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+
+                if (type == 22) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String ii = "https://www.zaab-d.com/upload/photos/2017/06/1azi9cp99MHYXHRfgubQ_18_7e5a2f752367d74642bb85a6fcb66ba7_image.jpg";
+
+                    if (feed.get(i).getPost_data().getPhoto_multi() != null) {
+
+                        items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                        items.add(new ImagesMutiNotiModel(i, ii, postId, feed.get(i).getPost_data().getPhoto_multi(), textContent));
+                        items.add(new CommentModel(i, countLike, is_liked, postId));
+                        items.add(new CommentListModel(i, l));
+                    }
+
+
+                }
+
+            }
 
         }
+
+        if (postType.equals("profile_wall_post")) {
+            for (int i = 0; i < feed.size(); i++) {
+                int type = feed.get(i).getPost_data().getPost_type2();
+
+                name = feed.get(i).getPost_data().getPublisher().getUsername();
+                avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
+                cover = feed.get(i).getPost_data().getPublisher().getCover();
+
+
+                if (type == 1) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+
+                    Log.e("photoContent", photoContent);
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new TextModel(i, textContent, postId));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 2) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    arrImage.add(photoContent);
+                    Log.e("photoContent", photoContent);
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new ImagesModel(i, photoContent, postId));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 3) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new ViedoModel(i, urlMp4, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 4) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlfile = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new fileModel(i, urlfile, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 5) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostFile_full();
+                    String urlfile = feed.get(i).getPost_data().getPostFile_full();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new Mp3Model(i, urlfile, textContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 6) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String photoContent = feed.get(i).getPost_data().getPostMap();
+
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new MapsModel(i, photoContent));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 7) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String title = feed.get(i).getPost_data().getPostLinkTitle();
+                    String coverYoutube = feed.get(i).getPost_data().getPostLinkImage();
+                    String urlYoutube = feed.get(i).getPost_data().getPostLink();
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+                if (type == 8) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String title = feed.get(i).getPost_data().getPostSoundCloud();
+                    items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                    items.add(new SoundCloudModel(i, title));
+                    items.add(new CommentModel(i, countLike, is_liked, postId));
+                    items.add(new CommentListModel(i, l));
+                }
+
+
+                if (type == 22) {
+                    boolean is_liked = feed.get(i).getPost_data().isIs_liked();
+                    String countLike = feed.get(i).getPost_data().getPost_likes();
+                    String textContent = feed.get(i).getPost_data().getPostText();
+                    String timePost = feed.get(i).getPost_data().getPost_time();
+                    String ii = "https://www.zaab-d.com/upload/photos/2017/06/1azi9cp99MHYXHRfgubQ_18_7e5a2f752367d74642bb85a6fcb66ba7_image.jpg";
+
+                    if (feed.get(i).getPost_data().getPhoto_multi() != null) {
+
+                        items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
+                        items.add(new ImagesMutiNotiModel(i, ii, postId, feed.get(i).getPost_data().getPhoto_multi(), textContent));
+                        items.add(new CommentModel(i, countLike, is_liked, postId));
+                        items.add(new CommentListModel(i, l));
+                    }
+
+
+                }
+
+            }
+        }
+
+
+
+        Log.e("postType",postType);
         mRecyclerViewAdapter.setItems(items, mDiffCallback);
         mRecyclerViewAdapter.notifyDataSetChanged();
 
@@ -324,16 +853,13 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
     };
 
     @NonNull
-    private final ImagesMutiViewRenderer.Listener mListenerMutiPhoto = new ImagesMutiViewRenderer.Listener() {
+    private final ImagesMutiNotiViewRenderer.Listener mListenerMutiPhoto = new ImagesMutiNotiViewRenderer.Listener() {
         @Override
-        public void onProfileClicked(@NonNull ImagesMutiModel model) {
-
-
+        public void onProfileClicked(@NonNull ImagesMutiNotiModel model) {
             Toast.makeText(getApplicationContext(), "gggg" + "", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(getApplicationContext(), ActivityMutiImageFeed.class);
             i.putExtra("postId", model.getPostId());
             startActivity(i);
-
         }
 
     };

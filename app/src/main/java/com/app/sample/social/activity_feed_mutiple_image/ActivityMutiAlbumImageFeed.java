@@ -8,7 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.app.sample.social.R;
-import com.app.sample.social.model.Feed;
+import com.app.sample.social.album_presenter_id.GetAlbumPostIdContract;
+import com.app.sample.social.album_presenter_id.GetAlbumPostIdPresenter;
 import com.app.sample.social.model.GetPostId;
 import com.app.sample.social.presenter.GetFeedPostIdContract;
 import com.app.sample.social.presenter.GetFeedPostIdPresenter;
@@ -16,22 +17,23 @@ import com.app.sample.social.presenter.GetFeedPostIdPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityImageFeed extends AppCompatActivity   {
+public class ActivityMutiAlbumImageFeed extends AppCompatActivity implements GetAlbumPostIdContract.HomeViewPostId {
 
     SharedPreferences sharedpreferences;
     public static final String mypreference = "login";
 
     ViewPager viewPager;
 
-    MyImagePagerAdapter myImagePagerAdapter;
-    ArrayList<String> arr = new ArrayList<>();
-
-    GetFeedPostIdContract.HomePostIdPresenter homePostIdPresenter;
+    MyMutiImagePagerAdapter myImagePagerAdapter;
+    GetAlbumPostIdContract.HomePostIdPresenter homePostIdPresenter;
 
     String userIdPreferences;
     String timeStamp;
     String postId;
-    String image;
+
+    ArrayList<String> list = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,19 +41,27 @@ public class ActivityImageFeed extends AppCompatActivity   {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
 
         postId = getIntent().getStringExtra("postId");
-        image = getIntent().getStringExtra("array_list");
-        arr.add(image);
+        Log.e("postId", postId);
 
         sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         userIdPreferences = sharedpreferences.getString("userId", "null");
-        timeStamp = sharedpreferences.getString("userId", "null");
+        timeStamp = sharedpreferences.getString("timeStamp", "null");
 
-
-
-        myImagePagerAdapter = new MyImagePagerAdapter(ActivityImageFeed.this, arr);
-        viewPager.setAdapter(myImagePagerAdapter);
+        homePostIdPresenter = new GetAlbumPostIdPresenter(this);
+        homePostIdPresenter.getAllPostIdFeed(userIdPreferences, postId, timeStamp, "1");
 
 
     }
 
+    @Override
+    public void showAllFeedPostId(List<GetPostId> feed) {
+
+    }
+
+    @Override
+    public void showImageArr(ArrayList<String> listStr) {
+
+        myImagePagerAdapter = new MyMutiImagePagerAdapter(getApplicationContext(), listStr);
+        viewPager.setAdapter(myImagePagerAdapter);
+    }
 }

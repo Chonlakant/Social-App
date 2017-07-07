@@ -50,6 +50,7 @@
         <activity android:name=".activity_feed_mutiple_image.ActivityMutiImageFeed"/>
         <activity android:name=".activity_feed_mutiple_image.ActivityAlbumMutiImageFeed"/>
         <activity android:name=".activity_articles.activity_noti.ActivityNoti"/>
+        <activity android:name=".activity_feed_mutiple_image.ActivityMutiAlbumImageFeed"/>
     </application>
 
 </manifest>

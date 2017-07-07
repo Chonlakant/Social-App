@@ -17,15 +17,14 @@ import java.util.List;
 
 public class ImagesViewRenderer extends ViewRenderer<ImagesModel, ImagesViewHolder> {
 
-    @NonNull
-    private final Listener mListener;
+
 
     @NonNull
     private final ListeneImage mListenerImage;
 
-    public ImagesViewRenderer(final int type, final Context context, @NonNull final Listener listener, @NonNull final ListeneImage ListenerImage) {
+    public ImagesViewRenderer(final int type, final Context context, @NonNull final ListeneImage ListenerImage) {
         super(type, context);
-        mListener = listener;
+
         mListenerImage = ListenerImage;
     }
 

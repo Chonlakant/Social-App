@@ -14,6 +14,9 @@ import com.app.sample.social.R;
 import com.app.sample.social.adapter.CommentListAdapter;
 import com.app.sample.social.items.footer.CommentModel;
 import com.app.sample.social.items.footer.CommentViewHolder;
+import com.app.sample.social.model.Feed;
+import com.app.sample.social.model.FilterComment;
+import com.app.sample.social.model.GetPostId;
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
 
 import java.util.ArrayList;
@@ -25,6 +28,8 @@ public class CommentListViewRenderer extends ViewRenderer<CommentListModel, Comm
     int status = 0;
 
     CommentListAdapter commentListAdapter;
+
+    ArrayList<FilterComment> list =new ArrayList<>();
 
     @NonNull
     private final Listener mListener;
@@ -48,7 +53,10 @@ public class CommentListViewRenderer extends ViewRenderer<CommentListModel, Comm
     public void bindView(@NonNull final CommentListModel model, @NonNull final CommentListViewHolder holder) {
 
 
-        commentListAdapter = new CommentListAdapter(getContext(), model.getCommentLists());
+            commentListAdapter = new CommentListAdapter(getContext(), model.getCommentLists());
+
+
+
 
         holder.re_comment.setLayoutManager(new LinearLayoutManager(getContext()));
         holder.re_comment.setHasFixedSize(true);
