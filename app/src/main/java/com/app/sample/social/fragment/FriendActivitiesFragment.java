@@ -231,28 +231,27 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
 
             }
             if (type == 2) {
-                boolean  is_liked = feed.get(i).getPosts().get(i).isIs_liked();
+                boolean is_liked = feed.get(i).getPosts().get(i).isIs_liked();
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
                 String textContent = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
                 String timePost = feed.get(i).getPosts().get(i).getPost_time();
                 postId = feed.get(i).getPosts().get(i).getPost_id();
-                String photoContent = feed.get(i).getPosts().get(i).getPost_data().getPost_thumb();
+                String photoContent = feed.get(i).getPosts().get(i).getPost_data().getPost_file();
                 int countComment = feed.get(i).getPosts().get(i).getGet_post_comments().size();
                 String avatar = feed.get(i).getPosts().get(i).getPublisher().getAvatar();
                 String userName = feed.get(i).getPosts().get(i).getPublisher().getUsername();
-//                for(int j = 0 ; j < feed.get(i).getPosts().get(i).getPhoto_multi().size();j++){
-//
-//                    String image = feed.get(j).getPosts().get(j).getPhoto_multi().get(j).getImage();
-//                    Log.e("image",image);
-//                }
+                String userId = feed.get(i).getPosts().get(i).getPublisher().getUser_id();
+                String cover = feed.get(i).getPosts().get(i).getPublisher().getCover();
+
 
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                items.add(new ImagesModel(i, photoContent, postId,userName,avatar,is_liked,timePost,countLike,countComment));
+                items.add(new ImagesModel(i, photoContent, postId,userName,avatar,is_liked,timePost,countLike,countComment,cover,userId));
                 items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
                 items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
 
-                arrImage.add(photoContent);
+                Log.e("photoContent", photoContent);
 
+                arrImage.add(photoContent);
 
             }
 
@@ -453,8 +452,6 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
     private final ImagesViewRenderer.ListeneImage mListenerImage = new ImagesViewRenderer.ListeneImage() {
         @Override
         public void onLikeImageked(@NonNull ImagesModel model) {
-            Toast.makeText(getContext(), "Check Image" + model.getPostId(), Toast.LENGTH_SHORT).show();
-
 
             Intent i = new Intent(getActivity(), ActivityImageFeed.class);
             i.putExtra("array_list", model.getUrlConntent());
@@ -462,8 +459,11 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
             i.putExtra("username",model.getUsername());
             i.putExtra("isLike",model.isLike());
             i.putExtra("time",model.getTime());
+            i.putExtra("postId",model.getPostId());
             i.putExtra("countLike",model.getCountLike());
             i.putExtra("countComment",model.getCountComment());
+            i.putExtra("cover",model.getCover());
+            i.putExtra("userId",model.getUserIds());
             startActivity(i);
 
         }

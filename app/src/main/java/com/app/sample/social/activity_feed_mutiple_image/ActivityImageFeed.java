@@ -38,6 +38,8 @@ public class ActivityImageFeed extends AppCompatActivity {
     String time;
     String countLike;
     int countComment;
+    String userId;
+    String cover;
     boolean isLike;
 
 
@@ -55,6 +57,8 @@ public class ActivityImageFeed extends AppCompatActivity {
         countLike = getIntent().getStringExtra("countLike");
         countComment = getIntent().getIntExtra("countComment",0);
         isLike = getIntent().getBooleanExtra("isLike", false);
+        userId = getIntent().getStringExtra("userId");
+        cover = getIntent().getStringExtra("cover");
 
         Log.e("postId",postId);
         Log.e("isLike",isLike+"");
@@ -68,7 +72,8 @@ public class ActivityImageFeed extends AppCompatActivity {
         item.setTimeStamp(time);
         item.setCountLike(countLike);
         item.setCountComment(countComment);
-
+        item.setCover(cover);
+        item.setUserId(userId);
         arr.add(item);
 
         sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);

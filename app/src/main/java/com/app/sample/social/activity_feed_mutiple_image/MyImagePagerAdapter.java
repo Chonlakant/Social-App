@@ -3,6 +3,7 @@ package com.app.sample.social.activity_feed_mutiple_image;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.sample.social.ActivityFriendDetails;
 import com.app.sample.social.R;
 import com.app.sample.social.activity_comment.CommentsActivity;
 import com.app.sample.social.mode_product.productImage;
@@ -61,6 +63,8 @@ public class MyImagePagerAdapter extends PagerAdapter {
         TextView txt_count_comments = (TextView) itemView.findViewById(R.id.txt_count_comments);
         //  imageView.setImageResource(images[position]);
 
+//        Log.e("getUserId",c.getUserId());
+
         Picasso.with(context).load(c.getAvatar()).resize(100, 100).transform(new CircleTransform()).into(photo_profile);
         text_name.setText(c.getUsername());
         text_date.setText(c.getTimeStamp());
@@ -94,6 +98,22 @@ public class MyImagePagerAdapter extends PagerAdapter {
             public void onClick(View view) {
                 Intent i = new Intent(context, CommentsActivity.class);
                 i.putExtra("postId", c.getPostId());
+                context.startActivity(i);
+            }
+        });
+
+        photo_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String title = c.getUsername();
+                String cover = c.getCover();
+                String userId = c.getUserId();
+
+                Intent i = new Intent(context, ActivityFriendDetails.class);
+                i.putExtra("title", title);
+                i.putExtra("cover", cover);
+                i.putExtra("userId", userId);
                 context.startActivity(i);
             }
         });

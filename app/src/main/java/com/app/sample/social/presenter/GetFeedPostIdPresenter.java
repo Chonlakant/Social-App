@@ -40,10 +40,14 @@ public class GetFeedPostIdPresenter implements GetFeedPostIdContract.HomePostIdP
                     String image = response.body().getPost_data().getPhoto_multi().get(i).getImage();
                     String avatar = response.body().getPost_data().getPublisher().getAvatar();
                     String username = response.body().getPost_data().getPublisher().getUsername();
+                    String userId = response.body().getPost_data().getPublisher().getUser_id();
+                    String cover = response.body().getPost_data().getPublisher().getCover();
                     String time = response.body().getPost_data().getPost_time();
                     String countLike = response.body().getPost_data().getPost_likes();
                     int countComment = response.body().getPost_data().getGet_post_comments().size();
                     boolean isLike = response.body().getPost_data().isIs_liked();
+
+                    Log.e("userId",userId);
 
                     ObjectImage item = new ObjectImage();
                     item.setCountComment(countComment);
@@ -54,6 +58,8 @@ public class GetFeedPostIdPresenter implements GetFeedPostIdContract.HomePostIdP
                     item.setUsername(username);
                     item.setTimeStamp(time);
                     item.setCountLike(countLike);
+                    item.setCover(cover);
+                    item.setUserId(userId);
                     lusStr.add(item);
 
                     Log.e("hhhh", response.body().getPost_data().getPhoto_multi().get(i).getImage() + "");

@@ -12,13 +12,15 @@ public class ObjectImage {
     String username;
     String countLike;
     int countComment;
+    String cover;
+    String userId;
     boolean isLike;
 
     public ObjectImage(){
 
     }
 
-    public ObjectImage(String timeStamp, String postId, String image, String avatar, String username, boolean isLike, String countLike, int countComment) {
+    public ObjectImage(String timeStamp, String postId, String image, String avatar, String username, boolean isLike, String countLike, int countComment,String cover, String userId) {
         this.timeStamp = timeStamp;
         this.postId = postId;
         this.image = image;
@@ -27,6 +29,8 @@ public class ObjectImage {
         this.isLike = isLike;
         this.countLike = countLike;
         this.countComment = countComment;
+        this.cover = cover;
+        this.userId = userId;
     }
 
     public String getTimeStamp() {
@@ -91,5 +95,21 @@ public class ObjectImage {
 
     public void setCountComment(int countComment) {
         this.countComment = countComment;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

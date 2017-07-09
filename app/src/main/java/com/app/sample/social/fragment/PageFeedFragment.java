@@ -268,10 +268,12 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
                 int countComment = feed.get(i).getPosts().get(i).getGet_post_comments().size();
                 String avatar = feed.get(i).getPosts().get(i).getPublisher().getAvatar();
                 String userName = feed.get(i).getPosts().get(i).getPublisher().getUsername();
+                String userId = feed.get(i).getPosts().get(i).getPublisher().getUser_id();
+                String cover = feed.get(i).getPosts().get(i).getPublisher().getCover();
 
 
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                items.add(new ImagesModel(i, photoContent, postId,userName,avatar,is_liked,timePost,countLike,countComment));
+                items.add(new ImagesModel(i, photoContent, postId,userName,avatar,is_liked,timePost,countLike,countComment,cover,userId));
                 items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
                 items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
 
@@ -521,6 +523,8 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
             i.putExtra("postId",model.getPostId());
             i.putExtra("countLike",model.getCountLike());
             i.putExtra("countComment",model.getCountComment());
+            i.putExtra("cover",model.getCover());
+            i.putExtra("userId",model.getUserIds());
             startActivity(i);
 
         }

@@ -15,8 +15,10 @@ public class ImagesModel implements BaseItemModel {
     private String time;
     private String countLike;
     private int countComment;
+    private String cover;
+    private String userIds;
 
-    public ImagesModel(int mID, String urlConntent, String postId, String username, String avatarUrl,boolean isLike,String time,String countLike,int countComment) {
+    public ImagesModel(int mID, String urlConntent, String postId, String username, String avatarUrl,boolean isLike,String time,String countLike,int countComment,String cover,String userIds) {
         this.mID = mID;
 
         this.urlConntent = urlConntent;
@@ -27,6 +29,8 @@ public class ImagesModel implements BaseItemModel {
         this.time = time;
         this.countLike = countLike;
         this.countComment = countComment;
+        this.cover = cover;
+        this.userIds = userIds;
     }
 
     @Override
@@ -109,5 +113,21 @@ public class ImagesModel implements BaseItemModel {
 
     public void setCountComment(int countComment) {
         this.countComment = countComment;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public String getUserIds() {
+        return userIds;
+    }
+
+    public void setUserIds(String userIds) {
+        this.userIds = userIds;
     }
 }
