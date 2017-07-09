@@ -60,7 +60,6 @@ public class GetAlbumPostIdPresenter implements GetAlbumPostIdContract.HomePostI
                     item.setCountLike(countLike);
                     lusStr.add(item);
 
-                    Log.e("hhhh", response.body().getPost_data().getPhoto_album().get(i).getImage() + "");
                    // lusStr.add(response.body().getPost_data().getPhoto_album().get(i).getImage());
                     list.clear();
                     list.add(response.body());

@@ -1,6 +1,7 @@
 package com.app.sample.social.items.comment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,7 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.app.sample.social.ActivityFriendDetails;
 import com.app.sample.social.R;
 import com.app.sample.social.adapter.CommentListAdapter;
 import com.app.sample.social.items.footer.CommentModel;
@@ -63,6 +66,21 @@ public class CommentListViewRenderer extends ViewRenderer<CommentListModel, Comm
         holder.re_comment.setItemAnimator(new DefaultItemAnimator());
 
         holder.re_comment.setAdapter(commentListAdapter);
+        commentListAdapter.setOnItemClickListener(new CommentListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                String title = model.getCommentLists().get(position).getPublisher().getUsername();
+                String cover = model.getCommentLists().get(position).getPublisher().getCover();
+                String userId = model.getCommentLists().get(position).getUser_id();
+
+                Intent i = new Intent(getContext(), ActivityFriendDetails.class);
+                i.putExtra("title", title);
+                i.putExtra("cover", cover);
+                i.putExtra("userId", userId);
+                getContext().startActivity(i);
+            }
+        });
 
 //        for (int i = 0; i < model.getCommentLists().size(); i++) {//Wasnt accepting for each
 //

@@ -41,7 +41,7 @@ public class CommentViewRenderer extends ViewRenderer<CommentModel, CommentViewH
 
     @Override
     public void bindView(@NonNull final CommentModel model, @NonNull final CommentViewHolder holder) {
-        Log.e("nnnn",model.getCountLike());
+
        // holder.txt_like.setText(model.getCountLike());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

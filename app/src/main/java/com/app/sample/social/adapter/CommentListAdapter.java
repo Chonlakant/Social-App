@@ -31,7 +31,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
     private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
-        void onItemClick(View view, Friend2 obj, int position);
+        void onItemClick(View view, int position);
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
@@ -44,7 +44,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         ctx = context;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         // each data item is just a string in this case
         public final TextView text_name;
         public final TextView text_comment;
@@ -57,6 +57,19 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             text_comment = (TextView) v.findViewById(R.id.text_comment);
             text_date = (TextView) v.findViewById(R.id.text_date);
             photo = (ImageView) v.findViewById(R.id.photo);
+            photo.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.photo:
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(v, getPosition());
+                    }
+
+            }
+
         }
     }
 
