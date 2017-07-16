@@ -70,6 +70,8 @@
             android:name=".activity_setting.ActivitySettingNoti"
             android:label="Notifications" />
         <activity android:name=".activity_setting.ActivitySettingPrivacy"/>
+        <activity android:name=".serach.ActivitySearch"/>
+        <activity android:name=".activity_setting.ActivitySettingAccount"/>
     </application>
 
 </manifest>

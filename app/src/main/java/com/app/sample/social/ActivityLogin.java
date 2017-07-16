@@ -57,7 +57,7 @@ public class ActivityLogin extends AppCompatActivity implements LoginUserContrac
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_demo);
         parent_view = findViewById(android.R.id.content);
         txt_register = (TextView) findViewById(R.id.txt_register);
 

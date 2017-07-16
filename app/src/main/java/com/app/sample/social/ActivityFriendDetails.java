@@ -112,7 +112,7 @@ public class ActivityFriendDetails extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
-        } else if (item.getItemId() == R.id.action_add_friends) {
+        } else if (item.getItemId() == R.id.action_send_message) {
 //            Intent i = new Intent(getApplicationContext(), ActivityChatDetails.class);
 //            i.putExtra(ActivityChatDetails.KEY_FRIEND, friend);
 //            startActivity(i);

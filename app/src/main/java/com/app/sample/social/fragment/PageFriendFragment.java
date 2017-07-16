@@ -31,6 +31,7 @@ import com.app.sample.social.model.Friend2;
 import com.app.sample.social.presenter.FeedPresenter;
 import com.app.sample.social.presenter.FriendsListUserPresenter;
 import com.app.sample.social.presenter.ListFriendsUserContract;
+import com.app.sample.social.serach.ActivitySearch;
 
 import java.util.List;
 
@@ -72,25 +73,25 @@ public class PageFriendFragment extends Fragment implements ListFriendsUserContr
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment_friend, menu);
-        search = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        search.setIconified(false);
-        search.setQueryHint("Search Friend...");
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                try {
-                    mAdapter.getFilter().filter(s);
-                } catch (Exception e) {
-                }
-                return true;
-            }
-        });
-        search.onActionViewCollapsed();
+      //  search = (SearchView) menu.findItem(R.id.action_search).getActionView();
+//        search.setIconified(false);
+     //   search.setQueryHint("Search Friend...");
+//        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                try {
+//                    mAdapter.getFilter().filter(s);
+//                } catch (Exception e) {
+//                }
+//                return true;
+//            }
+//        });
+//        search.onActionViewCollapsed();
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -99,6 +100,12 @@ public class PageFriendFragment extends Fragment implements ListFriendsUserContr
         switch (item.getItemId()) {
             case R.id.action_new_friend:
                 Snackbar.make(view, item.getTitle() + " Clicked", Snackbar.LENGTH_SHORT).show();
+                return true;
+
+            case R.id.action_search:
+                Intent i = new Intent(getActivity(), ActivitySearch.class);
+                startActivity(i);
+                Snackbar.make(view, item.getTitle() + " Search", Snackbar.LENGTH_SHORT).show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -121,18 +128,18 @@ public class PageFriendFragment extends Fragment implements ListFriendsUserContr
         mAdapter.setOnItemClickListener(new FriendsListAdapter2.OnItemClickListener() {
             @Override
             public void onItemClick(View view, Friend2 obj, int position) {
-              // ActivityFriendDetails.navigate((ActivityMain) getActivity(), view, obj);
+                // ActivityFriendDetails.navigate((ActivityMain) getActivity(), view, obj);
                 String title = feed.get(position).getUsers().get(position).getName();
                 String cover = feed.get(position).getUsers().get(position).getCover_picture();
                 String userId = feed.get(position).getUsers().get(position).getUser_id();
 
-                Log.e("title",title);
-                Log.e("userId",userId);
+                Log.e("title", title);
+                Log.e("userId", userId);
 
-                Intent i = new Intent(getActivity(),ActivityFriendDetails.class);
-                i.putExtra("title",title);
-                i.putExtra("cover",cover);
-                i.putExtra("userId",userId);
+                Intent i = new Intent(getActivity(), ActivityFriendDetails.class);
+                i.putExtra("title", title);
+                i.putExtra("cover", cover);
+                i.putExtra("userId", userId);
                 startActivity(i);
             }
         });

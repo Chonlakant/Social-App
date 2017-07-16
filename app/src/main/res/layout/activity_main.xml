@@ -101,14 +101,13 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <include layout="@layout/header"/>
+                    <include layout="@layout/header" />
 
                 </LinearLayout>
-
 
 
                 <LinearLayout
@@ -245,10 +244,10 @@
 
                 <ListView
                     android:id="@+id/navList"
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="left|start"
+                    android:layout_marginTop="10dp"
                     android:background="#ffffff"
                     android:divider="@null" />
 

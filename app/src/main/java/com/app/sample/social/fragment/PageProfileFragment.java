@@ -20,6 +20,7 @@ import com.app.sample.social.ActivityFriendDetails;
 import com.app.sample.social.ActivityLogin;
 import com.app.sample.social.R;
 import com.app.sample.social.WebActivity;
+import com.app.sample.social.activity_setting.ActivitySettingAccount;
 import com.app.sample.social.activity_setting.ActivitySettingNoti;
 import com.app.sample.social.activity_setting.ActivitySettingPrivacy;
 import com.app.sample.social.api.Apis;
@@ -114,7 +115,7 @@ public class PageProfileFragment extends Fragment implements UserProfileContract
 
             case R.id.lyt_setting:
 
-                Intent intent = new Intent(getActivity(), WebActivity.class);
+                Intent intent = new Intent(getActivity(), ActivitySettingAccount.class);
                 startActivity(intent);
 
                 Snackbar.make(view, "Setting Clicked", Snackbar.LENGTH_SHORT).show();
