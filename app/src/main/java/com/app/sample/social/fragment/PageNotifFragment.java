@@ -9,28 +9,21 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.sample.social.ActivityFriendDetails;
 import com.app.sample.social.R;
-import com.app.sample.social.activity_articles.activity_noti.ActivityNoti;
-import com.app.sample.social.adapter.FriendsListAdapter;
+import com.app.sample.social.activity_noti.ActivityNoti;
 import com.app.sample.social.adapter.NotifListAdapter;
-import com.app.sample.social.data.Constant;
-import com.app.sample.social.mode_product.productImage;
 import com.app.sample.social.model.Notifications;
 import com.app.sample.social.notifications_presenter.NotiUserContract;
 import com.app.sample.social.notifications_presenter.NotiUserPresenter;
-import com.app.sample.social.presenter.FeedContract;
-import com.app.sample.social.presenter.FeedPresenter;
 
 import java.util.List;
 

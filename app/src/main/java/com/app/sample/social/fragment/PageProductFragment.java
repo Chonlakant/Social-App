@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,16 +36,21 @@ public class PageProductFragment extends Fragment implements ListProductContract
 
     ListProductContract.HomePresenterProduct presenter;
 
+    private StaggeredGridLayoutManager gaggeredGridLayoutManager;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.page_fragment_message, container, false);
 
+        gaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, 1);
+
         // activate fragment menu
         setHasOptionsMenu(true);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(gaggeredGridLayoutManager);
         recyclerView.setHasFixedSize(true);
 
         presenter = new ProductPresenter(this);

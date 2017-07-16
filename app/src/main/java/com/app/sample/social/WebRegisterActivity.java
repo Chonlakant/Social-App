@@ -19,7 +19,6 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -29,9 +28,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class WebActivity extends AppCompatActivity {
+public class WebRegisterActivity extends AppCompatActivity {
     WebView webView;
-    private static final String TAG = WebActivity.class.getSimpleName();
+    private static final String TAG = WebRegisterActivity.class.getSimpleName();
     private String mCM;
     private ValueCallback<Uri> mUM;
     private ValueCallback<Uri[]> mUMA;
@@ -90,7 +89,7 @@ public class WebActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         progressBar.setVisibility(View.GONE);
-        url = "https://www.zaab-d.com/";
+        url = "https://www.zaab-d.com/register";
 
         Log.e("url", url);
 
@@ -116,7 +115,7 @@ public class WebActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
                 i.setType("*/*");
-                WebActivity.this.startActivityForResult(Intent.createChooser(i, "File Chooser"), FCR);
+                WebRegisterActivity.this.startActivityForResult(Intent.createChooser(i, "File Chooser"), FCR);
             }
 
             // For Android 3.0+, above method not supported in some android 3+ versions, in such case we use this
@@ -125,7 +124,7 @@ public class WebActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
                 i.setType("*/*");
-                WebActivity.this.startActivityForResult(
+                WebRegisterActivity.this.startActivityForResult(
                         Intent.createChooser(i, "File Browser"),
                         FCR);
             }
@@ -136,7 +135,7 @@ public class WebActivity extends AppCompatActivity {
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
                 i.setType("*/*");
-                WebActivity.this.startActivityForResult(Intent.createChooser(i, "File Chooser"), WebActivity.FCR);
+                WebRegisterActivity.this.startActivityForResult(Intent.createChooser(i, "File Chooser"), WebRegisterActivity.FCR);
             }
 
             //For Android 5.0+
@@ -148,7 +147,7 @@ public class WebActivity extends AppCompatActivity {
                 }
                 mUMA = filePathCallback;
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(WebActivity.this.getPackageManager()) != null) {
+                if (takePictureIntent.resolveActivity(WebRegisterActivity.this.getPackageManager()) != null) {
                     File photoFile = null;
                     try {
                         photoFile = createImageFile();

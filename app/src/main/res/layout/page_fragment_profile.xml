@@ -57,7 +57,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="View Your Profile"
+                            android:text="ประวัติส่วนตัว"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textColor="@color/material_grey_600" />
                     </LinearLayout>
@@ -212,22 +212,22 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:minHeight="70dp"
+                    android:minHeight="40dp"
                     android:onClick="actionClick"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/spacing_xlarge"
                     android:paddingRight="@dimen/spacing_xlarge">
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@drawable/ic_setting_oval" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/spacing_mlarge"
-                        android:text="ตั้งค่า"
+                        android:text="ตั้งค่าทั่วไป"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/material_grey_600" />
                 </LinearLayout>
@@ -235,6 +235,7 @@
 
             <com.balysv.materialripple.MaterialRippleLayout
                 style="@style/RippleStyleBlack"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -244,22 +245,88 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:minHeight="70dp"
+                    android:minHeight="40dp"
                     android:onClick="actionClick"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/spacing_xlarge"
                     android:paddingRight="@dimen/spacing_xlarge">
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_help_oval" />
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_setting_oval" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/spacing_mlarge"
-                        android:text="Help and FAQ"
+                        android:text="ตั้งค่าโปรไฟล์"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/material_grey_600" />
+                </LinearLayout>
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                style="@style/RippleStyleBlack"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/lyt_noti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:minHeight="40dp"
+                    android:onClick="actionClick"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/spacing_xlarge"
+                    android:paddingRight="@dimen/spacing_xlarge">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_setting_oval" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/spacing_mlarge"
+                        android:text="Notifications"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/material_grey_600" />
+                </LinearLayout>
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                style="@style/RippleStyleBlack"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/lyt_privcay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:minHeight="40dp"
+                    android:onClick="actionClick"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/spacing_xlarge"
+                    android:paddingRight="@dimen/spacing_xlarge">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_setting_oval" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/spacing_mlarge"
+                        android:text="Privcay"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/material_grey_600" />
                 </LinearLayout>
@@ -276,15 +343,15 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:gravity="center_vertical"
-                    android:minHeight="70dp"
+                    android:minHeight="40dp"
                     android:onClick="actionClick"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/spacing_xlarge"
                     android:paddingRight="@dimen/spacing_xlarge">
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:src="@drawable/ic_logout_oval" />
 
                     <TextView

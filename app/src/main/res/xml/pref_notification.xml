@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <PreferenceCategory android:title="Notifications Settings"></PreferenceCategory>
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="notifications_new_message"
+        android:title="Vibrate" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="notifications_new_message"
+        android:title="Sound" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="notifications_new_message"
+        android:title="Popup Notification" />
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="notifications_new_message"
+        android:title="Led Color" />
+
+
+</PreferenceScreen>

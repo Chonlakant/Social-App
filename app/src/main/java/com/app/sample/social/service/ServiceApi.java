@@ -89,7 +89,7 @@ public interface ServiceApi {
                                @Query("s") String s,
                                @Query("limit") String limit);
 
-    @GET("app_api.php?application=phone&type=get_users_friends&user_id=1")
+    @GET("app_api.php?application=phone&type=get_users_friends&")
     Call<Friend2> getFriendListUser(@Query("user_id") String id);
 
     @GET("app_api.php?application=phone&type=user_login&&&")

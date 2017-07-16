@@ -24,4 +24,11 @@
     <string name="avatar_source">http://www.designskilz.com/</string>
 
     <string name="player_error">Error initializing YouTube player: %s</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="key_vibrate">key_vibrate</string>
+    <string name="key_send_feedback">key_send_feedback</string>
+
 </resources>

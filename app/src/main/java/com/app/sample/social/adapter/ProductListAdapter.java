@@ -108,7 +108,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 .load(c.getHtml().get(position).getImages().get(0).getImage())
                 .into(holder.image);
 
-        setAnimation(holder.itemView, position);
+       // setAnimation(holder.itemView, position);
 
         // view detail
         holder.lyt_parent.setOnClickListener(new View.OnClickListener() {

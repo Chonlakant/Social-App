@@ -1,4 +1,4 @@
-package com.app.sample.social.activity_articles.activity_noti;
+package com.app.sample.social.activity_noti;
 
 import android.app.DownloadManager;
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -31,15 +30,12 @@ import com.app.sample.social.activity_viedo_full.ActivityFullVideo;
 import com.app.sample.social.activity_youtube.ActivityYoutube;
 import com.app.sample.social.adapter.ArticlesListAdapter;
 import com.app.sample.social.api.Apis;
-import com.app.sample.social.articles_presenter.ArticlesPresenter;
-import com.app.sample.social.articles_presenter.ListArticlesContract;
 import com.app.sample.social.data.Tools;
 import com.app.sample.social.items.BaseItemModel;
 import com.app.sample.social.items.Comment_noti.CommentListNotiViewRenderer;
 import com.app.sample.social.items.Comment_noti.CommentNotiListModel;
 import com.app.sample.social.items.ContentModel;
 import com.app.sample.social.items.comment.CommentListModel;
-import com.app.sample.social.items.comment.CommentListViewRenderer;
 import com.app.sample.social.items.file.fileModel;
 import com.app.sample.social.items.file.fileViewRenderer;
 import com.app.sample.social.items.footer.CommentModel;
@@ -48,8 +44,6 @@ import com.app.sample.social.items.header.HeaderModel;
 import com.app.sample.social.items.header.HeaderViewRenderer;
 import com.app.sample.social.items.imageMutipleNoti.ImagesMutiNotiModel;
 import com.app.sample.social.items.imageMutipleNoti.ImagesMutiNotiViewRenderer;
-import com.app.sample.social.items.image_mutiple.ImagesMutiModel;
-import com.app.sample.social.items.image_mutiple.ImagesMutiViewRenderer;
 import com.app.sample.social.items.images.ImagesModel;
 import com.app.sample.social.items.images.ImagesViewRenderer;
 import com.app.sample.social.items.maps.MapsModel;
@@ -69,7 +63,6 @@ import com.app.sample.social.items.youtube.YoutubeViewRenderer;
 import com.app.sample.social.model.Feed;
 import com.app.sample.social.model.GetPostId;
 import com.app.sample.social.model.PostLike;
-import com.app.sample.social.model_articles.ArticlesList;
 import com.app.sample.social.post_timeline.ActivityPostTimeline;
 import com.app.sample.social.presenter.GetFeedNotiPostIdContract;
 import com.app.sample.social.presenter.GetFeedNotiPostIdPresenter;
@@ -261,8 +254,15 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
                     int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
 
+
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
+                    String userId = feed.get(i).getPost_data().getPublisher().getUser_id();
+                    String cover = feed.get(i).getPost_data().getPublisher().getCover();
+                    String postId = feed.get(i).getPost_data().getPost_id();
+
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new ViedoModel(i, urlMp4, textContent));
+                    items.add(new ViedoModel(i, urlMp4, textContent,avatar,userName,countLike,countComment,cover,userId,is_liked,postId,timePost));
                     items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
                     items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
@@ -318,8 +318,15 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String coverYoutube = feed.get(i).getPost_data().getPostLinkImage();
                     String urlYoutube = feed.get(i).getPost_data().getPostLink();
                     int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
+
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
+                    String userId = feed.get(i).getPost_data().getPublisher().getUser_id();
+                    String cover = feed.get(i).getPost_data().getPublisher().getCover();
+                    String postId = feed.get(i).getPost_data().getPost_id();
+
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
+                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube,avatar,userName,countLike,countComment,userId,is_liked,postId,timePost));
                     items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
                     items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
@@ -413,8 +420,15 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
                     int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
+
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
+                    String userId = feed.get(i).getPost_data().getPublisher().getUser_id();
+                    String cover = feed.get(i).getPost_data().getPublisher().getCover();
+                    String postId = feed.get(i).getPost_data().getPost_id();
+
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new ViedoModel(i, urlMp4, textContent));
+                    items.add(new ViedoModel(i, urlMp4, textContent,avatar,userName,countLike,countComment,cover,userId,is_liked,postId,timePost));
                     items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
                     items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
@@ -471,8 +485,15 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String coverYoutube = feed.get(i).getPost_data().getPostLinkImage();
                     String urlYoutube = feed.get(i).getPost_data().getPostLink();
                     int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
+
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
+                    String userId = feed.get(i).getPost_data().getPublisher().getUser_id();
+                    String cover = feed.get(i).getPost_data().getPublisher().getCover();
+                    String postId = feed.get(i).getPost_data().getPost_id();
+
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
+                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube,avatar,userName,countLike,countComment,userId,is_liked,postId,timePost));
                     items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
                     items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
@@ -567,8 +588,14 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
                     int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
+                    String userId = feed.get(i).getPost_data().getPublisher().getUser_id();
+                    String cover = feed.get(i).getPost_data().getPublisher().getCover();
+                    String postId = feed.get(i).getPost_data().getPost_id();
+
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new ViedoModel(i, urlMp4, textContent));
+                    items.add(new ViedoModel(i, urlMp4, textContent,avatar,userName,countLike,countComment,cover,userId,is_liked,postId,timePost));
                     items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
                     items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
@@ -624,7 +651,13 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String urlYoutube = feed.get(i).getPost_data().getPostLink();
                     int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
+                    String userId = feed.get(i).getPost_data().getPublisher().getUser_id();
+                    String cover = feed.get(i).getPost_data().getPublisher().getCover();
+                    String postId = feed.get(i).getPost_data().getPost_id();
+
+                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube,avatar,userName,countLike,countComment,userId,is_liked,postId,timePost));
                     items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
                     items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
@@ -717,8 +750,15 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String urlMp4 = feed.get(i).getPost_data().getPostFile_full();
                     int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
 
+
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
+                    String userId = feed.get(i).getPost_data().getPublisher().getUser_id();
+                    String cover = feed.get(i).getPost_data().getPublisher().getCover();
+                    String postId = feed.get(i).getPost_data().getPost_id();
+
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new ViedoModel(i, urlMp4, textContent));
+                    items.add(new ViedoModel(i, urlMp4, textContent,avatar,userName,countLike,countComment,cover,userId,is_liked,postId,timePost));
                     items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
                     items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
@@ -776,8 +816,15 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String coverYoutube = feed.get(i).getPost_data().getPostLinkImage();
                     String urlYoutube = feed.get(i).getPost_data().getPostLink();
                     int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
+
+                    String avatar = feed.get(i).getPost_data().getPublisher().getAvatar();
+                    String userName = feed.get(i).getPost_data().getPublisher().getUsername();
+                    String userId = feed.get(i).getPost_data().getPublisher().getUser_id();
+                    String cover = feed.get(i).getPost_data().getPublisher().getCover();
+                    String postId = feed.get(i).getPost_data().getPost_id();
+
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
+                    items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube,avatar,userName,countLike,countComment,userId,is_liked,postId,timePost));
                     items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
                     items.add(new CommentNotiListModel(i, feed.get(i).getPost_data().getGet_post_comments()));
                 }
@@ -1012,6 +1059,15 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
 
             Intent i = new Intent(getApplicationContext(), ActivityYoutube.class);
             i.putExtra("urlYoutube", part2);
+            i.putExtra("username", model.getUsername());
+            i.putExtra("cover", model.getCover());
+            i.putExtra("postId", model.getPostId());
+            i.putExtra("avatar", model.getAvatar());
+            i.putExtra("countLike", model.getCountLike());
+            i.putExtra("countComment", model.getCountComment());
+            i.putExtra("userId", model.getUserId());
+            i.putExtra("isLike", model.isLike());
+            i.putExtra("time", model.getTime());
             startActivity(i);
         }
 

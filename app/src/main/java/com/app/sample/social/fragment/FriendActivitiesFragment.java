@@ -287,8 +287,14 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
                 String title = feed.get(i).getPosts().get(i).getPost_data().getPost_text();
                 int countComment = feed.get(i).getPosts().get(i).getGet_post_comments().size();
 
+                String avatar = feed.get(i).getPosts().get(i).getPublisher().getAvatar();
+                String userName = feed.get(i).getPosts().get(i).getPublisher().getUsername();
+                String userId = feed.get(i).getPosts().get(i).getPublisher().getUser_id();
+                String cover = feed.get(i).getPosts().get(i).getPublisher().getCover();
+                String postId = feed.get(i).getPosts().get(i).getPost_id();
+
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                items.add(new ViedoModel(i, urlMp4, title));
+                items.add(new ViedoModel(i, urlMp4, title,avatar,userName,countLike,countComment,cover,userId,is_liked,postId,timePost));
                 items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
                 items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
             }
@@ -337,7 +343,7 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
             }
 
             if (type == 7) {
-                boolean  is_liked = feed.get(i).getPosts().get(i).isIs_liked();
+                boolean is_liked = feed.get(i).getPosts().get(i).isIs_liked();
                 postId = feed.get(i).getPosts().get(i).getPost_id();
                 String countLike = feed.get(i).getPosts().get(i).getPost_data().getPost_likes();
                 String timePost = feed.get(i).getPosts().get(i).getPost_time();
@@ -345,9 +351,17 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
                 String coverYoutube = feed.get(i).getPosts().get(i).getPost_data().getPost_thumb();
                 String urlYoutube = feed.get(i).getPosts().get(i).getPost_data().getPost_youtube();
                 int countComment = feed.get(i).getPosts().get(i).getGet_post_comments().size();
+
+                String avatar = feed.get(i).getPosts().get(i).getPublisher().getAvatar();
+                String userName = feed.get(i).getPosts().get(i).getPublisher().getUsername();
+                String userId = feed.get(i).getPosts().get(i).getPublisher().getUser_id();
+                String cover = feed.get(i).getPosts().get(i).getPublisher().getCover();
+                String postId = feed.get(i).getPosts().get(i).getPost_id();
+
+
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
-                items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube));
-                items.add(new CommentModel(i, countLike, is_liked, postId,countComment));
+                items.add(new YoutubeModel(i, urlYoutube, title, coverYoutube,avatar,userName,countLike,countComment,userId,is_liked,postId,timePost));
+                items.add(new CommentModel(i, countLike, is_liked, postId, countComment));
                 items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
             }
             if (type == 8) {
@@ -572,6 +586,15 @@ public class FriendActivitiesFragment extends Fragment implements FeedUserContra
 
             Intent i = new Intent(getActivity(), ActivityYoutube.class);
             i.putExtra("urlYoutube", part2);
+            i.putExtra("username", model.getUsername());
+            i.putExtra("cover", model.getCover());
+            i.putExtra("postId", model.getPostId());
+            i.putExtra("avatar", model.getAvatar());
+            i.putExtra("countLike", model.getCountLike());
+            i.putExtra("countComment", model.getCountComment());
+            i.putExtra("userId", model.getUserId());
+            i.putExtra("isLike", model.isLike());
+            i.putExtra("time", model.getTime());
             startActivity(i);
         }
 

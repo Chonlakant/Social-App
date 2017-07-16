@@ -2,6 +2,7 @@
 <com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/RippleStyleBlack"
+    android:background="#444444"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -12,11 +13,12 @@
         android:clickable="true"
         android:gravity="center_vertical"
         android:minHeight="70dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="10dp">
 
         <ImageView
             android:id="@+id/image"
+            android:visibility="gone"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_marginLeft="5dp"
@@ -42,9 +44,9 @@
                     android:layout_weight="1"
                     android:text="Sample"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="#b03c43"
-                    android:textSize="14dp"
-                    android:textStyle="normal" />
+                    android:textColor="#ffffff"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/time"
@@ -54,7 +56,7 @@
                     android:gravity="top"
                     android:text="...."
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="@color/material_grey_600" />
+                    android:textColor="#ffffff" />
             </LinearLayout>
 
             <LinearLayout
@@ -66,6 +68,7 @@
                     android:layout_width="10dp"
                     android:layout_height="10dp"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:background="@drawable/user_50" />
 
                 <TextView
@@ -78,7 +81,7 @@
                     android:singleLine="true"
                     android:text="Chonlakant"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textSize="8dp" />
 
                 <ImageView
@@ -86,6 +89,7 @@
                     android:layout_height="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:background="@drawable/clock_50" />
 
 
@@ -99,8 +103,8 @@
                     android:singleLine="true"
                     android:text="1 นาที ที่ผ่านมา"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="#000000"
-                    android:textSize="8dp" />
+                    android:textColor="#ffffff"
+                    android:textSize="10dp" />
 
                 <ImageView
                     android:layout_width="10dp"
@@ -120,8 +124,8 @@
                     android:singleLine="true"
                     android:text="2"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="#000000"
-                    android:textSize="8dp" />
+                    android:textColor="#ad3c43"
+                    android:textSize="10dp" />
 
 
 
@@ -136,10 +140,17 @@
                 android:singleLine="true"
                 android:text="Sample Text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/material_grey_600"
-                android:textSize="12dp" />
+                android:textColor="#ffffff"
+                android:textSize="10dp" />
 
         </LinearLayout>
+
+        <View
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#ad3c43"
+            android:layout_width="80dp"
+            android:layout_height="5dp"/>
 
     </LinearLayout>
 </com.balysv.materialripple.MaterialRippleLayout>

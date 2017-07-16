@@ -1,6 +1,8 @@
 package com.app.sample.social.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -34,17 +36,26 @@ import java.util.List;
 
 public class PageFriendFragment extends Fragment implements ListFriendsUserContract.HomeViewFriendsUser {
 
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "login";
+
     private RecyclerView recyclerView;
     private FriendsListAdapter2 mAdapter;
     private View view;
     private SearchView search;
     ListFriendsUserContract.HomePresenterFriendsUser presenter;
 
+    String userIdPreferences;
+    String timeStamp;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.page_fragment_friend, container, false);
 
+        sharedpreferences = getActivity().getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        userIdPreferences = sharedpreferences.getString("userId", "null");
+        timeStamp = sharedpreferences.getString("userId", "null");
         // activate fragment menu
         setHasOptionsMenu(true);
 
@@ -54,7 +65,7 @@ public class PageFriendFragment extends Fragment implements ListFriendsUserContr
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         presenter = new FriendsListUserPresenter(this);
-        presenter.getAllFriendsUser("1");
+        presenter.getAllFriendsUser(userIdPreferences);
         return view;
     }
 

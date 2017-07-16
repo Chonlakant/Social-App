@@ -1,11 +1,14 @@
 package com.app.sample.social;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -18,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.sample.social.data.Tools;
@@ -31,7 +35,11 @@ import java.util.List;
 import java.util.Random;
 
 public class ActivityLogin extends AppCompatActivity implements LoginUserContract.HomeViewLoginUsers {
+
+    private static final int REQUEST_CAMERA_RESULT = 1;
+
     private EditText inputEmail, inputPassword;
+    private TextView txt_register;
     private Button btnLogin;
     private ProgressBar progressBar;
     private View parent_view;
@@ -51,6 +59,9 @@ public class ActivityLogin extends AppCompatActivity implements LoginUserContrac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         parent_view = findViewById(android.R.id.content);
+        txt_register = (TextView) findViewById(R.id.txt_register);
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_RESULT);
 
         sharedpreferences = getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
@@ -80,6 +91,15 @@ public class ActivityLogin extends AppCompatActivity implements LoginUserContrac
         });
         // for system bar in lollipop
         Tools.systemBarLolipop(this);
+
+        txt_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(getApplicationContext(), WebRegisterActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
 
@@ -125,7 +145,7 @@ public class ActivityLogin extends AppCompatActivity implements LoginUserContrac
         if (login.get(0).getApi_status().equals("200")) {
 
             String userId = login.get(0).getUser_id();
-            Log.e("timeStamp2",strLongNumber);
+            Log.e("timeStamp2", strLongNumber);
             SharedPreferences.Editor editor = sharedpreferences.edit();
             editor.putBoolean("isLogin", true);
             editor.putString("userName", inputEmail.getText().toString());
@@ -145,6 +165,20 @@ public class ActivityLogin extends AppCompatActivity implements LoginUserContrac
             editor.commit();
         }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CAMERA_RESULT:
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                break;
+        }
     }
 
 

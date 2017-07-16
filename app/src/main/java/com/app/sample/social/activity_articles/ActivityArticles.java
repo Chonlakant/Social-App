@@ -68,6 +68,7 @@ public class ActivityArticles extends AppCompatActivity implements ListArticlesC
 
     public void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Articles");
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

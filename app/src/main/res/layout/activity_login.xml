@@ -145,6 +145,14 @@
                         android:text="ลืมรหัสผ่าน ?"
                         android:textColor="#444444" />
 
+                    <TextView
+                        android:id="@+id/txt_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ลงทะเบียน"
+                        android:textColor="#444444" />
+
 
                     <CheckBox
                         android:visibility="gone"

@@ -72,12 +72,12 @@
 
                     <EditText
                         android:id="@+id/name"
-                        android:text="ดด"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:text="ดด" />
 
                 </LinearLayout>
 
@@ -96,12 +96,12 @@
 
                     <EditText
                         android:id="@+id/desc"
-                        android:text="ดด"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:text="ดด" />
 
                 </LinearLayout>
 
@@ -166,12 +166,12 @@
 
                     <EditText
                         android:id="@+id/price"
-                        android:text="55"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:text="55" />
 
                 </LinearLayout>
 
@@ -190,12 +190,12 @@
 
                     <EditText
                         android:id="@+id/location"
-                        android:text="ดด"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:text="ดด" />
 
                 </LinearLayout>
 
@@ -245,16 +245,19 @@
                         android:gravity="right"
                         android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/btn_post"
-                            android:layout_width="70dp"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="right"
-                            android:layout_marginRight="10dp"
-                            android:text="โพสต์" />
 
                     </LinearLayout>
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_post"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#ffffff"
+                    android:background="@drawable/border_btn"
+                    android:text="โพสต์" />
 
 
             </LinearLayout>

@@ -19,6 +19,9 @@ import android.widget.TextView;
 import com.app.sample.social.ActivityFriendDetails;
 import com.app.sample.social.ActivityLogin;
 import com.app.sample.social.R;
+import com.app.sample.social.WebActivity;
+import com.app.sample.social.activity_setting.ActivitySettingNoti;
+import com.app.sample.social.activity_setting.ActivitySettingPrivacy;
 import com.app.sample.social.api.Apis;
 import com.app.sample.social.model.Logout;
 import com.app.sample.social.model.UserProfile;
@@ -95,11 +98,31 @@ public class PageProfileFragment extends Fragment implements UserProfileContract
             case R.id.lyt_group_collage:
                 Snackbar.make(view, "Group - Collage Clicked", Snackbar.LENGTH_SHORT).show();
                 break;
+            case R.id.lyt_noti:
+
+                Intent intentNoti = new Intent(getActivity(), ActivitySettingNoti.class);
+                startActivity(intentNoti);
+                Snackbar.make(view, "Notifications", Snackbar.LENGTH_SHORT).show();
+                break;
+
+            case R.id.lyt_privcay:
+
+                Intent intentPrivcay = new Intent(getActivity(), ActivitySettingPrivacy.class);
+                startActivity(intentPrivcay);
+                Snackbar.make(view, "Notifications", Snackbar.LENGTH_SHORT).show();
+                break;
 
             case R.id.lyt_setting:
+
+                Intent intent = new Intent(getActivity(), WebActivity.class);
+                startActivity(intent);
+
                 Snackbar.make(view, "Setting Clicked", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.lyt_help:
+                Intent intent1 = new Intent(getActivity(), WebActivity.class);
+                startActivity(intent1);
+
                 Snackbar.make(view, "Help nad FAQ Clicked", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.lyt_logout:

@@ -102,7 +102,7 @@ public class NotifListAdapter extends RecyclerView.Adapter<NotifListAdapter.View
                 .resize(60, 60)
                 .transform(new CircleTransform())
                 .into(holder.image);
-        setAnimation(holder.itemView, position);
+       // setAnimation(holder.itemView, position);
         // view detail message conversation
 
     }
