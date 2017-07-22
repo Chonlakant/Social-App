@@ -35,12 +35,15 @@ public class NotiUserPresenter implements NotiUserContract.HomePresenterNotiUser
                     list.add(response.body());
                 }
 
+                Log.e("headers",response.headers()+"");
+
 
                 viewUser.notiUser(list);
             }
 
             @Override
             public void onFailure(Call<Notifications> call, Throwable t) {
+
 
             }
         });

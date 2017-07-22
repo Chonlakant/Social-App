@@ -57,7 +57,9 @@
         <activity android:name=".activity_viedo_full.ActivityFullVideo" />
         <activity android:name=".activity_youtube.ActivityYoutube" />
         <activity android:name=".post_timeline.ActivityPostTimeline" />
-        <activity android:name=".activity_comment.CommentsActivity" />
+        <activity
+            android:name=".activity_comment.CommentsActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity_product.ActivityPostPostduct" />
         <activity android:name=".activity_feed_mutiple_image.ActivityImageFeed" />
         <activity android:name=".activity_feed_mutiple_image.ActivityMutiImageFeed" />
@@ -69,9 +71,9 @@
         <activity
             android:name=".activity_setting.ActivitySettingNoti"
             android:label="Notifications" />
-        <activity android:name=".activity_setting.ActivitySettingPrivacy"/>
-        <activity android:name=".serach.ActivitySearch"/>
-        <activity android:name=".activity_setting.ActivitySettingAccount"/>
+        <activity android:name=".activity_setting.ActivitySettingPrivacy" />
+        <activity android:name=".serach.ActivitySearch" />
+        <activity android:name=".activity_setting.ActivitySettingAccount" />
     </application>
 
 </manifest>

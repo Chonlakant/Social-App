@@ -87,4 +87,10 @@ public class ActivityImageFeed extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        myImagePagerAdapter.notifyDataSetChanged();
+    }
 }

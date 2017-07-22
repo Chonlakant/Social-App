@@ -69,12 +69,18 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                    <Button
+                        android:id="@+id/longButton"
+                        android:background="@drawable/bg_selected"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="100dp"
+                        android:layout_height="36dp"
+                        android:textColor="#2C6497"
                         android:layout_gravity="center"
-                        android:layout_marginTop="5dp"
-                        android:src="@drawable/checkmark_96" />
+                        android:text="เพื่อน"
+                        android:textSize="14dp"
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -83,12 +89,14 @@
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:text="Following"
+                        android:visibility="gone"
                         android:textColor="#000000"
                         android:textSize="13dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ls_iten_msg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

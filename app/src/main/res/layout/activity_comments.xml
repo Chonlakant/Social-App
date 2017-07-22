@@ -36,7 +36,7 @@
         <LinearLayout
             android:id="@+id/llAddComment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:background="#ffffff"
             android:elevation="8dp"
             android:gravity="center_vertical"
@@ -48,15 +48,16 @@
             <EditText
                 android:id="@+id/etComment"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:textColor="#555555"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnSendComment"
                 android:layout_width="72dp"
-                android:layout_height="match_parent"
+                android:layout_height="48dp"
                 android:background="#a84849"
                 android:text="โพสต์"
                 android:textColor="@android:color/white" />

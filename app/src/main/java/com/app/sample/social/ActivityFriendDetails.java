@@ -1,6 +1,7 @@
 package com.app.sample.social;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -12,10 +13,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.app.sample.social.fragment.FriendAboutFragment;
 import com.app.sample.social.fragment.FriendActivitiesFragment;
@@ -26,7 +31,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityFriendDetails extends AppCompatActivity {
+public class ActivityFriendDetails extends AppCompatActivity implements View.OnClickListener {
     public static final String EXTRA_OBJCT = "com.app.sample.social.FRIEND2";
 
     // give preparation animation activity transition
@@ -47,10 +52,18 @@ public class ActivityFriendDetails extends AppCompatActivity {
     String cover;
     String userId;
 
+    Button longButton;
+    LinearLayout ls_iten_msg;
+
+    boolean isFollowing = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_details);
+
+        ls_iten_msg = (LinearLayout) findViewById(R.id.ls_iten_msg);
+        longButton = (Button) findViewById(R.id.longButton);
 
         // animation transition
         ViewCompat.setTransitionName(findViewById(android.R.id.content), EXTRA_OBJCT);
@@ -69,6 +82,15 @@ public class ActivityFriendDetails extends AppCompatActivity {
         // get extra object
         friend = (Friend) getIntent().getSerializableExtra(EXTRA_OBJCT);
 
+        ls_iten_msg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = getPackageManager().getLaunchIntentForPackage("com.facebook.orca");
+                startActivity(intent);
+            }
+        });
+
+
         // scollable toolbar
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(title);
@@ -84,6 +106,9 @@ public class ActivityFriendDetails extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        longButton.setOnClickListener(this);
+        initButton(true, longButton);
 
     }
 
@@ -127,6 +152,21 @@ public class ActivityFriendDetails extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onClick(View view) {
+
+        if (isFollowing) {
+            toggleUnfollow(longButton);
+        } else {
+            toggleFollowing(longButton);
+        }
+
+        isFollowing = !isFollowing;
+
+        Log.v("You ", "select: " + longButton.getText());
+
+    }
+
 
     static class MyPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();
@@ -155,5 +195,39 @@ public class ActivityFriendDetails extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitles.get(position);
         }
+    }
+
+    public void initButton(boolean following, View v) {
+        Button button = (Button) v;
+
+        isFollowing = following;
+
+        if (following) {
+            toggleFollowing(button);
+        } else {
+            toggleUnfollow(button);
+        }
+
+        //isFollowing = !isFollowing;
+    }
+
+    public void toggleFollowing(Button v) {
+        v.setTextColor(Color.parseColor("#a64848"));
+        v.setText(Html.fromHtml("&#x2713; เพื่อน"));
+
+        // change state
+        v.setSelected(true);
+        v.setPressed(false);
+
+    }
+
+    public void toggleUnfollow(Button v) {
+        v.setTextColor(Color.parseColor("#2C6497"));
+        v.setText("+ เพิ่มเพื่อน");
+
+        // change state
+        v.setSelected(false);
+        v.setPressed(false);
+
     }
 }

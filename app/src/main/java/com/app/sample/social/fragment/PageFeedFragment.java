@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,10 +23,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.app.sample.social.ActivityFriendDetails;
+import com.app.sample.social.EndlessRecyclerViewScrollListener;
 import com.app.sample.social.R;
 import com.app.sample.social.WebActivity;
 import com.app.sample.social.activity_comment.CommentsActivity;
@@ -71,6 +72,7 @@ import com.app.sample.social.model.PostLike;
 import com.app.sample.social.presenter.FeedContract;
 import com.app.sample.social.presenter.FeedPresenter;
 import com.app.sample.social.service.ServiceApi;
+import com.github.pwittchen.infinitescroll.library.InfiniteScrollListener;
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -79,6 +81,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.support.design.R.attr.layoutManager;
 
 public class PageFeedFragment extends Fragment implements FeedContract.HomeView {
     private static final int REQUEST_CAMERA_RESULT = 1;
@@ -135,6 +139,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
         presenter.getAllFeed(userIdPreferences, userIdPreferences, timeStamp, "10");
 
 
+
         mRecyclerViewAdapter = new RendererRecyclerViewAdapter();
         mRecyclerViewAdapter.registerRenderer(new HeaderViewRenderer(HeaderModel.TYPE, getActivity(), mListenerHeaderText));
         mRecyclerViewAdapter.registerRenderer(new ProfileViewRenderer(ProfileModel.TYPE, getActivity(), mListenerProfile));
@@ -154,11 +159,14 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
 
+//
+
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mSwipeToRefresh = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mRecyclerViewAdapter);
+        mRecyclerView.setHasFixedSize(true);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -172,6 +180,27 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
             }
         });
 
+//        mRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+//
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//            }
+//
+//            @Override
+//            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+//
+//                Log.e("page",page+"");
+//                Log.e("totalItemsCount",totalItemsCount+"");
+//
+//                Toast.makeText(getActivity(),"fff",Toast.LENGTH_SHORT).show();
+//                presenter.getAllFeed(userIdPreferences, userIdPreferences, timeStamp, "10");
+//            }
+//        });
+
+        page = 1;
+
+        mRecyclerView.addOnScrollListener(createInfiniteScrollListener());
 
         mSwipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -181,27 +210,85 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
             }
         });
 
-
-        final int scrollX = mRecyclerView.getScrollX();
-
-
-        mRecyclerView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-
-                Log.e("scrollX", scrollX + "");
-            }
-        });
-
-
         return view;
     }
 
 
+    int maxItemsPerRequest = 20;
+
+    private static final int MAX_ITEMS_PER_REQUEST = 20;
+    private static final int NUMBER_OF_ITEMS = 100;
+    private static final int SIMULATED_LOADING_TIME_IN_MS = 1500;
+
+    private int page;
+
+    public InfiniteScrollListener createInfiniteScrollListener() {
+        return new InfiniteScrollListener(maxItemsPerRequest, linearLayoutManager) {
+            @Override public void onScrolledToEnd(final int firstVisibleItemPosition) {
+
+                System.out.println("" + firstVisibleItemPosition +"" + "");
+
+                int start = ++page * MAX_ITEMS_PER_REQUEST;
+                final boolean allItemsLoaded = start >= items.size();
+                if (allItemsLoaded) {
+                    //progressBar.setVisibility(View.GONE);
+                } else {
+                    int end = start + MAX_ITEMS_PER_REQUEST;
+                    presenter.getAllFeed(userIdPreferences,userIdPreferences,timeStamp,"20");
+                    refreshView(mRecyclerView, new RendererRecyclerViewAdapter(), firstVisibleItemPosition);
+                }
+
+                // load your items here
+                // logic of loading items will be different depending on your specific use case
+
+                // when new items are loaded, combine old and new items, pass them to your adapter
+                // and call refreshView(...) method from InfiniteScrollListener class to refresh RecyclerView
+
+            }
+        };
+    }
+
+
+
+
+//    private class RecyclerViewScrollListener implements RecyclerView.OnScrollChangeListener {
+//
+//
+//        @Override
+//        public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+//            Log.e("i",i+"");
+//            Log.e("i1",i1+"");
+//            Log.e("i2",i2+"");
+//            Log.e("i3",i3+"");
+//        }
+//    }
+
+
+    private void simulateLoading() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override protected void onPreExecute() {
+                //progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override protected Void doInBackground(Void... params) {
+                try {
+                    Thread.sleep(SIMULATED_LOADING_TIME_IN_MS);
+                } catch (InterruptedException e) {
+                    Log.e("MainActivity", e.getMessage());
+                }
+                return null;
+            }
+
+            @Override protected void onPostExecute(Void param) {
+                //progressBar.setVisibility(View.GONE);
+            }
+        }.execute();
+    }
+
     private void updateItems() {
 
         items.clear();
-        presenter.getAllFeed(userIdPreferences, userIdPreferences, timeStamp, "5");
+        presenter.getAllFeed(userIdPreferences, userIdPreferences, timeStamp, "10");
         mRecyclerViewAdapter.notifyDataSetChanged();
 
     }
@@ -213,7 +300,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
 
     void onItemsLoadComplete() {
         items.clear();
-        presenter.getAllFeed(userIdPreferences, userIdPreferences, timeStamp, "2");
+        presenter.getAllFeed(userIdPreferences, userIdPreferences, timeStamp, "10");
         mRecyclerViewAdapter.notifyDataSetChanged();
 
     }
@@ -282,7 +369,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new TextModel(i, textContent, text2));
                 items.add(new CommentModel(i, countLike, is_liked, postId, countComment));
-                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
+             //   items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
 
 
                 for (int j = 0; j < feed.get(i).getPosts().get(i).getGet_post_comments().size(); j++) {
@@ -308,7 +395,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
                 items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                 items.add(new ImagesModel(i, photoContent, postId, userName, avatar, is_liked, timePost, countLike, countComment, cover, userId));
                 items.add(new CommentModel(i, countLike, is_liked, postId, countComment));
-                items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
+              //  items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
 
                 Log.e("photoContent", photoContent);
 
@@ -333,7 +420,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new ImagesMutiModel(i, ii, postId, feed.get(i).getPosts().get(i).getPhoto_multi(), textContent));
                     items.add(new CommentModel(i, countLike, is_liked, postId, countComment));
-                    items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
+                  //  items.add(new CommentListModel(i, feed.get(i).getPosts().get(i).getGet_post_comments()));
                 }
 
 
@@ -521,6 +608,7 @@ public class PageFeedFragment extends Fragment implements FeedContract.HomeView 
         @Override
         public void onLikeClicked(@NonNull CommentModel model) {
             clickLike(model.getPostId(), userIdPreferences);
+
 
         }
 

@@ -47,6 +47,8 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    compile 'com.github.pwittchen:infinitescroll:0.0.1'
+
     compile files('libs/YouTubeAndroidPlayerApi.jar')
     compile project(':rendererrecyclerviewadapter')
     compile 'com.siclo.ezphotopick:library:1.0.6'

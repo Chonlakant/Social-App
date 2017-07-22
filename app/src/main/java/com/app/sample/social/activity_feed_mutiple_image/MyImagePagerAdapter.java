@@ -17,13 +17,20 @@ import android.widget.Toast;
 import com.app.sample.social.ActivityFriendDetails;
 import com.app.sample.social.R;
 import com.app.sample.social.activity_comment.CommentsActivity;
+import com.app.sample.social.api.Apis;
 import com.app.sample.social.mode_product.productImage;
 import com.app.sample.social.model.ObjectImage;
+import com.app.sample.social.model.PostLike;
+import com.app.sample.social.service.ServiceApi;
 import com.app.sample.social.widget.CircleTransform;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyImagePagerAdapter extends PagerAdapter {
     Context context;
@@ -118,11 +125,47 @@ public class MyImagePagerAdapter extends PagerAdapter {
             }
         });
 
+        bt_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickLike(c.getPostId(),c.getUserId());
+            }
+        });
+
         return itemView;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((LinearLayout) object);
+    }
+
+    private void clickLike(String post_Id, String userId) {
+
+        ServiceApi service = Apis.getClient().create(ServiceApi.class);
+
+        Call<PostLike> userCall = service.postLiked(post_Id, userId);
+
+        userCall.enqueue(new Callback<PostLike>() {
+            @Override
+            public void onResponse(Call<PostLike> call, Response<PostLike> response) {
+                Toast.makeText(context, "Like " + response.body().getLikes(), Toast.LENGTH_SHORT).show();
+
+
+                if(response.body().getLikes().equals("1")){
+
+                }else{
+
+                }
+
+                Log.e("getLikes",response.body().getLikes());
+
+            }
+
+            @Override
+            public void onFailure(Call<PostLike> call, Throwable t) {
+
+            }
+        });
     }
 }

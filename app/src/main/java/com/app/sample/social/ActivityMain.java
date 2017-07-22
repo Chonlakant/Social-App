@@ -148,6 +148,8 @@ public class ActivityMain extends AppCompatActivity implements NavigationView.On
 
 
 
+
+
         mDrawerList = (ListView) mNavigationView.findViewById(R.id.navList);
         assert mNavigationView != null;
         mNavigationView.setNavigationItemSelectedListener(this);
