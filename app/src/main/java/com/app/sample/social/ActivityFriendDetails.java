@@ -213,8 +213,8 @@ public class ActivityFriendDetails extends AppCompatActivity implements View.OnC
 
     public void toggleFollowing(Button v) {
         v.setTextColor(Color.parseColor("#a64848"));
-        v.setText(Html.fromHtml("&#x2713; เพื่อน"));
-
+       // v.setText(Html.fromHtml("&#x2713; เพื่อน"));
+        v.setText(Html.fromHtml("เพื่อน"));
         // change state
         v.setSelected(true);
         v.setPressed(false);

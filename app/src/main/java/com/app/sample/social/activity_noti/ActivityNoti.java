@@ -220,7 +220,7 @@ public class ActivityNoti extends AppCompatActivity implements GetFeedNotiPostId
                     String photoContent = feed.get(i).getPost_data().getPostFile_full();
                     int countComment = feed.get(i).getPost_data().getGet_post_comments().size();
 
-                    Log.e("photoContent", photoContent);
+                    Log.e("textContent", textContent);
 
                     items.add(new ProfileModel(i, name, avatar, timePost, userId, cover));
                     items.add(new TextModel(i, textContent, postId));
